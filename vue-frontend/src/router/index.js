@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 import HomeView from '@/views/movie/HomeView'
 import MovieDetailView from '@/views/movie/MovieDetailView'
+import MovieSearchView from '@/views/movie/MovieSearchView'
 
 import CommunityView from '@/views/community/CommunityView'
 import CommunityDetailView from '@/views/community/CommunityDetailView'
@@ -18,13 +19,18 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'home',
+    name: 'Home',
     component: HomeView
   },
   {
     path: '/movie/:movie_pk',
-    name: 'Movie',
+    name: 'MovieDetail',
     component: MovieDetailView
+  },
+  {
+    path: '/movie/search/:keyword',
+    name: 'MovieSearch',
+    component: MovieSearchView
   },
   {
     path: '/community',
