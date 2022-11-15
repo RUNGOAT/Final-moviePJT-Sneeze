@@ -24,11 +24,12 @@ export default new Vuex.Store({
       axios({
         method: 'get',
         url: `${API_URL}/movies/`,
-        headers: {
-          Authorization: `Token ${context.state.token}`
-        },
+        // headers: {
+        //   Authorization: `Token ${context.state.token}`
+        // },
       })
         .then((res) => {
+          console.log(res)
           context.commit('GET_MOVIES', res.data)
         })
         .catch(err => console.log(err))
