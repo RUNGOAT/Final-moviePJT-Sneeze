@@ -1,14 +1,14 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import HomeView from '@/views/movie/HomeView'
+import HomeView from '@/views/home/HomeView'
 import MovieDetailView from '@/views/movie/MovieDetailView'
 import MovieSearchView from '@/views/movie/MovieSearchView'
 
 import CommunityView from '@/views/community/CommunityView'
-import CommunityDetailView from '@/views/community/CommunityDetailView'
+import CommunityDetail from '@/components/CommunityDetail'
 import CommunityFormView from '@/components/CommunityFormView'
-import CommunityDetailUpdateView from '@/views/community/CommunityDetailUpdateView'
+import CommunityUpdate from '@/views/community/CommunityUpdate'
 
 import ProfileView from '@/views/accounts/ProfileView'
 import LoginView from '@/views/accounts/LoginView'
@@ -40,7 +40,7 @@ const routes = [
   {
     path: '/community/:community_pk',
     name: 'CommunityDetail',
-    component: CommunityDetailView,
+    component: CommunityDetail,
   },
   {
     path: '/community/create',
@@ -49,8 +49,8 @@ const routes = [
   },
   {
     path: '/community/update/:community_pk',
-    name: 'CommunityDetailUpdate',
-    component: CommunityDetailUpdateView,
+    name: 'CommunityUpdate',
+    component: CommunityUpdate,
   },
   {
     path: '/profile',

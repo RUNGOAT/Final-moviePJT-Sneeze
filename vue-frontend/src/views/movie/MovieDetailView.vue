@@ -1,17 +1,17 @@
 <template>
   <div>
     <h2>Movie Detail</h2>
-    <MovieReviewView/>
+    <ReviewList/>
   </div>
 </template>
 
 <script>
-import MovieReviewView from '@/views/movie/MovieReviewView'
+import ReviewList from '@/views/movie/ReviewList'
 
 export default {
   name: 'MovieDetailView',
   components: {
-    MovieReviewView,
+    ReviewList,
   }
 }
 </script>
