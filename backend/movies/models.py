@@ -21,6 +21,7 @@ class Movie(models.Model):
     popularity = models.FloatField(validators=[MinValueValidator(0)])
     adult = models.BooleanField()
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_movies')
+    backdrop_path = models.CharField(max_length=500)
 
 
 class Review(models.Model):
