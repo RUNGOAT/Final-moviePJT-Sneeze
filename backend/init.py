@@ -3,6 +3,7 @@ from pprint import pprint
 import json
 
 
+
 API_KEY = 'c12ca67b05f1378e09cf647da6b26b3e'
 HOST = "https://api.themoviedb.org"
 MOVIE_LIST_URI = "/3/movie/popular"
@@ -52,9 +53,10 @@ for idx, movie_Id in enumerate(movie_Ids):
     response = urllib.request.urlopen(movie_request)
     json_str = response.read().decode('utf-8')
     json_object = json.loads(json_str)
-    if json_object.get("poster_path"):
+ 
+    if json_object.get("poster_path") and json_object.get("backdrop_path"):
         if json_object.get("genres"):
-
+            
             my_object = {
                 "model": "movies.movie",
                 "pk": idx+1,
@@ -70,6 +72,7 @@ for idx, movie_Id in enumerate(movie_Ids):
                     "overview": json_object.get("overview"),
                     "genres": [json_object.get("genres")[0].get("id")],
                     "original_title": json_object.get("original_title"),
+                    "backdrop_path": json_object.get("backdrop_path"),
                 }  
             }
         else:
@@ -88,6 +91,7 @@ for idx, movie_Id in enumerate(movie_Ids):
                     "overview": json_object.get("overview"),
                     "genres": json_object.get("genres"),
                     "original_title": json_object.get("original_title"),
+                    "backdrop_path": json_object.get("backdrop_path"),
                 }
             }
         movie_list.append(my_object)
