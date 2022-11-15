@@ -1,16 +1,16 @@
 <template>
   <div>
     <H2>Movie Review</H2>
-    <MovieReviewCommentView/>
+    <ReviewCommentForm/>
   </div>
 </template>
 
 <script>
-import MovieReviewCommentView from '@/components/MovieReviewCommentView'
+import ReviewCommentForm from '@/components/ReviewCommentForm'
 export default {
   name: 'MovieReviewView',
   components: {
-    MovieReviewCommentView,
+    ReviewCommentForm,
   }
 }
 </script>
