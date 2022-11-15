@@ -1,10 +1,26 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <nav class="navbar navbar-expand-lg bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img src="../src/assets/logo.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+          Movie
+        </a>
+      
+        <router-link :to="{ name: 'Home' }">Home</router-link>
+        <router-link :to="{ name: 'Community' }">Community</router-link>
+        <router-link :to="{ name: 'Profile' }">Profile</router-link>
+        <router-link :to="{ name: 'Signup' }">Signup</router-link>
+        <router-link :to="{ name: 'Login' }">Login</router-link>
+
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-dark" type="submit">Search</button>
+        </form>
+
+      </div>
     </nav>
-    <router-view/>
+    <router-view></router-view>
   </div>
 </template>
 
