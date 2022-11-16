@@ -87,7 +87,9 @@ export default {
     recoMovies() {
       return this.$store.state.cosMovies
     },
-    
+    youtubeVideos() {
+      return this.$store.state.youtubeVideos
+    }    
   },
   methods: {
     getCosMovie() {
@@ -107,15 +109,22 @@ export default {
         .then(res => {
           // console.log(res.data)
           this.movie = res.data
-          console.log(this.movie)
+          // console.log(this.movie)
         })
     },
+    searchYoutube() {
+      console.log(this.movie.title)
+      this.$store.dispatch('searchYoutube', this.movie.title)
+    }
   },
   created() {
     this.getCosMovie()
     this.getMovie()
     this.getSimilarMovie()
   },
+  mounted() {
+    this.searchYoutube()
+  }
 }
 </script>
 
