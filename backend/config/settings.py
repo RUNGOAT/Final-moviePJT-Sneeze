@@ -36,8 +36,20 @@ INSTALLED_APPS = [
     'community',
 
     'rest_framework',
+    
     # CORS policy
     "corsheaders",
+
+    # Auth
+    'rest_framework.authtoken',
+    'dj_rest_auth',
+
+    # registration
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'dj_rest_auth.registration',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -162,3 +174,5 @@ import datetime
 JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),
 }
+
+AUTH_USER_MODEL = 'accounts.User'

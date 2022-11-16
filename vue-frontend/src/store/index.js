@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import _ from 'lodash'
 import router from '@/router'
-
+import createPersistedState from 'vuex-persistedstate'
 Vue.use(Vuex)
 
 const API_URL = 'http://127.0.0.1:8000'
@@ -13,9 +13,9 @@ const API_KEY = 'c12ca67b05f1378e09cf647da6b26b3e'
 
 
 export default new Vuex.Store({
-  // plugins: [
-  //   createPersistedState()
-  // ],
+  plugins: [
+    createPersistedState()
+  ],
   state: {
     movies: [],
     movieGenre: [],
@@ -53,7 +53,7 @@ export default new Vuex.Store({
     },
     SAVE_TOKEN(state, token) {
       state.token = token
-      router.push({ name: 'ArticleView' })
+      router.push({ name: 'Home' })
     },
     GET_COMMUNITY_LIST(state, communities) {
       state.communities = communities

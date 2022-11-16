@@ -55,7 +55,7 @@ const routes = [
     component: CommunityUpdate,
   },
   {
-    path: '/profile',
+    path: '/profile/:username',
     name: 'Profile',
     component: ProfileView,
   },
