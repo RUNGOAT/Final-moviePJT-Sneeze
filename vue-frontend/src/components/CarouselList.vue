@@ -9,13 +9,11 @@
       </div>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img src="" class="d-block w-100" alt="1">
-        </div>
-        <div class="carousel-item">
-          <img src="" class="d-block w-100" alt="2">
-        </div>
-        <div class="carousel-item">
-          <img src="" class="d-block w-100" alt="3">
+          <CarouselItem
+            v-for="movie in movies"
+            :key="movie.id"
+            :movie="movie"
+          />
         </div>
       </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -27,11 +25,7 @@
         <span class="visually-hidden">Next</span>
       </button>
     </div>
-    <CarouselItem
-      v-for="movie in movies"
-      :key="movie.id"
-      :movie="movie"
-    />
+    
   </div>
 </template>
 

@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     getCosMovie() {
-	      this.$store.dispatch('getCosMovie', this.movie.id)  // 디테일 페이지의 영화 id
+	    this.$store.dispatch('getCosMovie', this.movie.id)  // 디테일 페이지의 영화 id
     }
   },
   created() {
