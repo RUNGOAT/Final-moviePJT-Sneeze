@@ -8,6 +8,7 @@
         </a>
       
         <router-link :to="{ name: 'Home' }">Home</router-link>
+        <router-link :to="{ name: 'Movie' }">Movie</router-link>
         <router-link :to="{ name: 'Community' }">Community</router-link>
         <router-link :to="{ name: 'Profile' }">Profile</router-link>
         <router-link :to="{ name: 'Signup' }">Signup</router-link>
