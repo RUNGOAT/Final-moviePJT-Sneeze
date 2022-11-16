@@ -36,6 +36,10 @@
         해당 영화는 줄거리가 제공되지 않습니다.
       </div>
     </div>
+    <button @click="searchYoutube">Youtube Video</button>
+
+
+
     <!-- 동작 x 보류 -->
     <!-- <nav>
       <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -122,9 +126,6 @@ export default {
     this.getMovie()
     this.getSimilarMovie()
   },
-  mounted() {
-    this.searchYoutube()
-  }
 }
 </script>
 
