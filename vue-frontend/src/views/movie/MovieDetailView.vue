@@ -118,7 +118,7 @@ export default {
     },
     searchYoutube() {
       console.log(this.movie.title)
-      this.$store.dispatch('searchYoutube', this.movie.title)
+      this.$store.dispatch('searchYoutube', this.movieId)
     }
   },
   created() {

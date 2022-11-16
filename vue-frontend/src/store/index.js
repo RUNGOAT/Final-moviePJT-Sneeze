@@ -1,13 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import _ from 'lodash'
 
 Vue.use(Vuex)
 
 const API_URL = 'http://127.0.0.1:8000'
 const API_KEY = 'c12ca67b05f1378e09cf647da6b26b3e'
-const YOUTUBE_URL = 'https://www.googleapis.com/youtube/v3/search'
-const YOUTUBE_KEY = 'AIzaSyDCNryclud9PWXHtYc9Nw8xnal3K4_9U00'
+// const YOUTUBE_URL = 'https://www.googleapis.com/youtube/v3/search'
+// const YOUTUBE_KEY = 'AIzaSyDCNryclud9PWXHtYc9Nw8xnal3K4_9U00'
 
 
 export default new Vuex.Store({
@@ -32,8 +33,8 @@ export default new Vuex.Store({
     GET_SIMILAR_MOVIE(state, similarMovies) {
       state.similarMovies = similarMovies
     },
-    SEARCH_YOUTUBE: function (state, res) {
-      state.youtubeVideos = res.data.items
+    SEARCH_YOUTUBE: function (state, videos) {
+      state.youtubeVideos = videos
     },
     GET_TOP5_MOVIES(state, top5Movies) {
       state.top5Movies = top5Movies
@@ -84,23 +85,15 @@ export default new Vuex.Store({
       })
     },
     // YOUTUBE ACTIONS
-    searchYoutube(context, searchText) {
-      const params = {
-        q: searchText+'movie',
-        key: YOUTUBE_KEY,
-        part: 'snippet',
-        type: 'video'
-      }
+    searchYoutube(context, movie_id) {
       axios({
         method: 'get',
-        url: YOUTUBE_URL,
-        params,
+        url: `https://api.themoviedb.org/3/movie/${movie_id}/videos?api_key=${API_KEY}&language=ko-KR`
       })
-      .then(res => {
-        // console.log(res.data.items)
-        context.commit('SEARCH_YOUTUBE', res)
-      })
-      .catch(err => console.log(err))
+        .then(res => {
+          context.commit('SEARCH_YOUTUBE', res.data.results)
+        })
+        .catch(err => console.log(err))
     },
     // 인기도 탑 5
     getTop5Movies(context) {
@@ -112,11 +105,11 @@ export default new Vuex.Store({
         // },
       })
         .then((res) => {
-          console.log(res)
+          // console.log(res)
           const movies = res.data
           _.sortBy(movies, 'popularity').reverse()
           const top5Movies = movies.slice(0, 5)
-          console.log(top5Movies)
+          // console.log(top5Movies)
           context.commit('GET_TOP5_MOVIES', top5Movies)
         })
         .catch(err => console.log(err))
@@ -130,8 +123,8 @@ export default new Vuex.Store({
         // },
       })
         .then((res) => {
-          console.log(res)
-          console.log('recommendation sucess')
+          // console.log(res)
+          // console.log('recommendation sucess')
           context.commit('GET_RECOMENDED', res.data)
         })
         .catch(err => console.log(err))
