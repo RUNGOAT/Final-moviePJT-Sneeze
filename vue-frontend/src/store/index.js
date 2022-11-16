@@ -25,6 +25,7 @@ export default new Vuex.Store({
     top5Movies: [],
     recommendations: [],
     token: null,
+    communities: [],
   },
   getters: {
     isLogin(state) {
@@ -53,7 +54,10 @@ export default new Vuex.Store({
     SAVE_TOKEN(state, token) {
       state.token = token
       router.push({ name: 'ArticleView' })
-    }
+    },
+    GET_COMMUNITY_LIST(state, communities) {
+      state.communities = communities
+    },
   },
   actions: {
     getMovies(context) {
@@ -65,7 +69,7 @@ export default new Vuex.Store({
         // },
       })
         .then((res) => {
-          console.log(res)
+          // console.log(res)
           context.commit('GET_MOVIES', res.data)
         })
         .catch(err => console.log(err))
@@ -170,6 +174,29 @@ export default new Vuex.Store({
           context.commit('SAVE_TOKEN', res.data.key)
         })
     },
+    getCommentList(context) {
+      axios({
+        method: 'get',
+        url: `${API_URL}/community/community_list_create/`
+      })
+        .then((res) => {
+          // console.log(res)
+          context.commit('GET_COMMUNITY_LIST', res.data)
+        })
+    },
+    getCommunity(context, communityId) {
+      axios({
+        method: 'get',
+        url: `${API_URL}/community/detail/${communityId}`,
+        data: {
+          communityId,
+        }
+      })
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => console.log(err))
+    }
   },
   modules: {
   }

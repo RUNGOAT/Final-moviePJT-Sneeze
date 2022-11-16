@@ -28,11 +28,7 @@ const routes = [
     name: 'Movie',
     component: MovieView
   },
-  {
-    path: '/:movie_id',
-    name: 'MovieDetail',
-    component: MovieDetailView
-  },
+  
   {
     path: '/movie/search/:keyword',
     name: 'MovieSearch',
@@ -72,6 +68,11 @@ const routes = [
     path: '/signup',
     name: 'Signup',
     component: SignupView,
+  },
+  {
+    path: '/:movie_id',
+    name: 'MovieDetail',
+    component: MovieDetailView
   },
 ]
 
