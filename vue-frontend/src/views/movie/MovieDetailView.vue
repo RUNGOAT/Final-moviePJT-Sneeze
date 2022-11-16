@@ -37,7 +37,7 @@
       </div>
     </div>
     <!-- 동작 x 보류 -->
-    <nav>
+    <!-- <nav>
       <div class="nav nav-tabs" id="nav-tab" role="tablist">
         <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button"
           role="tab" aria-controls="nav-home" aria-selected="true">Home</button>
@@ -58,7 +58,7 @@
       </div>
       <div class="tab-pane fade" id="nav-disabled" role="tabpanel" aria-labelledby="nav-disabled-tab" tabindex="0">...
       </div>
-    </div>
+    </div> -->
 
 
   </div>
@@ -93,6 +93,9 @@ export default {
     getCosMovie() {
       this.$store.dispatch('getCosMovie', this.movieId)  // 디테일 페이지의 영화 id
     },
+    getSimilarMovie() {
+      this.$store.dispatch('getSimilarMovie', this.movieId)
+    },
     getMovie() {
       axios({
         method: 'get',
@@ -106,11 +109,12 @@ export default {
           this.movie = res.data
           console.log(this.movie)
         })
-    }
+    },
   },
   created() {
     this.getCosMovie()
     this.getMovie()
+    this.getSimilarMovie()
   },
 }
 </script>
