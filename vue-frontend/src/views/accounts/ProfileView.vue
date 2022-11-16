@@ -1,12 +1,13 @@
 <template>
   <div>
-    <h1>Profile</h1>
+    <h1>{{ $store.state.username }}'s Profile</h1>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'ProfileView'
+  name: 'ProfileView',
+
 }
 </script>
 

@@ -25,6 +25,7 @@ export default new Vuex.Store({
     top5Movies: [],
     recommendations: [],
     token: null,
+    username: null,
     communities: [],
   },
   getters: {
@@ -51,13 +52,18 @@ export default new Vuex.Store({
     GET_RECOMENDED(state, recommendations) {
       state.recommendations = recommendations
     },
-    SAVE_TOKEN(state, token) {
-      state.token = token
+    SAVE_TOKEN(state, userInfo) {
+      state.token = userInfo.token
+      state.username = userInfo.username
       router.push({ name: 'Home' })
     },
     GET_COMMUNITY_LIST(state, communities) {
       state.communities = communities
     },
+    LOGOUT(state) {
+      state.token = ! state.token
+      router.push({ name: 'Home' })
+    }
   },
   actions: {
     getMovies(context) {
@@ -171,7 +177,12 @@ export default new Vuex.Store({
       })
         .then((res) => {
           // console.log(res)
-          context.commit('SAVE_TOKEN', res.data.key)
+          const userInfo = {
+            username: payload.username,
+            token: res.data.key
+          }
+          console.log(userInfo)
+          context.commit('SAVE_TOKEN', userInfo)
         })
     },
     getCommentList(context) {

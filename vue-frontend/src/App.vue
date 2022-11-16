@@ -10,9 +10,10 @@
         <router-link :to="{ name: 'Home' }">Home</router-link>
         <router-link :to="{ name: 'Movie' }">Movie</router-link>
         <router-link :to="{ name: 'Community' }">Community</router-link>
-        <router-link :to="{ name: 'Profile' }">Profile</router-link>
+        <router-link :to="{ name: 'Profile', params: { username: username }  }">Profile</router-link>
         <router-link :to="{ name: 'Signup' }">Signup</router-link>
         <router-link :to="{ name: 'Login' }">Login</router-link>
+        <button @click="logOut">Logout</button>
         <router-link :to="{ name: 'MovieDetail', params: { movie_id: '505642'} }">Detail</router-link>
 
         <form class="d-flex" role="search">
@@ -25,6 +26,23 @@
     <router-view></router-view>
   </div>
 </template>
+
+<script>
+export default {
+  computed: {
+    username(){
+      return this.$store.state.username
+    },
+  },
+  methods: {
+    logOut() {
+      this.$store.commit('LOGOUT')
+    },
+  }
+  }
+
+</script>
+
 
 <style>
 #app {
