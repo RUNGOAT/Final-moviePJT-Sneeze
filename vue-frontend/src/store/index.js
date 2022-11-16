@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import _ from 'lodash'
+// import createPersistedState from 'vuex-persistedstate'
+import router from '@/router'
 
 Vue.use(Vuex)
 
@@ -11,6 +14,9 @@ const YOUTUBE_KEY = 'AIzaSyDCNryclud9PWXHtYc9Nw8xnal3K4_9U00'
 
 
 export default new Vuex.Store({
+  // plugins: [
+  //   createPersistedState()
+  // ],
   state: {
     movies: [],
     movieGenre: [],
@@ -19,8 +25,12 @@ export default new Vuex.Store({
     youtubeVideos: [],
     top5Movies: [],
     recommendations: [],
+    token: null,
   },
   getters: {
+    isLogin(state) {
+      return state.token ? true : false
+    }
   },
   mutations: {
     GET_MOVIES(state, movies) {
@@ -41,6 +51,10 @@ export default new Vuex.Store({
     GET_RECOMENDED(state, recommendations) {
       state.recommendations = recommendations
     },
+    SAVE_TOKEN(state, token) {
+      state.token = token
+      router.push({ name: 'ArticleView' })
+    }
   },
   actions: {
     getMovies(context) {
@@ -135,7 +149,36 @@ export default new Vuex.Store({
           context.commit('GET_RECOMENDED', res.data)
         })
         .catch(err => console.log(err))
-    }
+    },
+    signUp(context, payload) {
+      axios({
+        method: 'post',
+        url: `${API_URL}/accounts/signup/`,
+        data: {
+          username: payload.username,
+          password1: payload.password1,
+          password2: payload.password2,
+        }
+      })
+        .then((res) => {
+          // console.log(res)
+          context.commit('SAVE_TOKEN', res.data.key)
+        })
+    },
+    logIn(context, payload) {
+      axios({
+        method: 'post',
+        url: `${API_URL}/accounts/login/`,
+        data: {
+          username: payload.username,
+          password: payload.password,
+        }
+      })
+        .then((res) => {
+          // console.log(res)
+          context.commit('SAVE_TOKEN', res.data.key)
+        })
+    },
   },
   modules: {
   }

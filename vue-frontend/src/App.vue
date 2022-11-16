@@ -32,7 +32,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* text-align: center; */
-  color: white;
+  color: black;
   /* color: #2c3e50; */
 }
 
