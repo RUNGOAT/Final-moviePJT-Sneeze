@@ -174,7 +174,7 @@ export default new Vuex.Store({
           context.commit('SAVE_TOKEN', res.data.key)
         })
     },
-    getCommentList(context) {
+    getCommunityList(context) {
       axios({
         method: 'get',
         url: `${API_URL}/community/community_list_create/`
@@ -184,19 +184,6 @@ export default new Vuex.Store({
           context.commit('GET_COMMUNITY_LIST', res.data)
         })
     },
-    getCommunity(context, communityId) {
-      axios({
-        method: 'get',
-        url: `${API_URL}/community/detail/${communityId}`,
-        data: {
-          communityId,
-        }
-      })
-        .then(res => {
-          console.log(res)
-        })
-        .catch(err => console.log(err))
-    }
   },
   modules: {
   }
