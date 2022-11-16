@@ -13,6 +13,7 @@
         <router-link :to="{ name: 'Profile' }">Profile</router-link>
         <router-link :to="{ name: 'Signup' }">Signup</router-link>
         <router-link :to="{ name: 'Login' }">Login</router-link>
+        <router-link :to="{ name: 'MovieDetail', params: { movie_id: '505642'} }">Detail</router-link>
 
         <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -31,7 +32,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: white;
+  /* color: #2c3e50; */
 }
 
 nav {

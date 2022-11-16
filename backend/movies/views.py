@@ -17,6 +17,16 @@ def home(request):
         serializer = MovieSerializer(movies, many=True)
         return Response(serializer.data)
 
+
+@api_view(['GET'])
+def movie_detail(request, movie_pk):
+  # print(movie_pk)
+  # print(request)
+  if request.method == 'GET':
+    movie = get_object_or_404(Movie, movie_id=movie_pk)
+    serializer = MovieSerializer(movie)
+    return Response(serializer.data)
+
   
 ### review
 

@@ -61,6 +61,7 @@ for idx, movie_Id in enumerate(movie_Ids):
                 "model": "movies.movie",
                 "pk": idx+1,
                 "fields": {
+                    "movie_id": json_object.get("id"),
                     "title": json_object.get("title"),
                     "adult": json_object.get("adult"),
                     "popularity": json_object.get("popularity"),
@@ -80,6 +81,7 @@ for idx, movie_Id in enumerate(movie_Ids):
                 "model": "movies.movie",
                 "pk": idx+1,
                 "fields": {
+                    "movie_id": json_object.get("id"),
                     "title": json_object.get("title"),
                     "adult": json_object.get("adult"),
                     "popularity": json_object.get("popularity"),

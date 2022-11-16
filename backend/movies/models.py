@@ -9,6 +9,7 @@ class Genre(models.Model):
 
 # validators=[MinValueValidator(0), MaxValueValidator(10)] : 입력 최솟값 최댓값 설정
 class Movie(models.Model):
+    movie_id = models.TextField()
     title = models.TextField()
     original_title = models.TextField()
     overview = models.TextField()
