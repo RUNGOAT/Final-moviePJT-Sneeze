@@ -17,6 +17,8 @@ export default new Vuex.Store({
     cosMovies: [],
     similarMovies: [],
     youtubeVideos: [],
+    top5Movies: [],
+    recommendations: [],
   },
   getters: {
   },
@@ -32,6 +34,12 @@ export default new Vuex.Store({
     },
     SEARCH_YOUTUBE: function (state, res) {
       state.youtubeVideos = res.data.items
+    },
+    GET_TOP5_MOVIES(state, top5Movies) {
+      state.top5Movies = top5Movies
+    },
+    GET_RECOMENDED(state, recommendations) {
+      state.recommendations = recommendations
     },
   },
   actions: {
@@ -94,6 +102,40 @@ export default new Vuex.Store({
       })
       .catch(err => console.log(err))
     },
+    // 인기도 탑 5
+    getTop5Movies(context) {
+      axios({
+        method: 'get',
+        url: `${API_URL}/movies/`,
+        // headers: {
+        //   Authorization: `Token ${context.state.token}`
+        // },
+      })
+        .then((res) => {
+          console.log(res)
+          const movies = res.data
+          _.sortBy(movies, 'popularity').reverse()
+          const top5Movies = movies.slice(0, 5)
+          console.log(top5Movies)
+          context.commit('GET_TOP5_MOVIES', top5Movies)
+        })
+        .catch(err => console.log(err))
+    },
+    getRecommended(context) {
+      axios({
+        method: 'get',
+        url: `${API_URL}/movies/recommended/`,
+        // headers: {
+        //   Authorization: `Token ${context.state.token}`
+        // },
+      })
+        .then((res) => {
+          console.log(res)
+          console.log('recommendation sucess')
+          context.commit('GET_RECOMENDED', res.data)
+        })
+        .catch(err => console.log(err))
+    }
   },
   modules: {
   }

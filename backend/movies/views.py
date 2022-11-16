@@ -2,9 +2,11 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.contrib.auth import get_user_model
 from rest_framework import status
+from random import sample
+
 
 from .models import Movie, Review, ReviewComment, Genre
 from .serializers import MovieSerializer, ReviewListSerializer, ReviewCommentSerializer
@@ -228,3 +230,52 @@ def like_movie_users(request, my_pk):
         users.append(user)
 
   return Response(users)
+
+@api_view(['GET'])
+def recommended(request):
+    if request.user.is_authenticated:
+        movies = get_list_or_404(Movie)
+        User = request.user
+        my_genres = {}
+        my_movies = User.like_movies.all()
+        if my_movies:
+            for movie in my_movies:
+                genres = movie.genres.all()
+                for genre in genres:
+                    if genre.pk in my_genres:
+                        my_genres[genre.pk] += 1
+                    else:
+                        my_genres[genre.pk] = 1
+
+            my_genres = sorted(my_genres, key=lambda x: my_genres[x])[:3]
+
+            recommendations_list = set()
+            for my_genre in my_genres:
+                for movie in movies:
+                    genres = movie.genres.all()
+                    for genre in genres:
+                        if genre.pk == my_genre:
+                            recommendations_list.add(movie)
+                            break
+            recommendations = sample(recommendations_list, 10)
+            serializer = MovieSerializer(recommendations)
+            # liked = True
+        else:
+            movies = get_list_or_404(Movie)
+            recommendations = sample(movies, 10)
+            serializer = MovieSerializer(recommendations)
+            # liked = False
+
+        # context = {
+        #     'my_movies': my_movies,
+        #     'my_genres': my_genres,
+        #     'recommendations': recommendations,
+        #     'liked': liked
+        # }
+        return Response(serializer.data)
+        # return render(request, 'movies/recommended.html', context)
+    else:
+      movies = get_list_or_404(Movie)
+      recommendations = sample(movies, 10)
+      serializer = MovieSerializer(recommendations)
+    # return redirect('accounts:login')
