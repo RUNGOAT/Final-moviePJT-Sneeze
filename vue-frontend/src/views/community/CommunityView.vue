@@ -1,22 +1,26 @@
 <template>
   <div>
     <h1>Community</h1>
+    <router-link :to="{ name: 'CommunityCreate' }">[CREATE]</router-link>
+    <hr>
     <div class="container">
-      <CommunityDetail
+      <CommunityListItem
         v-for="community in communities"
         :key="community.created_at"
+        :community="community"
       />
     </div>
   </div>
 </template>
 
 <script>
-import CommunityDetail from '@/components/CommunityDetail.vue'
+import CommunityListItem from '@/components/CommunityListItem.vue'
+
 
 export default {
   name:'CommunityView',
   components: {
-    CommunityDetail
+    CommunityListItem,
   },
   computed: {
     communities() {
@@ -24,12 +28,12 @@ export default {
     }
   },
   methods: {
-    getCommentList() {
-      this.$store.dispatch('getCommentList')
+    getCommunityList() {
+      this.$store.dispatch('getCommunityList')
     }
   },
   created() {
-    this.getCommentList()
+    this.getCommunityList()
   }
 }
 </script>
