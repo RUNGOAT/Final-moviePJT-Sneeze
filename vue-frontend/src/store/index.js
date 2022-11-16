@@ -13,7 +13,7 @@ export default new Vuex.Store({
     movies: [],
     movieGenre: [],
     cosMovies: [],
-
+    
   },
   getters: {
   },

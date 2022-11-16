@@ -1,51 +1,64 @@
 <template>
-  <div 
-    :style="{ 'background-image':`url(${this.imageUrl + movie?.backdrop_path})`}" 
-    style="background-size: cover"
-  >
+  <div :style="{ 'background-image': `url(${this.imageUrl + movie?.backdrop_path})` }" style="background-size: cover">
     <h2>Movie Detail</h2>
     <ReviewList />
 
-    {{ movie?.title }}
-    {{ movie?.overview }}
+
     <div class="movie-detail-upper">
-            <div class="movie-detail-info-header">
-              <div class="movie-detail-info-header-left">
-                <div class="movie-detail-title">
-                  {{ movie.title }}
-                </div>
-                <div
-                v-if="movie.release_date"
-                class="movie-release-date">
-                  개봉  :  {{ movie.release_date }}
-                </div>
-                <div
-                v-if="movie.genre_ids">
-                  <!-- {{ movie.genre_ids }} -->
-                </div>
-              </div>
-              <div class="movie-detail-info-header-right">
-                <div class="movie-vote">
-                  {{ movie.vote_average }}
-                </div>
-                <img id="movie-star" src="@/assets/star.png">
-              </div>
-            </div>
-            <!-- info overview -->
-            <div class="movie-detail-overview-header">
-              줄거리
-            </div>
-            <hr>
-            <div
-              v-if="movie.overview"
-              class="movie-detail-overview-body">
-              {{ movie.overview }}
-            </div>
-            <div v-else
-              class="movie-detail-overview-body">
-              해당 영화는 줄거리가 제공되지 않습니다.
-            </div>
+      <div class="movie-detail-info-header">
+        <div class="movie-detail-info-header-left">
+          <div class="movie-detail-title">
+            {{ movie?.title }}
           </div>
+          <div v-if="movie?.release_date" class="movie-release-date">
+            개봉 : {{ movie.release_date }}
+          </div>
+          <div v-if="movie?.genre_ids">
+            <!-- {{ movie.genre_ids }} -->
+          </div>
+        </div>
+        <div class="movie-detail-info-header-right">
+          <div class="movie-vote">
+            {{ movie?.vote_average }}
+          </div>
+          <img id="movie-star" src="@/assets/star.png">
+        </div>
+      </div>
+      <!-- info overview -->
+      <div class="movie-detail-overview-header">
+        줄거리
+      </div>
+      <hr>
+      <div v-if="movie?.overview" class="movie-detail-overview-body">
+        {{ movie?.overview }}
+      </div>
+      <div v-else class="movie-detail-overview-body">
+        해당 영화는 줄거리가 제공되지 않습니다.
+      </div>
+    </div>
+    <!-- 동작 x 보류 -->
+    <nav>
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button"
+          role="tab" aria-controls="nav-home" aria-selected="true">Home</button>
+        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button"
+          role="tab" aria-controls="nav-profile" aria-selected="false">Profile</button>
+        <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button"
+          role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button>
+        <button class="nav-link" id="nav-disabled-tab" data-bs-toggle="tab" data-bs-target="#nav-disabled" type="button"
+          role="tab" aria-controls="nav-disabled" aria-selected="false" disabled>Disabled</button>
+      </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+      <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+        ...</div>
+      <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">...
+      </div>
+      <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">...
+      </div>
+      <div class="tab-pane fade" id="nav-disabled" role="tabpanel" aria-labelledby="nav-disabled-tab" tabindex="0">...
+      </div>
+    </div>
 
 
   </div>
@@ -74,9 +87,7 @@ export default {
     recoMovies() {
       return this.$store.state.cosMovies
     },
-    // movie() {
-    //   return this.movies.find(movie => movie.movie_id === this.movieId)
-    // }
+    
   },
   methods: {
     getCosMovie() {
@@ -111,7 +122,8 @@ export default {
   justify-content: space-between;
   height: 80px;
 }
-.movie-detail-poster > img {
+
+.movie-detail-poster>img {
   width: 500px;
 }
 
@@ -133,6 +145,7 @@ export default {
   height: 50%;
   margin-left: 1rem;
 }
+
 .movie-detail-overview-header {
   margin-top: 5rem;
   font-size: 32px;
@@ -141,5 +154,4 @@ export default {
 .movie-detail-overview-body {
   font-size: 20px;
 }
-
 </style>
