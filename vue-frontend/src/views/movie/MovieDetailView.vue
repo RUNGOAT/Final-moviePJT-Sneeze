@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Movie Detail</h2>
-    <ReviewList/>
+    <ReviewList />
   </div>
 </template>
 
@@ -10,25 +10,27 @@ import ReviewList from '@/views/movie/ReviewList'
 
 export default {
   name: 'MovieDetailView',
-  props: {
-    movie: Object,
-  },
   components: {
     ReviewList,
   },
   data() {
     return {
-      imageUrl: 'https://image.tmdb.org/t/p/w1280'
+      imageUrl: 'https://image.tmdb.org/t/p/w1280',
+      movies: this.$store.state.movies,
+      movieId: this.$route.params.movie_id
     }
   },
   computed: {
     recoMovies() {
       return this.$store.state.cosMovies
+    },
+    movie() {
+      return this.movies.find(movie => movie.id === this.movieId)
     }
   },
   methods: {
     getCosMovie() {
-	      this.$store.dispatch('getCosMovie', this.movie.id)  // 디테일 페이지의 영화 id
+      this.$store.dispatch('getCosMovie', this.movieId)  // 디테일 페이지의 영화 id
     }
   },
   created() {
