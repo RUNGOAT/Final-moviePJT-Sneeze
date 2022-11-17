@@ -39,10 +39,8 @@ export default {
       this.$store.commit('LOGOUT')
     },
   }
-  }
-
+}
 </script>
-
 
 <style>
 #app {

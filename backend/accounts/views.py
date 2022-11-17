@@ -7,6 +7,10 @@ from django.contrib.auth import get_user_model
 from .serializers import UserSerializer
 
 
+
+
+
+
 @api_view(['POST'])
 def signup(request):
     # Client 에서 보내온 정보 받기
