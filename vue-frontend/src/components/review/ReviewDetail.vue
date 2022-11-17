@@ -2,12 +2,15 @@
   <div>
     {{ review }}
     <hr>
-    
+    <ReviewCommentList
+      :review="review"
+    />
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import ReviewCommentList from '@/components/review/ReviewCommentList'
 
 const API_URL = 'http://127.0.0.1:8000'
 
@@ -18,6 +21,9 @@ export default {
       review: null,
       reviewId: this.$route.params.review_pk
     }
+  },
+  components: {
+    ReviewCommentList,
   },
   created() {
     this.getReview()
