@@ -78,15 +78,21 @@ def community_update_delete(request, community_pk):
       return Response({ 'id': community_pk })
 
 
-@api_view(['DELETE'])
+@api_view(['PUT', 'DELETE'])
 # @authentication_classes([JSONWebTokenAuthentication])
 # @permission_classes([IsAuthenticated])
-def comment_delete(request, community_pk, comment_pk):
+def comment_delete_update(request, community_pk, comment_pk):
   community = get_object_or_404(Community, pk=community_pk)
   comment = community.comment_set.get(pk=comment_pk)
 
   if not request.user.comments.filter(pk=comment_pk).exists():
     return Response({'message': '권한이 없습니다.'})
+  
+  if request.method == 'PUT':
+    serializer = CommentSerializer(comment, data=request.data)
+    if serializer.is_valid(raise_exception=True):
+            serializer.save(user=request.user)
+            return Response(serializer.data)
   else:
     comment.delete()
     return Response({ 'id': comment_pk })

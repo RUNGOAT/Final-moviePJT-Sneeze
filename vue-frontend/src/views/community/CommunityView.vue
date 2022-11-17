@@ -3,7 +3,7 @@
     <h1>Community</h1>
     <router-link :to="{ name: 'CommunityCreate' }">[CREATE]</router-link>
     <hr>
-    <div class="container">
+    <div>
       <CommunityListItem
         v-for="community in communities"
         :key="community.created_at"
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import CommunityListItem from '@/components/CommunityListItem.vue'
+import CommunityListItem from '@/components/community/CommunityListItem.vue'
 
 
 export default {

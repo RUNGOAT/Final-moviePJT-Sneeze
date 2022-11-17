@@ -9,5 +9,5 @@ urlpatterns = [
 
     path('comments/<int:community_pk>', views.comment_list),
     path('<int:community_pk>/comment/', views.create_comment),
-    path('comment/<int:community_pk>/<int:comment_pk>/', views.comment_delete),
+    path('comment/<int:community_pk>/<int:comment_pk>/', views.comment_delete_update),
 ]

@@ -4,7 +4,7 @@
       <label for="title">title: </label>
       <input type="text" id="title" v-model.trim="title">
       <label for="content">content: </label>
-      <input type="text" id="content" v-model.trim="content">
+      <textarea v-model.trim="content" id="content" cols="30" rows="10"></textarea>
       <button>제출</button>
     </form>
   </div>
@@ -34,7 +34,6 @@ export default {
         alert('내용을 입력해주세요!')
         return
       }
-      console.log(this.$store.state.token)
       axios({
         method: 'post',
         url: `${API_URL}/community/community_list_create/`,
@@ -47,8 +46,8 @@ export default {
         }
       })
         .then((res) => {
-          console.log(res)
-          // this.$router.push({ name: 'CommunityDetail', params: { community_pk: res.data.id }})
+          // console.log(res.data)
+          this.$router.push({ name: 'CommunityDetail', params: { community_pk: res.data.id }})
         })
         .catch(err => console.log(err))
     }

@@ -7,8 +7,8 @@ import MovieDetailView from '@/views/movie/MovieDetailView'
 import MovieSearchView from '@/views/movie/MovieSearchView'
 
 import CommunityView from '@/views/community/CommunityView'
-import CommunityDetail from '@/components/CommunityDetail'
-import CommunityFormView from '@/components/CommunityFormView'
+import CommunityDetail from '@/components/community/CommunityDetail'
+import CommunityFormView from '@/components/community/CommunityFormView'
 import CommunityUpdate from '@/views/community/CommunityUpdate'
 
 import ProfileView from '@/views/accounts/ProfileView'
