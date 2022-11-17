@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import ReviewCommentForm from '@/components/ReviewCommentForm'
-import ReviewItem from '@/components/ReviewItem.vue'
+import ReviewCommentForm from '@/components/review/ReviewCommentForm'
+import ReviewItem from '@/components/review/ReviewItem.vue'
 import axios from 'axios'
 
 const API_URL = 'http://127.0.0.1:8000'
@@ -52,7 +52,8 @@ export default {
         // console.log(res)
         this.reviews = res.data
       })
-    }
+    },
+
   }
 }
 </script>

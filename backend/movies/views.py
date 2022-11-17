@@ -9,7 +9,7 @@ from random import sample
 
 
 from .models import Movie, Review, ReviewComment, Genre
-from .serializers import MovieSerializer, ReviewListSerializer, ReviewCommentSerializer
+from .serializers import MovieSerializer, ReviewListSerializer, ReviewCommentSerializer, ReviewSerializer
 
 
 @api_view(['GET'])
@@ -80,6 +80,14 @@ def create_review_comment(request, review_pk):
   if serializer.is_valid(raise_exception=True):
     serializer.save(user=request.user, review=review)
     return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+@api_view(['GET'])
+def review_detail(request, review_pk):
+    review = get_object_or_404(Review, id=review_pk)
+    serializer = ReviewSerializer(review)
+    return Response(serializer.data)
+
 
 
 @api_view(['PUT', 'DELETE'])

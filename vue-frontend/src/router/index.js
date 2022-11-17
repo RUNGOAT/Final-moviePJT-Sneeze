@@ -5,7 +5,8 @@ import HomeView from '@/views/home/HomeView'
 import MovieView from '@/views/movie/MovieView'
 import MovieDetailView from '@/views/movie/MovieDetailView'
 import MovieSearchView from '@/views/movie/MovieSearchView'
-import ReviewForm from '@/components/ReviewForm'
+import ReviewForm from '@/components/review/ReviewForm'
+import ReviewDetail from '@/components/review/ReviewDetail'
 
 import CommunityView from '@/views/community/CommunityView'
 import CommunityDetail from '@/components/community/CommunityDetail'
@@ -79,6 +80,11 @@ const routes = [
     path: '/:movie_id/review/create',
     name: 'ReviewForm',
     component: ReviewForm
+  },
+  {
+    path: '/:movie_id/review/:review_pk',
+    name: 'ReviewDetail',
+    component: ReviewDetail
   },
 
 ]

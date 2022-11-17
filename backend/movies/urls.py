@@ -6,7 +6,7 @@ urlpatterns = [
     path('<int:movie_pk>/', views.movie_detail),
     
     path('<int:movie_pk>/review_list_create/', views.review_list_create), # 리뷰 게시글 작성을 위한
-    # path('review_detail/<int:review_pk>/', views.review_detail),
+    path('review_detail/<int:review_pk>/', views.review_detail),
     path('review/<int:review_pk>/', views.review_update_delete),
 
     path('review_comments/<int:review_pk>', views.review_comment_list),
