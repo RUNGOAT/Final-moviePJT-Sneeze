@@ -23,7 +23,19 @@ export default {
     }
   },
   methods: {
+    getToken: function () {
+      const token = localStorage.getItem('jwt')
+
+      const config = {
+        headers: {
+          Authorization: `JWT ${token}`
+        },
+      }
+      return config
+    },
     createCommunity() {
+      // const config = this.getToken()
+
       const title = this.title
       const content = this.content
       if (!title) {
@@ -32,20 +44,23 @@ export default {
       } else if (!content) {
         alert('내용을 입력해주세요!')
         return
-      } else {
-        axios({
-          method: 'post',
-          url: `${API_URL}/community/community_list_create/`,
-          data: {
-            title,
-            content,
-          }
-        })
-          .then((res) => {
-            this.$router.push({ name: 'CommunityDetail', params: { community_pk: res.data.id }})
-          })
-          .catch(err => console.log(err))
       }
+      axios({
+        method: 'post',
+        url: `${API_URL}/community/community_list_create/`,
+        data: {
+          title,
+          content,
+        },
+        // headers: {
+        //   Authorization: `Token ${this.$store.state.token}`
+        // }
+      })
+        .then((res) => {
+          console.log(res)
+          // this.$router.push({ name: 'CommunityDetail', params: { community_pk: res.data.id }})
+        })
+        .catch(err => console.log(err))
     }
   }
 

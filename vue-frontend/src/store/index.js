@@ -186,9 +186,13 @@ export default new Vuex.Store({
         })
     },
     getCommunityList(context) {
+      console.log(this.state.token)
       axios({
         method: 'get',
-        url: `${API_URL}/community/community_list_create/`
+        url: `${API_URL}/community/community_list_create/`,
+        // headers: {
+        //   Authorization: `Token ${this.state.token}`
+        // },
       })
         .then((res) => {
           // console.log(res)
