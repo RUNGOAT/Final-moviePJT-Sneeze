@@ -27,6 +27,7 @@ export default new Vuex.Store({
     token: null,
     username: null,
     communities: [],
+    reviews: [],
   },
   getters: {
     isLogin(state) {

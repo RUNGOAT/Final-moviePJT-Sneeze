@@ -33,8 +33,8 @@ def movie_detail(request, movie_pk):
 ### review
 
 @api_view(['GET', 'POST'])
-@authentication_classes([JSONWebTokenAuthentication])
-@permission_classes([IsAuthenticated])
+# @authentication_classes([JSONWebTokenAuthentication])
+# @permission_classes([IsAuthenticated])
 def review_list_create(request, movie_pk):
   if request.method == 'GET':
     reviews = Review.objects.all().filter(movie_id=movie_pk)
@@ -42,13 +42,14 @@ def review_list_create(request, movie_pk):
     return Response(serializer.data)
   else:
     serializer = ReviewListSerializer(data=request.data)
+    
     if serializer.is_valid(raise_exception=True):
       movie = get_object_or_404(Movie, pk=request.data.get('movie'))
 
       pre_point = movie.vote_average * movie.vote_count
       pre_count = movie.vote_count
 
-      point = pre_point+request.data.get('rank')
+      point = pre_point + int(request.data.get('rank'))
       count = movie.vote_count + 1
       new_vote_average = round(point/count, 2)
 

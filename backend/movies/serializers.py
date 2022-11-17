@@ -12,19 +12,19 @@ class MovieSerializer(serializers.ModelSerializer):
 
 
 class ReviewListSerializer(serializers.ModelSerializer):
-  movie_title = serializers.SerializerMethodField()
+  # movie_title = serializers.SerializerMethodField()
 
-  def get_movie_title(self, obj):
-    return obj.movie.title
+  # def get_movie_title(self, obj):
+  #   return obj.movie.title
 
-  userName = serializers.SerializerMethodField()
+  # userName = serializers.SerializerMethodField()
   
-  def get_userName(self,obj):
-    return obj.user.username
+  # def get_userName(self,obj):
+  #   return obj.user.username
 
   class Meta:
     model = Review
-    fields = ('id', 'user', 'userName', 'title', 'content', 'movie', 'rank', 'created_at', 'updated_at', 'movie_title')
+    fields = ('id', 'user', 'title', 'content', 'movie', 'rank', 'created_at', 'updated_at')
     read_only_fields = ('user',)
 
 

@@ -5,6 +5,7 @@ import HomeView from '@/views/home/HomeView'
 import MovieView from '@/views/movie/MovieView'
 import MovieDetailView from '@/views/movie/MovieDetailView'
 import MovieSearchView from '@/views/movie/MovieSearchView'
+import ReviewForm from '@/components/ReviewForm'
 
 import CommunityView from '@/views/community/CommunityView'
 import CommunityDetail from '@/components/community/CommunityDetail'
@@ -74,6 +75,12 @@ const routes = [
     name: 'MovieDetail',
     component: MovieDetailView
   },
+  {
+    path: '/:movie_id/review/create',
+    name: 'ReviewForm',
+    component: ReviewForm
+  },
+
 ]
 
 const router = new VueRouter({
