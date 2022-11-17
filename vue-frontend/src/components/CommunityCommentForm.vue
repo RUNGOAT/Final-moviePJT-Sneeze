@@ -10,6 +10,8 @@
 
 <script>
 import axios from 'axios'
+const API_URL = 'http://127.0.0.1:8000'
+
 export default {
   name: 'CommunityCommentForm',
   data() {
@@ -21,7 +23,7 @@ export default {
     createComment() {
       axios({
         method: 'get',
-        // url: 
+        url: `${API_URL}/community/comments/${this.communityId}`
       })
     }
   }

@@ -31,13 +31,12 @@ export default {
   data() {
     return {
       community: null,
-      communityId: this.$route.params.communityId,
+      communityId: this.$route.params.community_pk,
       comments: null,
     }
   },
   methods: {
     getCommunity() {
-      console.log(this.communityId)
       axios({
         method: 'get',
         url: `${API_URL}/community/detail/${this.communityId}`,
