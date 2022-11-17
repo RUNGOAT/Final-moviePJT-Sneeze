@@ -27,6 +27,7 @@ export default new Vuex.Store({
     token: null,
     username: null,
     communities: [],
+    profile: []
   },
   getters: {
     isLogin(state) {
@@ -62,7 +63,11 @@ export default new Vuex.Store({
     },
     LOGOUT(state) {
       state.token = ! state.token
+      state.username = ''
       router.push({ name: 'Home' })
+    },
+    GET_PROFILE(state, profile) {
+      state.profile = profile
     }
   },
   actions: {
@@ -156,15 +161,21 @@ export default new Vuex.Store({
         method: 'post',
         url: `${API_URL}/accounts/signup/`,
         data: {
-          username: payload.username,
-          password1: payload.password1,
-          password2: payload.password2,
+            username: payload.username,
+            password1: payload.password1,
+            password2: payload.password2,
         }
       })
         .then((res) => {
-          // console.log(res)
-          context.commit('SAVE_TOKEN', res.data.key)
+          const userInfo = {
+            username: payload.username,
+            token: res.data.key
+          }
+          console.log(userInfo)
+          console.log(res.data.key)
+          context.commit('SAVE_TOKEN', userInfo)
         })
+        .cath(err => console.log(err))
     },
     logIn(context, payload) {
       axios({
@@ -176,14 +187,32 @@ export default new Vuex.Store({
         }
       })
         .then((res) => {
-          // console.log(res)
           const userInfo = {
             username: payload.username,
             token: res.data.key
           }
           console.log(userInfo)
+          console.log(res)
           context.commit('SAVE_TOKEN', userInfo)
+
+          axios({
+            method: 'get',
+            url: `${API_URL}/userinfo/${payload.username}/`,
+            headers: {
+              Authorization: `Token ${res.data.key}`
+            }
+          })
+            .then((res) => {
+              // const profile = {
+              //   nickname: 
+              // }
+              console.log(res)
+              context.commit('GET_PROFILE')
+            })
         })
+        .cath(err => console.log(err))
+
+      
     },
     getCommunityList(context) {
       console.log(this.state.token)
@@ -199,6 +228,20 @@ export default new Vuex.Store({
           context.commit('GET_COMMUNITY_LIST', res.data)
         })
     },
+    // getProfile(context) {
+    //   axios({
+    //     method: 'get',
+    //     url: `${API_URL}/accounts/user/`,
+    //     headers: {
+    //       Authorization: `Token ${context.state.token}`
+    //     },
+    //   })
+    //     .then((res) => {
+    //       console.log(res)
+    //       context.commit('GET_PROFILE', res.data)
+    //     })
+    //     .catch(err => console.log(err))
+    // }
   },
   modules: {
   }
