@@ -23,18 +23,7 @@ export default {
     }
   },
   methods: {
-    getToken: function () {
-      const token = localStorage.getItem('jwt')
-
-      const config = {
-        headers: {
-          Authorization: `JWT ${token}`
-        },
-      }
-      return config
-    },
     createCommunity() {
-      // const config = this.getToken()
 
       const title = this.title
       const content = this.content
@@ -45,6 +34,7 @@ export default {
         alert('내용을 입력해주세요!')
         return
       }
+      console.log(this.$store.state.token)
       axios({
         method: 'post',
         url: `${API_URL}/community/community_list_create/`,
@@ -52,9 +42,9 @@ export default {
           title,
           content,
         },
-        // headers: {
-        //   Authorization: `Token ${this.$store.state.token}`
-        // }
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`
+        }
       })
         .then((res) => {
           console.log(res)
