@@ -11,9 +11,11 @@
         <router-link :to="{ name: 'Movie' }">Movie</router-link>
         <router-link :to="{ name: 'Community' }">Community</router-link>
         <router-link :to="{ name: 'Profile', params: { username: username }  }">Profile</router-link>
-        <router-link :to="{ name: 'Signup' }">Signup</router-link>
-        <router-link :to="{ name: 'Login' }">Login</router-link>
-        <button @click="logOut">Logout</button>
+        <!-- <router-link :to="{ name: 'Signup' }">Signup</router-link>
+        <router-link :to="{ name: 'Login' }">Login</router-link> -->
+        <button @click="logOut" v-show="isLogin">Logout</button>
+        <button @click="logIn" v-show="!isLogin">Login</button>
+        <button @click="signUp" v-show="!isLogin">Signup</button>
         <router-link :to="{ name: 'MovieDetail', params: { movie_id: '505642'} }">Detail</router-link>
 
         <form class="d-flex" role="search">
@@ -33,12 +35,21 @@ export default {
     username(){
       return this.$store.state.username
     },
+    isLogin(){
+      return this.$store.getters.isLogin
+    },
   },
   methods: {
     logOut() {
       this.$store.commit('LOGOUT')
     },
-  }
+    logIn() {
+      this.$router.push({ name: 'Login'})
+    },
+    signUp() {
+      this.$router.push({ name: 'Signup'})
+    },
+  },
 }
 </script>
 

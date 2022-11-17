@@ -8,14 +8,13 @@
         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
       </div>
       <div class="carousel-inner">
-        <div class="carousel-item active">
-          <CarouselItem
-            v-for="movie in movies"
-            :key="movie.id"
-            :movie="movie"
-          />
-        </div>
+        <CarouselItem
+          v-for="movie in movies"
+          :key="movie.id"
+          :movie="movie"
+        />
       </div>
+    </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
@@ -24,7 +23,15 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
       </button>
-    </div>
+    
+        <!-- <div class="carousel-item active">
+          <div :class=" movie.id === 1? 'carousel-item active' : 'carousel-item' " data-bs-interval="2000" :v-for="movie in movies">
+            <img class="d-block w-100" :src="backdrop_path + movie.backdrop_path" :alt="movie.title">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>{{ movie.title }}</h5>
+              <p>{{ movie.overview }}</p>
+            </div>
+          </div> -->
     
   </div>
 </template>
