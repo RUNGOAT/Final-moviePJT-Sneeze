@@ -7,10 +7,11 @@ class CommunityListSerializer(serializers.ModelSerializer):
   
   def get_userName(self,obj):
     return obj.user.username
+  # username = serializers.CharField(source='user.username', read_only=True)
 
   class Meta:
     model = Community
-    fields = ('id', 'userName', 'user', 'title', 'content', 'created_at', 'updated_at',)
+    fields = ('id', 'title', 'content', 'created_at', 'updated_at', 'user', 'userName',)
     read_only_fields = ('user',)
 
 

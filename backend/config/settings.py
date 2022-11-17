@@ -36,11 +36,6 @@ INSTALLED_APPS = [
     'community',
 
     'rest_framework',
-<<<<<<< HEAD
-    
-=======
-
->>>>>>> 1117accounts
     # CORS policy
     "corsheaders",
 
@@ -55,12 +50,10 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'dj_rest_auth.registration',
 
-<<<<<<< HEAD
-=======
+
     # OpenAPI 3.0
     'drf_spectacular',
 
->>>>>>> 1117accounts
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -69,6 +62,22 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
 ]
+
+REST_FRAMEWORK = {
+    # Authentication
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+
+    # permission
+    'DEFAULT_PERMISSION_CLASSES': [
+        # 'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',
+    ],
+
+    # spectacular Settings
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
