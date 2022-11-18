@@ -2,7 +2,7 @@
   <div>
     <h2>추천</h2>
 
-    <swiper
+    <!-- <swiper
       class="swiper"
       v-bind="swiperOptions"
       @swiper="setSwiperRef"
@@ -15,14 +15,14 @@
         <img :src="poster_path + movie.poster_path" :alt="movie.title">
       </swiper-slide>
       
-      <!-- <div
+      
         class="swiper-pagination"
         slot="pagination"
       >
-      </div>
+      </>
       <div class="swiper-button-prev" slot="button-prev"></div>
       <div class="swiper-button-next" slot="button-next"></div> -->
-    </swiper>
+    <!-- </swiper> -->
 
     
       
@@ -31,19 +31,20 @@
 
 <script>
   // import RecommendationItem from '@/components/RecommendationItem'
-  import { swiper, SwiperSlide } from "vue-awesome-swiper"
-  import SwiperCore, { Pagination, Navigation } from 'swiper'
-  import "swiper/css/swiper.min.css"
-  import 'swiper/components/pagination/pagination.scss'
-  import 'swiper/components/navigation/navigation.min.css'
+  // import { swiper, SwiperSlide } from "vue-awesome-swiper"
+  
+  // import SwiperCore, { Pagination, Navigation } from 'swiper'
+  // import "swiper/css/swiper.min.css"
+  // import 'swiper/components/pagination/pagination.scss'
+  // import 'swiper/components/navigation/navigation.min.css'
 
   
 
   export default {
     name: "RecommendationView",
     components:	{
-        swiper,
-        SwiperSlide,
+        // swiper,
+        // SwiperSlide,
         // RecommendationItem,
     },
     props: {
@@ -52,34 +53,34 @@
     data() {
       return {
         poster_path: `https://image.tmdb.org/t/p/original/`,
-        swiperOptions: { 
-          navigation: true,
-          pagination: true,
-          slidesPerView: 6, 
-          slidesPerGroup: 6,
-          spaceBetween: 10, 
-          breakpoints: {
-            375: {
-              slidesPerView: 1,
-            },
-            425: {
-              slidesPerView: 2,
-              slidesPerGroup: 2,
-            },
-            768: {
-              slidesPerView: 3,
-              slidesPerGroup: 3,
-            },
-            1024: {
-              slidesPerView: 4,
-              slidesPerGroup: 4,
-            },
-            1400: {
-              slidesPerView: 5,
-              slidesPerGroup: 5,
-            },
-          },
-        },
+        // swiperOptions: { 
+        //   navigation: true,
+        //   pagination: true,
+        //   slidesPerView: 6, 
+        //   slidesPerGroup: 6,
+        //   spaceBetween: 10, 
+        //   breakpoints: {
+        //     375: {
+        //       slidesPerView: 1,
+        //     },
+        //     425: {
+        //       slidesPerView: 2,
+        //       slidesPerGroup: 2,
+        //     },
+        //     768: {
+        //       slidesPerView: 3,
+        //       slidesPerGroup: 3,
+        //     },
+        //     1024: {
+        //       slidesPerView: 4,
+        //       slidesPerGroup: 4,
+        //     },
+        //     1400: {
+        //       slidesPerView: 5,
+        //       slidesPerGroup: 5,
+        //     },
+        //   },
+        // },
       }
     },
     methods: {
