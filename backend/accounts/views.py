@@ -4,7 +4,7 @@ from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import get_user_model
-from .serializers import CustomRegisterSerializer
+from .serializers import UserSerializer
 
 
 
@@ -41,7 +41,7 @@ def signup(request):
 def my_profile(request):
 
     user = get_object_or_404(get_user_model(), pk=request.data.get('user_id'))
-    serializer = CustomRegisterSerializer(user)
+    serializer = UserSerializer(user)
 
     return Response(serializer.data)
 
@@ -53,7 +53,7 @@ def my_profile(request):
 def profile(request, username):
     print(request.data)
     user = get_object_or_404(get_user_model(), pk=request.data.get('user_pk'))
-    serializer = CustomRegisterSerializer(user)
+    serializer = UserSerializer(user)
     return Response(serializer.data)
 
 
