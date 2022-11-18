@@ -9,9 +9,9 @@ urlpatterns = [
     path('review_detail/<int:review_pk>/', views.review_detail),
     path('review/<int:review_pk>/', views.review_update_delete),
 
-    path('review_comments/<int:review_pk>', views.review_comment_list),
+    path('review_comments/<int:review_pk>/', views.review_comment_list),
     path('<int:review_pk>/review_comment/', views.create_review_comment),
-    path('review_comment/<int:review_pk>/<int:review_comment_pk>/', views.review_comment_delete),
+    path('review_comment/<int:review_pk>/<int:review_comment_pk>/', views.review_comment_delete_update),
 
     path('recommend/', views.recommend),
     path('<int:my_pk>/<movie_title>/like/', views.movie_like),

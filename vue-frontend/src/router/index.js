@@ -7,6 +7,7 @@ import MovieDetailView from '@/views/movie/MovieDetailView'
 import MovieSearchView from '@/views/movie/MovieSearchView'
 import ReviewForm from '@/components/review/ReviewForm'
 import ReviewDetail from '@/components/review/ReviewDetail'
+import ReviewUpdate from '@/components/review/ReviewUpdate'
 
 import CommunityView from '@/views/community/CommunityView'
 import CommunityDetail from '@/components/community/CommunityDetail'
@@ -85,6 +86,11 @@ const routes = [
     path: '/:movie_id/review/:review_pk',
     name: 'ReviewDetail',
     component: ReviewDetail
+  },
+  {
+    path: '/:movie_id/review/:review_pk/update',
+    name: 'ReviewUpdate',
+    component: ReviewUpdate
   },
 
 ]

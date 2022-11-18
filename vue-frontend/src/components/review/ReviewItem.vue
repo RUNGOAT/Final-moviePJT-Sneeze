@@ -1,5 +1,6 @@
 <template>
   <div
+    class="py-3 text-light"
     @click="reviewDetail"
     style="cursor: grab"
   >
@@ -11,17 +12,17 @@
 <script>
 export default {
   name: 'ReviewItem',
-  data() {
-    return {
-      data: 11
-    }
-  },
   props: {
     review: Object,
+    movie: Object,
   },
   methods: {
     reviewDetail() {
-      this.$router.push({ name: 'ReviewDetail', params: { review_pk: this.review.id }})
+      this.$router.push({ name: 'ReviewDetail', params: { 
+        review_pk: this.review.id,
+        movie_id: this.movie.movie_id,
+        movie_pk: this.movie.id
+      }})
     },
   }
 }

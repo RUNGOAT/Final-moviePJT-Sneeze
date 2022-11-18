@@ -11,6 +11,7 @@
         <label for="content">댓글: </label>
         <input type="text" id="content" v-model.trim="updateContent">
         <button>작성</button>
+        <button @click="cancelUpdate">취소</button>
       </form>
     </div>
     <hr>
@@ -48,6 +49,10 @@ export default {
         })
     },
     updateForm() {
+      this.update = !this.update
+    },
+    cancelUpdate() {
+      this.updateContent = ''
       this.update = !this.update
     },
     updateComment() {

@@ -9,7 +9,7 @@ from random import sample
 
 
 from .models import Movie, Review, ReviewComment, Genre
-from .serializers import MovieSerializer, ReviewListSerializer, ReviewCommentSerializer, ReviewSerializer
+from .serializers import MovieSerializer, ReviewListSerializer, ReviewCommentSerializer
 
 
 @api_view(['GET'])
@@ -62,8 +62,8 @@ def review_list_create(request, movie_pk):
 
 
 @api_view(['GET'])
-@authentication_classes([JSONWebTokenAuthentication])
-@permission_classes([IsAuthenticated])
+# @authentication_classes([JSONWebTokenAuthentication])
+# @permission_classes([IsAuthenticated])
 def review_comment_list(request, review_pk):
   review = get_object_or_404(Review, pk=review_pk)
   comments = review.reviewcomment_set.all()
@@ -72,8 +72,8 @@ def review_comment_list(request, review_pk):
 
 
 @api_view(['POST'])
-@authentication_classes([JSONWebTokenAuthentication])
-@permission_classes([IsAuthenticated])
+# @authentication_classes([JSONWebTokenAuthentication])
+# @permission_classes([IsAuthenticated])
 def create_review_comment(request, review_pk):
   review = get_object_or_404(Review, pk=review_pk)
   serializer = ReviewCommentSerializer(data=request.data)
@@ -85,14 +85,14 @@ def create_review_comment(request, review_pk):
 @api_view(['GET'])
 def review_detail(request, review_pk):
     review = get_object_or_404(Review, id=review_pk)
-    serializer = ReviewSerializer(review)
+    serializer = ReviewListSerializer(review)
     return Response(serializer.data)
 
 
 
 @api_view(['PUT', 'DELETE'])
-@authentication_classes([JSONWebTokenAuthentication])
-@permission_classes([IsAuthenticated])
+# @authentication_classes([JSONWebTokenAuthentication])
+# @permission_classes([IsAuthenticated])
 def review_update_delete(request, review_pk):
   review = get_object_or_404(Review, pk=review_pk)
   if not request.user.reviews.filter(pk=review_pk).exists():
@@ -100,12 +100,11 @@ def review_update_delete(request, review_pk):
 
   if request.method == 'PUT':
     serializer = ReviewListSerializer(review, data=request.data)
-    
     if serializer.is_valid(raise_exception=True):
       movie = get_object_or_404(Movie, pk=request.data.get('movie'))
       pre_point = movie.vote_average * (movie.vote_count - 1)
       pre_count = movie.vote_count - 1
-      point = pre_point+request.data.get('rank')
+      point = pre_point+ float(request.data.get('rank'))
       count = movie.vote_count
       new_vote_average = round(point/count, 2)
       movie.vote_average = new_vote_average
@@ -129,15 +128,21 @@ def review_update_delete(request, review_pk):
     return Response({ 'id': review_pk })
 
 
-@api_view(['DELETE'])
-@authentication_classes([JSONWebTokenAuthentication])
+@api_view(['PUT', 'DELETE'])
+# @authentication_classes([JSONWebTokenAuthentication])
 @permission_classes([IsAuthenticated])
-def review_comment_delete(request, review_pk, review_comment_pk):
+def review_comment_delete_update(request, review_pk, review_comment_pk):
   review = get_object_or_404(Review, pk=review_pk)
   comment = review.reviewcomment_set.get(pk=review_comment_pk)
+  
   if not request.user.review_comments.filter(pk=review_comment_pk).exists():
     return Response({'message': '권한이 없습니다.'})
 
+  if request.method == 'PUT':
+    serializer = ReviewCommentSerializer(comment, data=request.data)
+    if serializer.is_valid(raise_exception=True):
+            serializer.save(user=request.user)
+            return Response(serializer.data)
   else:
     comment.delete()
     return Response({ 'id': review_comment_pk })

@@ -7,6 +7,7 @@
       v-for="review in this.reviews"
       :key="review.created_at"
       :review="review"
+      :movie="movie"
     />
   </div>
 </template>

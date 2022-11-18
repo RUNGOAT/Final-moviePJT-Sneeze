@@ -28,22 +28,14 @@ class ReviewListSerializer(serializers.ModelSerializer):
     read_only_fields = ('user',)
 
 
-class ReviewSerializer(serializers.ModelSerializer):
-
-  class Meta:
-    
-    model = Review
-    fields = '__all__'
-    read_only_fields = ('user',)
-
-
 class ReviewCommentSerializer(serializers.ModelSerializer):
   userName = serializers.SerializerMethodField()
   
   def get_userName(self,obj):
     return obj.user.username
 
+  
   class Meta:
     model = ReviewComment
-    fields = ('id', 'userName', 'user', 'content', 'review', 'rank', 'created_at', 'updated_at',)
+    fields = '__all__'
     read_only_fields = ('user', 'review',)
