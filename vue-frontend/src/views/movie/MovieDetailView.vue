@@ -1,51 +1,58 @@
 <template>
-  <div v-if="movie">
-    <div :style="{ 'background-image': `url(${this.imageUrl + movie.backdrop_path})` }" style="background-size: cover">
-      <h2>Movie Detail</h2>
+    <div 
+      v-if="movie" 
+      :style="{ 'background-image': `url(${this.imageUrl + movie.backdrop_path})` }" 
+      class="back-image text-light"
+    >
 
-      <div class="movie-detail-upper">
-        <div class="movie-detail-info-header">
-          <div class="movie-detail-info-header-left">
-            <div class="movie-detail-title">
-              {{ movie?.title }}
+      <div class="ms-4">
+        <div class="row justify-content-start">
+          <div class="movie-detail-upper col-5">
+            <div class="movie-detail-info-header">
+              <div class="movie-detail-info-header-left mt-3">
+                <div class="movie-detail-title">
+                  {{ movie?.title }}
+                </div>
+                <div v-if="movie?.release_date" class="movie-release-date">
+                  개봉 : {{ movie.release_date }}
+                </div>
+                <div v-if="movie?.genre_ids">
+                  <!-- {{ movie.genre_ids }} -->
+                </div>
+              </div>
+
+              <div class="movie-detail-info-header-right">
+                <div class="movie-vote">
+                  {{ movie?.vote_average }}
+                </div>
+                <img id="movie-star" src="@/assets/star.png">
+              </div>
             </div>
-            <div v-if="movie?.release_date" class="movie-release-date">
-              개봉 : {{ movie.release_date }}
+            <!-- info overview -->
+            <div class="movie-detail-overview-header">
+              줄거리
             </div>
-            <div v-if="movie?.genre_ids">
-              <!-- {{ movie.genre_ids }} -->
+            <hr>
+            <div v-if="movie?.overview" class="movie-detail-overview-body">
+              {{ movie?.overview }}
             </div>
+            <div v-else class="movie-detail-overview-body">
+              해당 영화는 줄거리가 제공되지 않습니다.
+            </div>
+            <button @click="searchYoutube">Youtube Video</button>
           </div>
-          <div class="movie-detail-info-header-right">
-            <div class="movie-vote">
-              {{ movie?.vote_average }}
-            </div>
-            <img id="movie-star" src="@/assets/star.png">
-          </div>
         </div>
-        <!-- info overview -->
-        <div class="movie-detail-overview-header">
-          줄거리
-        </div>
-        <hr>
-        <div v-if="movie?.overview" class="movie-detail-overview-body">
-          {{ movie?.overview }}
-        </div>
-        <div v-else class="movie-detail-overview-body">
-          해당 영화는 줄거리가 제공되지 않습니다.
+
+
+        <br><br><br>
+        <div v-if="movie">
+          <ReviewList 
+            :movieId="movieId"
+            :movie="movie"
+          />
         </div>
       </div>
-      <button @click="searchYoutube">Youtube Video</button>
-      <br><br><br>
-      <div v-if="movie">
-        <ReviewList 
-          :movieId="movieId"
-          :movie="movie"
-        />
-      </div>
-      
     </div>
-  </div>
 </template>
 
 <script>
@@ -110,6 +117,12 @@ export default {
 </script>
 
 <style>
+
+.back-image {
+  height: 100vh;
+  background-size: cover;
+}
+
 .movie-detail-info-header {
   display: flex;
   flex-flow: row nowrap;

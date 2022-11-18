@@ -2,7 +2,7 @@
   <div>
     <H2>Movie Review</H2>
     <button @click="reviewForm">리뷰 작성</button>
-    <ReviewCommentForm/>
+    <!-- <ReviewCommentForm/> -->
     <ReviewItem
       v-for="review in this.reviews"
       :key="review.created_at"
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import ReviewCommentForm from '@/components/review/ReviewCommentForm'
+// import ReviewCommentForm from '@/components/review/ReviewCommentForm'
 import ReviewItem from '@/components/review/ReviewItem.vue'
 import axios from 'axios'
 
@@ -31,7 +31,7 @@ export default {
     movie: Object,
   },
   components: {
-    ReviewCommentForm,
+    // ReviewCommentForm,
     ReviewItem,
   },
   created() {
