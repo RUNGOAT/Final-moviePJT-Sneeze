@@ -18,6 +18,8 @@ def community_list_create(request):
   if request.method == 'GET':
     communities = Community.objects.all()
     serializer = CommunityListSerializer(communities, many=True)
+    print('======================')
+    print(get_user_model().username)
     return Response(serializer.data)
   else:
     serializer = CommunityListSerializer(data=request.data)

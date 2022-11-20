@@ -10,6 +10,7 @@ from random import sample
 
 from .models import Movie, Review, ReviewComment, Genre
 from .serializers import MovieSerializer, ReviewListSerializer, ReviewCommentSerializer
+from accounts.serializers import UserSerializer
 
 
 @api_view(['GET'])
@@ -149,8 +150,8 @@ def review_comment_delete_update(request, review_pk, review_comment_pk):
 
 
 @api_view(['POST'])
-@authentication_classes([JSONWebTokenAuthentication])
-@permission_classes([IsAuthenticated])
+# @authentication_classes([JSONWebTokenAuthentication])
+# @permission_classes([IsAuthenticated])
 def recommend(request):
   favorite_movies = Movie.objects.all().order_by('-vote_average')[:30]
   serializer1 = MovieSerializer(favorite_movies, many=True)
@@ -169,25 +170,31 @@ def recommend(request):
   if users_movies:
     serializer = MovieSerializer(users_movies[0])
     genre = serializer.data.get('genres')[0]
-    genre_name = Genre.objects.get(id=genre)
+    # genre_name = Genre.objects.get(id=genre)
     idx = 1
-    while len(users_movies) < 30:
+    
+    while len(users_movies) < 20:
+      if idx == 118:
+        idx += 1
+        continue
       movie = Movie.objects.get(pk=idx)
       ser = MovieSerializer(movie)
-      if ser.data.get('genres')[0] == genre and movie not in users_movies:
-        users_movies.append(movie)
+      if ser.data.get('genres', False):
+        if ser.data.get('genres')[0] == genre and movie not in users_movies:
+          users_movies.append(movie)
       idx += 1
-      if idx == 979:
-        users_movies = Movie.objects.all().order_by('release_date')[:30]
-  
+      if idx == 960:
+        users_movies = Movie.objects.all().order_by('release_date')[:20]
   else:
-    users_movies = Movie.objects.all().order_by('release_date')[:30]
+    users_movies = Movie.objects.all().order_by('release_date')[:20]
 
   like_movies = request.data.get('like_movies')
+  
   for like_movie in like_movies:
     movie = get_object_or_404(Movie, pk=like_movie)
     if not movie in users_movies2:
       users_movies2.append(movie)
+
 
   serializer3 = MovieSerializer(users_movies, many=True)
   serializer4 = MovieSerializer(users_movies2, many=True) 
@@ -196,10 +203,10 @@ def recommend(request):
 
 
 @api_view(['POST'])
-@authentication_classes([JSONWebTokenAuthentication])
-@permission_classes([IsAuthenticated])
-def movie_like(request, my_pk, movie_title):
-  movie = get_object_or_404(Movie, title=movie_title)
+# @authentication_classes([JSONWebTokenAuthentication])
+# @permission_classes([IsAuthenticated])
+def movie_like(request, my_pk, movie_id):
+  movie = get_object_or_404(Movie, movie_id=movie_id)
   me = get_object_or_404(get_user_model(), pk=my_pk)
   if me.like_movies.filter(pk=movie.pk).exists():
       me.like_movies.remove(movie.pk)
@@ -213,8 +220,19 @@ def movie_like(request, my_pk, movie_title):
 
 
 @api_view(['POST'])
-@authentication_classes([JSONWebTokenAuthentication])
-@permission_classes([IsAuthenticated])
+def is_liked(request, my_pk, movie_id):
+  movie = get_object_or_404(Movie, movie_id=movie_id)
+  me = get_object_or_404(get_user_model(), pk=my_pk)
+  if me.like_movies.filter(pk=movie.pk).exists():
+      liking = True
+  else:
+      liking = False
+  return Response(liking)
+
+
+@api_view(['POST'])
+# @authentication_classes([JSONWebTokenAuthentication])
+# @permission_classes([IsAuthenticated])
 def my_movie_like(request, my_pk):
   me = get_object_or_404(get_user_model(), pk=my_pk)
   data = []
@@ -228,15 +246,14 @@ def my_movie_like(request, my_pk):
 
 
 @api_view(['POST'])
-@authentication_classes([JSONWebTokenAuthentication])
-@permission_classes([IsAuthenticated])
+# @authentication_classes([JSONWebTokenAuthentication])
+# @permission_classes([IsAuthenticated])
 def like_movie_users(request, my_pk):
-  # print(request.data)
   users = []
-  movies = request.data.get('movies')
-  # print(movies)
+  user = get_object_or_404(get_user_model(), pk=my_pk)
+  movies = user.like_movies.all()
   for movie in movies:
-    movie = get_object_or_404(Movie, pk=movie)
+    movie = get_object_or_404(Movie, pk=movie.pk)
     serializer = MovieSerializer(movie)
     # print(serializer.data)
     for user in serializer.data.get('like_users'):
@@ -244,6 +261,25 @@ def like_movie_users(request, my_pk):
         users.append(user)
 
   return Response(users)
+
+
+@api_view(['POST'])
+def users_info(request):
+  users = request.data.get('users')
+  movies = []
+  for user in users:
+      user = get_object_or_404(get_user_model(), pk=user)
+      serializer = UserSerializer(user)
+      # print(serializer.data)
+      like_movies = serializer.data.get('like_movies')
+      for movie in like_movies:
+          if movie not in movies:
+              movies.append(movie)
+  
+  return Response(movies)
+
+
+
 
 @api_view(['GET'])
 def recommended(request):

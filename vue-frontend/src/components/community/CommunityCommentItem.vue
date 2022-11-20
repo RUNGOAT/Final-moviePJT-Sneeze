@@ -1,10 +1,12 @@
 <template>
   <div>
     <div v-if="update">
-      {{ comment.user }}
+      {{ comment.userName }}
       {{ comment.content }}
-      <button @click="updateForm">UPDATE</button>
-      <button @click="deleteComment">DELETE</button>
+      <div v-if="this.me.username === comment.userName">
+        <button @click="updateForm">UPDATE</button>
+        <button @click="deleteComment">DELETE</button>
+      </div>
     </div>
     <div v-else>
       <form @submit.prevent="updateComment">
@@ -29,13 +31,29 @@ export default {
     return {
       update: true,
       updateContent: null,
+      me: [],
     }
   },
   props: {
     comment: Object,
     communityId: String,
   },
+  created() {
+    this.getMe()
+  },
   methods: {
+    getMe() {
+      axios({
+        method: 'get',
+        url: `${API_URL}/accounts/user/`,
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`
+        },
+      })
+        .then(res => {
+          this.me = res.data
+        })
+    },
     deleteComment() {
       axios({
         method: 'delete',

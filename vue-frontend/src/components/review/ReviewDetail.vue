@@ -1,8 +1,10 @@
 <template>
   <div>
     {{ review }}
-    <button @click="updateReview">UPDATE</button>
-    <button @click="deleteReview">DELETE</button>
+    <div v-if="this.me.username === review.userName">
+      <button @click="updateReview">UPDATE</button>
+      <button @click="deleteReview">DELETE</button>
+    </div>
     <hr>
     <div v-if="review">
       <ReviewCommentForm
@@ -40,7 +42,8 @@ export default {
       reviewId: this.$route.params.review_pk,
       comments: null,
       movieId: this.$route.params.movie_id,
-      moviePk: this.$route.params.movie_pk
+      moviePk: this.$route.params.movie_pk,
+      me: [],
     }
   },
   components: {
@@ -48,10 +51,23 @@ export default {
     ReviewCommentForm,
   },
   created() {
+    this.getMe()
     this.getReview()
     this.getReviewComments()
   },
   methods: {
+    getMe() {
+      axios({
+        method: 'get',
+        url: `${API_URL}/accounts/user/`,
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`
+        },
+      })
+        .then(res => {
+          this.me = res.data
+        })
+    },
     getReview() {
       axios({
         method: 'get',

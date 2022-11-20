@@ -1,14 +1,17 @@
 <template>
   <div>
-    {{ community?.user }}
-    {{ community?.related_name }}
-    {{ community?.title }}
-    {{ community?.content }}
-    {{ community?.created_at }}
-    {{ community?.updated_at }}
+    <p>{{ community?.userName }}</p>
+    <p>{{ community?.related_name }}</p>
+    <p>{{ community?.title }}</p>
+    <p>{{ community?.content }}</p>
+    <p>{{ community?.created_at }}</p>
+    <p>{{ community?.updated_at }}</p>
     <br>
-    <button @click="updateCommunity">UPDATE</button>
-    <button @click="deleteCommunity">DELETE</button>
+    <div v-if="this.me.username === community?.userName">
+      <button @click="updateCommunity">UPDATE</button>
+      <button @click="deleteCommunity">DELETE</button>
+    </div>
+    <router-link :to="{name : 'Community'}">[BACK]</router-link>
     <hr>
     <CommunityCommentForm
       @comment_add="commentAdd"
@@ -45,9 +48,27 @@ export default {
       community: null,
       communityId: this.$route.params.community_pk.toString(),
       comments: null,
+      me: [],
     }
   },
+  created() {
+    this.getMe()
+    this.getCommunity()
+    this.getCommunityComment()
+  },
   methods: {
+    getMe() {
+      axios({
+        method: 'get',
+        url: `${API_URL}/accounts/user/`,
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`
+        },
+      })
+        .then(res => {
+          this.me = res.data
+        })
+    },
     getCommunity() {
       axios({
         method: 'get',
@@ -57,7 +78,7 @@ export default {
         // }
       })
         .then(res => {
-          console.log(res)
+          console.log(res.data)
           this.community = res.data
         })
         .catch(err => console.log(err))
@@ -68,7 +89,7 @@ export default {
         url: `${API_URL}/community/comments/${this.communityId}`
       })
         .then(res => {
-          console.log(res)
+          // console.log(res)
           this.comments = res.data
         })
     },
@@ -97,10 +118,6 @@ export default {
       this.getCommunityComment()
     }
   },
-  created() {
-    this.getCommunity()
-    this.getCommunityComment()
-  }
 }
 </script>
 
