@@ -28,7 +28,7 @@ export default new Vuex.Store({
     username: null,
     communities: [],
     reviews: [],
-    profile: []
+    profile: [],
   },
   getters: {
     isLogin(state) {
@@ -229,6 +229,7 @@ export default new Vuex.Store({
           context.commit('GET_COMMUNITY_LIST', res.data)
         })
     },
+
     // getProfile(context) {
     //   axios({
     //     method: 'get',

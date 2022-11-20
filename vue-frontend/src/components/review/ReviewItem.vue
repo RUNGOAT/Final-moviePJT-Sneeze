@@ -2,9 +2,9 @@
   <div
     class="py-3 text-light"
     @click="reviewDetail"
-    style="cursor: grab"
+    style="cursor: pointer"
   >
-    {{ review.title }}
+    {{ review.userName }} : 
     {{ review }}
   </div>
 </template>

@@ -3,9 +3,9 @@
     class="col-mb-6 movie-item"
     @click="goDetail"
   >
-      <img 
-        :src="poster_path + movie.poster_path" alt="포스터가 없습니다."
-      >
+    <img 
+      :src="poster_path + movie.poster_path" alt="포스터가 없습니다."
+    >
   </div>
 </template>
 

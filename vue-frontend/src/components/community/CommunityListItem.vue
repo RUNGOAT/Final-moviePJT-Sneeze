@@ -1,5 +1,6 @@
 <template>
   <div>
+    {{ community?.userName }}
     {{ community.title }}
     {{ community.content }}
     <router-link :to="{ name: 'CommunityDetail', params: { community_pk: community.id } }">

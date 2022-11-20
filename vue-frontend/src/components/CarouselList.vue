@@ -45,7 +45,7 @@ export default {
   },
   computed: {
     movies() {
-      return this.$store.state.movies
+      return this.$store.state.movies.slice(0, 3)
     }
   }
 }

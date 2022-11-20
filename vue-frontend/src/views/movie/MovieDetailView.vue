@@ -10,8 +10,13 @@
           <div class="movie-detail-upper col-5">
             <div class="movie-detail-info-header">
               <div class="movie-detail-info-header-left mt-3">
-                <div class="movie-detail-title">
-                  {{ movie?.title }}
+                <div class="movie-detail-title d-flex align-items-center">
+                  <p>{{ movie?.title }}</p>
+                  <div class="d-flex align-items-baseline ms-2 heart-box p-2" @click="like">
+                    <i v-if="isLiked" class="bi bi-heart-fill heart"></i>
+                    <i v-else class="bi bi-heart heart"></i>
+                    <p class="ps-2">{{ this.likeNumber }}개</p>
+                  </div>
                 </div>
                 <div v-if="movie?.release_date" class="movie-release-date">
                   개봉 : {{ movie.release_date }}
@@ -28,6 +33,7 @@
                 <img id="movie-star" src="@/assets/star.png">
               </div>
             </div>
+            
             <!-- info overview -->
             <div class="movie-detail-overview-header">
               줄거리
@@ -42,7 +48,6 @@
             <button @click="searchYoutube">Youtube Video</button>
           </div>
         </div>
-
 
         <br><br><br>
         <div v-if="movie">
@@ -59,6 +64,7 @@
 import ReviewList from '@/views/movie/ReviewList'
 import axios from 'axios'
 
+
 const API_URL = 'http://127.0.0.1:8000'
 
 export default {
@@ -72,6 +78,9 @@ export default {
       // movies: this.$store.state.movies,
       movieId: this.$route.params.movie_id.toString(),
       movie: null,
+      isLiked: false,
+      me: null,
+      likeNumber: '',
     }
   },
   computed: {
@@ -81,6 +90,13 @@ export default {
     youtubeVideos() {
       return this.$store.state.youtubeVideos
     }    
+  },
+  created() {
+    this.getCosMovie()
+    this.getMovie()
+    this.getSimilarMovie()
+    this.getMe()
+    // this.islike()
   },
   methods: {
     getCosMovie() {
@@ -100,19 +116,66 @@ export default {
         .then(res => {
           // console.log(res.data)
           this.movie = res.data
-          // console.log(this.movie)
+          this.likeNumber = this.movie.like_users.length
         })
     },
     searchYoutube() {
-      console.log(this.movie.title)
       this.$store.dispatch('searchYoutube', this.movieId)
+    },
+    getMe() {
+      axios({
+        method: 'get',
+        url: `${API_URL}/accounts/user/`,
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`
+        },
+      })
+        .then(res => {
+          this.me = res.data
+          this.islike()
+        })
+    },
+    like() {
+      axios({
+        method: 'post',
+        url: `${API_URL}/movies/${this.me.pk}/${this.movieId}/like/`,
+        data: {
+          myId: this.me.id,
+          movieId: this.movie.id,
+        },
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`
+        },
+      })
+        .then(res => {
+          // console.log(res)
+          this.isLiked = res.data
+          if (this.isLiked === false) {
+            this.likeNumber -= 1
+          } else {
+            this.likeNumber += 1
+          }
+        })
+    },
+    islike() {
+      axios({
+        method: 'post',
+        url: `${API_URL}/movies/${this.me.pk}/${this.movieId}/is_liked/`,
+        data: {
+          myId: this.me.id,
+          movieId: this.movieId,
+        },
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`
+        },
+      })
+        .then(res => {
+          // console.log(res)
+          this.isLiked = res.data
+        })
     }
   },
-  created() {
-    this.getCosMovie()
-    this.getMovie()
-    this.getSimilarMovie()
-  },
+
 }
 </script>
 
@@ -155,12 +218,24 @@ export default {
 
 .movie-detail-overview-header {
   margin-top: 5rem;
+  padding-top: 5rem;
   font-size: 32px;
 }
 
 .movie-detail-overview-body {
   font-size: 20px;
 }
+.heart {
+  color: crimson;
+  margin: 0px auto;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+}
+
+.heart-box {
+  cursor: pointer;
+}
+
 </style>
 
 

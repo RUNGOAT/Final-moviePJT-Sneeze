@@ -8,6 +8,7 @@
       <textarea v-model.trim="content" id="content" cols="30" rows="10"></textarea>
       <button>제출</button>
     </form>
+    <router-link :to="{ name: 'CommunityDetail', params: { community_pk: communityId }}">[BACK]</router-link>
   </div>
 </template>
 
