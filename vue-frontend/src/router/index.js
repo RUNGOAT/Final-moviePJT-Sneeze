@@ -14,6 +14,7 @@ import CommunityDetail from '@/components/community/CommunityDetail'
 import CommunityFormView from '@/components/community/CommunityFormView'
 import CommunityUpdate from '@/views/community/CommunityUpdate'
 
+import MyProfile from '@/views/accounts/MyProfile'
 import ProfileView from '@/views/accounts/ProfileView'
 import LoginView from '@/views/accounts/LoginView'
 import SignupView from '@/views/accounts/SignupView'
@@ -58,18 +59,26 @@ const routes = [
     component: CommunityUpdate,
   },
   {
+    path: '/profile/',
+    name: 'MyProfile',
+    component: MyProfile,
+    // props: true,
+  },
+  {
     path: '/profile/:username',
     name: 'Profile',
     component: ProfileView,
+    props: true,
   },
   {
     path: '/login',
-    name: 'Login',
+    name: 'LogIn',
     component: LoginView,
+    props: true,
   },
   {
     path: '/signup',
-    name: 'Signup',
+    name: 'SignUp',
     component: SignupView,
   },
   {

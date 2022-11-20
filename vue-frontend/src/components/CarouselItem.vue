@@ -1,22 +1,22 @@
 <template>
-  <div>
-    <div :class=" movie.id === 1? 'carousel-item active' : 'carousel-item' " data-bs-interval="2000">
-        <img class="d-block w-100" :src="backdrop_path + movie.backdrop_path" :alt="movie.title">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>{{ movie.title }}</h5>
-          <p>{{ movie.overview }}</p>
-        </div>
-    </div>
-  </div>
+  <slide>
+      <img class="d-block w-100" :src="backdrop_path + movie.backdrop_path" :alt="movie.title">
+      <!-- <div class="carousel-caption d-none d-md-block">
+        <h5>{{ movie.title }}</h5>
+        <p>{{ movie.overview }}</p>
+      </div> -->
+  </slide>
 </template>
 
 <script>
+import { Slide } from 'vue-carousel';
 // import MovieDetailView from '@/views/movie/MovieDetailView'
 
 export default {
   name: 'CarouselItem',
   components: {
     // MovieDetailView,
+    Slide,
   },
   props: {
     movie: Object,

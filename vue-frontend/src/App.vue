@@ -10,12 +10,17 @@
         <router-link :to="{ name: 'Home' }">Home</router-link>
         <router-link :to="{ name: 'Movie' }">Movie</router-link>
         <router-link :to="{ name: 'Community' }">Community</router-link>
-        <router-link :to="{ name: 'Profile', params: { username: username }  }">Profile</router-link>
-        <!-- <router-link :to="{ name: 'Signup' }">Signup</router-link>
-        <router-link :to="{ name: 'Login' }">Login</router-link> -->
-        <button @click="logOut" v-show="isLogin">Logout</button>
-        <button @click="logIn" v-show="!isLogin">Login</button>
-        <button @click="signUp" v-show="!isLogin">Signup</button>
+        <router-link :to="{ name: 'MyProfile', params: { username: username }  }">Profile</router-link>
+        
+        <div v-if="!isLogin">
+          <router-link :to="{ name: 'SignUp' }">Signup</router-link> .
+          <router-link :to="{ name: 'LogIn' }">Login</router-link>
+        </div>
+        <div v-else>
+          <button @click="logOut" v-show="isLogin">Logout</button>
+        </div>
+        <!-- <button @click="logIn" v-show="!isLogin">Login</button>
+        <button @click="signUp" v-show="!isLogin">Signup</button> -->
         <router-link :to="{ name: 'MovieDetail', params: { movie_id: '505642'} }">Detail</router-link>
 
         <form class="d-flex" role="search">
@@ -44,10 +49,10 @@ export default {
       this.$store.commit('LOGOUT')
     },
     logIn() {
-      this.$router.push({ name: 'Login'})
+      this.$router.push({ name: 'LogIn'})
     },
     signUp() {
-      this.$router.push({ name: 'Signup'})
+      this.$router.push({ name: 'SignUp'})
     },
   },
 }
