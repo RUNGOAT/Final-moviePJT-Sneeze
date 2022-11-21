@@ -35,10 +35,10 @@
             </div>
 
             <div class="movie-detail-info-header-right">
+              <img id="movie-star" src="@/assets/star.png">
               <div class="movie-vote">
                 {{ movie?.vote_average }}
               </div>
-              <img id="movie-star" src="@/assets/star.png">
             </div>
           </div>
           
@@ -53,7 +53,13 @@
           <div v-else class="movie-detail-overview-body">
             해당 영화는 줄거리가 제공되지 않습니다.
           </div>
-          <button @click="searchYoutube">Youtube Video</button>
+
+          <!-- <button @click="searchYoutube">Youtube Video</button> -->
+          <iframe
+            :src="youtubeURI"
+            width="560" height="315" >
+          </iframe>
+          
         </div>
         <div class="movie-detail-lower">
           <!-- youtube -->
@@ -67,7 +73,7 @@
     </div>
     <br>
       <div v-if="movie"
-      style="background-color: rgb(255, 255, 255, 0.4);"
+      style="background-color: rgba(48, 51, 62, 1);"
       class="rounded"
       >
         <ReviewList 
@@ -95,6 +101,7 @@ export default {
   data() {
     return {
       imageUrl: 'https://image.tmdb.org/t/p/original',
+      youtubeEmbeded: 'https://www.youtube.com/embed',
       movieId: this.$route.params.movie_id.toString(),
       movie: null,
       isLiked: false,
@@ -107,14 +114,19 @@ export default {
       return this.$store.state.cosMovies
     },
     youtubeVideos() {
-      return this.$store.state.youtubeVideos
-    }    
+      return this.$store.state.youtubeVideos[0]
+    },
+    youtubeURI() {
+      const videoId = this.youtubeVideos.key
+      return `https://www.youtube.com/embed/${videoId}`
+    },  
   },
   created() {
     this.getCosMovie()
     this.getMovie()
     this.getSimilarMovie()
     this.getMe()
+    this.searchYoutube()
     // this.islike()
   },
   methods: {
@@ -208,8 +220,8 @@ export default {
   padding: 2rem;
   min-height: 100%;
   height: auto;
-  background-color: #000000;
-  color: white;
+  /* background-color: #000000; */
+  /* color: white; */
 }
 
 .movie-detail-toolbar {

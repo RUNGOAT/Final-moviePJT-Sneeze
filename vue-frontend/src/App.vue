@@ -4,7 +4,8 @@
       <div class="container-fluid">
         <a class="navbar-brand" href="http://localhost:8080/">
           <img src="../src/assets/logo.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
-          Movie
+          <span style="color:white;"> Movie</span>
+        
         </a>
       
         <router-link :to="{ name: 'Home' }">Home</router-link>
@@ -18,16 +19,6 @@
         <div v-else>
           <button @click="logOut" v-show="isLogin">Logout</button>
         </div>
-        <!-- <button @click="logOut" v-show="isLogin">Logout</button>
-        <button @click="logIn" v-show="!isLogin">Login</button>
-        <button @click="signUp" v-show="!isLogin">Signup</button> -->
-        <router-link :to="{ name: 'MovieDetail', params: { movie_id: '505642'} }">Detail</router-link>
-
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-light" type="submit">Search</button>
-        </form>
-
       </div>
     </nav>
     <router-view></router-view>
@@ -59,9 +50,9 @@ export default {
 </script>
 
 <style>
-body {
-  height :100vh;
-  background-attachment: fixed;
+html, body {
+  height :100%;
+  background-attachment: scroll;
   background: linear-gradient(0deg, rgba(45,47,59,1) 0%, rgba(8,9,14,1) 35%) no-repeat;
 }
 #app {
@@ -86,6 +77,6 @@ nav a {
 }
 
 nav a.router-link-exact-active {
-  color: #009DC9;
+  color: #0072D2;
 }
 </style>
