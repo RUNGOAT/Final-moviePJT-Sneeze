@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>HOME</h1>
-    <CarouselList/>
+    <!-- <CarouselList/> -->
     <HomeRecoCard :movies="shortest_movies"/>
     <RecommendationView/>
   
@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import CarouselList from '@/components/CarouselList'
+// import CarouselList from '@/components/CarouselList'
 import RecommendationView from '@/views/home/RecommendationView'
 import HomeRecoCard from '@/components/HomeRecoCard.vue'
 import axios from 'axios'
@@ -31,7 +31,7 @@ export default {
     }
   },
   components: {
-    CarouselList,
+    // CarouselList,
     RecommendationView,
     HomeRecoCard,
   },
