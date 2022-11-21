@@ -15,6 +15,7 @@ app_name = 'accounts'
 # ]
 urlpatterns = [
     path('users/', views.users),
+    path('user/<int:my_pk>/', views.user),
     path('signup/', views.signup),
     path('api-token-auth/', obtain_jwt_token),
     path('myprofile/', views.my_profile),

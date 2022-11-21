@@ -63,6 +63,13 @@ def users(request):
 
 
 @api_view(['POST'])
+def user(request, my_pk):
+    user = get_object_or_404(get_user_model(), pk=my_pk)
+    serializer = UserSerializer(user)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
 @authentication_classes([JSONWebTokenAuthentication])
 @permission_classes([IsAuthenticated])
 def follow(request, my_pk, user_pk):

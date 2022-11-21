@@ -1,7 +1,10 @@
 <template>
   <div>
-    <H2>Movie Review</H2>
-    <button @click="reviewForm">리뷰 작성</button>
+    <div class="d-flex align-items-center my-auto">
+      <H2>Movie Review</H2>
+      <button @click="reviewForm" class="ms-2">리뷰 작성</button>
+    </div>
+    <hr id="reviewItemHr">
     <!-- <ReviewCommentForm/> -->
     <ReviewItem
       v-for="review in this.reviews"
@@ -60,5 +63,9 @@ export default {
 </script>
 
 <style>
-
+#reviewItemHr{
+  /* border: 5px solid white; */
+  height: 2px;
+  background-color: white;
+}
 </style>

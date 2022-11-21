@@ -2,6 +2,7 @@
   <div>
     <h1>HOME</h1>
     <CarouselList/>
+    <HomeRecoCard :movies="shortest_movies"/>
     <RecommendationView/>
   
   </div>
@@ -10,6 +11,7 @@
 <script>
 import CarouselList from '@/components/CarouselList'
 import RecommendationView from '@/views/home/RecommendationView'
+import HomeRecoCard from '@/components/HomeRecoCard.vue'
 import axios from 'axios'
 
 const API_URL = 'http://127.0.0.1:8000'
@@ -30,7 +32,8 @@ export default {
   },
   components: {
     CarouselList,
-    RecommendationView
+    RecommendationView,
+    HomeRecoCard,
   },
   created() {
       this.getMovies()
