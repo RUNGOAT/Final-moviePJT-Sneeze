@@ -11,7 +11,6 @@
         <router-link :to="{ name: 'Movie' }">Movie</router-link>
         <router-link :to="{ name: 'Community' }">Community</router-link>
         <router-link :to="{ name: 'MyProfile', params: { username: username }  }">Profile</router-link>
-        
         <div v-if="!isLogin">
           <router-link :to="{ name: 'SignUp' }">Signup</router-link> .
           <router-link :to="{ name: 'LogIn' }">Login</router-link>
@@ -19,7 +18,8 @@
         <div v-else>
           <button @click="logOut" v-show="isLogin">Logout</button>
         </div>
-        <!-- <button @click="logIn" v-show="!isLogin">Login</button>
+        <!-- <button @click="logOut" v-show="isLogin">Logout</button>
+        <button @click="logIn" v-show="!isLogin">Login</button>
         <button @click="signUp" v-show="!isLogin">Signup</button> -->
         <router-link :to="{ name: 'MovieDetail', params: { movie_id: '505642'} }">Detail</router-link>
 
@@ -49,10 +49,10 @@ export default {
       this.$store.commit('LOGOUT')
     },
     logIn() {
-      this.$router.push({ name: 'LogIn'})
+      this.$router.push({ name: 'Login'})
     },
     signUp() {
-      this.$router.push({ name: 'SignUp'})
+      this.$router.push({ name: 'Signup'})
     },
   },
 }
