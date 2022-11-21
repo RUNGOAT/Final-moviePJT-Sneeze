@@ -146,9 +146,9 @@ export default new Vuex.Store({
       axios({
         method: 'get',
         url: `${API_URL}/movies/recommended/`,
-        // headers: {
-        //   Authorization: `Token ${context.state.token}`
-        // },
+        headers: {
+          Authorization: `Token ${context.state.token}`
+        },
       })
         .then((res) => {
           // console.log(res)

@@ -59,10 +59,10 @@ export default {
 </script>
 
 <style>
-body {
-  height :100vh;
+html {
+  width: 100%;
+  height :100%;
   background-attachment: fixed;
-  attachment: fixed;
   background: linear-gradient(0deg, rgba(45,47,59,1) 0%, rgba(8,9,14,1) 35%) no-repeat;
 }
 #app {

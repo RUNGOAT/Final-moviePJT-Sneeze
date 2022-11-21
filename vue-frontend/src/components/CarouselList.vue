@@ -31,8 +31,9 @@
 <script>
 import { Carousel, Slide } from 'vue-carousel'
 // import CarouselItem from '@/components/CarouselItem'
+
 export default {
-  name: 'CarouselView',
+  name: 'CarouselList',
   components: {
     // CarouselItem,
     Carousel,
@@ -42,7 +43,7 @@ export default {
     return {
       nextLabel: "<img src='/assets/arrow-right.png'/>",
       prevLabel: "<img src='/assets/arrow-left.png'/>",
-      backdrop_path: `https://image.tmdb.org/t/p/original/`
+      backdrop_path: `https://image.tmdb.org/t/p/original`
     }
   },
   methods: {

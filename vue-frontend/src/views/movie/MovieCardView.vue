@@ -1,6 +1,6 @@
 <template>
   <div 
-    class="col-mb-6 movie-item"
+    class="movie-item"
     @click="goDetail"
   >
     <img 
@@ -10,13 +10,9 @@
 </template>
 
 <script>
-// import MovieDetailView from '@/views/movie/MovieDetailView'
 
 export default {
   name: 'MovieCardView',
-  components: {
-    // MovieDetailView,
-  },
   props: {
     movie: Object,
   },

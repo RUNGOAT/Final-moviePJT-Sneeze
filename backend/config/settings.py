@@ -100,7 +100,6 @@ MIDDLEWARE = [
 # vue origin 허용
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:8080', # 특정 origin의 요청만 허용하는데, Vue의 로컬호스트만 요청을 허용.
-    'http://localhost:8081', # 특정 origin의 요청만 허용하는데, Vue의 로컬호스트만 요청을 허용.
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -177,8 +176,6 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-AUTH_USER_MODEL = 'accounts.User'
 
 
 # django rest framework jwt 설정 보류
