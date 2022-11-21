@@ -12,8 +12,8 @@
         <router-link :to="{ name: 'Community' }">Community</router-link>
         <router-link :to="{ name: 'MyProfile', params: { username: username }  }">Profile</router-link>
         <div v-if="!isLogin">
-          <router-link :to="{ name: 'SignUp' }">Signup</router-link> .
-          <router-link :to="{ name: 'LogIn' }">Login</router-link>
+          <router-link :to="{ name: 'Signup' }">Signup</router-link> .
+          <router-link :to="{ name: 'Login' }">Login</router-link>
         </div>
         <div v-else>
           <button @click="logOut" v-show="isLogin">Logout</button>

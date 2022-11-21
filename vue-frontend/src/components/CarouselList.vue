@@ -20,8 +20,8 @@
       >
         <div >
           <img class="d-block w-100" :src="backdrop_path + movie.backdrop_path" :alt="movie.title">
-          <h5 :style="float">{{ movie.title }}</h5>
-          <p :style="float">{{ movie.overview }}</p>
+          <h5 style="float">{{ movie.title }}</h5>
+          <p style="float">{{ movie.overview }}</p>
         </div>
       </slide>
     </carousel>

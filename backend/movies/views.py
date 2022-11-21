@@ -236,9 +236,12 @@ def is_liked(request, my_pk, movie_id):
 def my_movie_like(request, my_pk):
   me = get_object_or_404(get_user_model(), pk=my_pk)
   data = []
-  movies = request.data
-  for movie_pk in movies:
-    movie = get_object_or_404(Movie, pk=movie_pk)
+  movies = me.like_movies.all()
+  # print('=====================')
+  # print(movies)
+  # print('=====================')
+  for movie in movies:
+    movie = get_object_or_404(Movie, pk=movie.id)
     serializer = MovieSerializer(movie)
     data.append(serializer.data)
   
