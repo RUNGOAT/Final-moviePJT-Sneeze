@@ -72,13 +72,12 @@ const routes = [
   },
   {
     path: '/login',
-    name: 'LogIn',
+    name: 'Login',
     component: LoginView,
-    props: true,
   },
   {
     path: '/signup',
-    name: 'SignUp',
+    name: 'Signup',
     component: SignupView,
   },
   {

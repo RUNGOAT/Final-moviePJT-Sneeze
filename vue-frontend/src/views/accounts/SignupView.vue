@@ -1,89 +1,48 @@
 <template>
   <div>
-    <section class="page-section" id="contact">
-        <div class="container">
+    <h1>Sign Up Page</h1>
+    <form @submit.prevent="signUp">
+      <label for="username">username : </label>
+      <input type="text" id="username" v-model="username"><br>
 
-            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Signup</h2>
+      <label for="password1"> password : </label>
+      <input type="password" id="password1" v-model="password1"><br>
 
-            <div class="row">
-                <div class="col-lg-8 mx-auto">
-                    
-                  <div class="control-group">
-                      <div class="st-font form-group floating-label-form-group controls mb-0 pb-2">
-                          <label for="username">Username</label>
-                          <input style="font-size: 30px" v-model.trim="credentials.username" class="form-control" id="username" type="text" placeholder="Username" required="required" data-validation-required-message="Please enter your username." />
-                          <h6>Username에는 알파벳만 가능합니다.</h6>
-                          <p class="help-block text-danger"></p>
-                      </div>
-                  </div>
-
-                  <div class="control-group">
-                      <div class="st-font form-group floating-label-form-group controls mb-0 pb-2">
-                          <label for="email">Email</label>
-                          <input style="font-size: 30px" v-model.trim="credentials.email" class="form-control" id="email" type="text" placeholder="email" required="required" data-validation-required-message="Please enter your email address." />
-                          <h6>정확한 e-mail을 작성해주세요.</h6>
-                          <p class="help-block text-danger"></p>
-                      </div>
-                  </div>
-                  <div class="control-group">
-                      <div class="st-font form-group floating-label-form-group controls mb-0 pb-2">
-                          <label>password</label>
-                          <input style="font-size: 30px" v-model.trim="credentials.password" class="form-control" id="password" type="password" placeholder="Password" required="required" data-validation-required-message="Please enter your password." />
-                          <h6>password는 8자 이상을 권장합니다.</h6>
-                          <p class="help-block text-danger"></p>
-                      </div>
-                  </div>
-                  <div class="control-group">
-                      <div class="st-font form-group floating-label-form-group controls mb-0 pb-2">
-                          <label>passwordConfirmation</label>
-                          <input style="font-size: 30px" v-model.trim="credentials.passwordConfirmation" @keypress.enter="signUp" class="form-control" id="passwordConfirmation" type="password" placeholder="passwordConfirmation" required="required" data-validation-required-message="Please confirm your password" />
-                          <h6>password는 8자 이상을 권장합니다.</h6>
-                          <p class="help-block text-danger"></p>
-                      </div>
-                  </div>
-                  <br />
-                  <div id="success"></div>
-                  <div class="text-white st-font form-group"><button @click="signUp" class="btn btn-secondary btn-xl" id="Signup" type="submit">Signup</button></div>
-                </div>
-            </div>
-        </div>
-    </section>
+      <label for="password2"> password confirmation : </label>
+      <input type="password" id="password2" v-model="password2">
+      
+      <input type="submit" value="SignUp">
+    </form>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
-
-const SERVER_URL = 'http://127.0.0.1:8000'
-
 export default {
-  name: "SignUp",
-  data: function () {
+  name: 'SignUpView',
+  data() {
     return {
-      credentials: {
-        username: '',
-        email: '',
-        password: '',
-        passwordConfirmation: '',
-      },
+      username: null,
+      password1: null,
+      password2: null,
     }
   },
   methods: {
-    signUp: function () {
-      axios.post(`${SERVER_URL}/accounts/signup/`, this.credentials)
-      .then( () => {
-        // console.log(res)
-        this.$router.push({ name: "Login" })
-        alert("가입을 축하드립니다....람쥐!")
-      })
-      .catch( (err) => {
-        console.log(err)
-      })
+    signUp() {
+      const username = this.username
+      const password1 = this.password1
+      const password2 = this.password2
+
+      const payload = {
+        // username,
+        // password1,
+        // password2,
+        username: username,
+        password1: password1,
+        password2: password2,
+      }
+      this.$store.dispatch('signUp', payload)
     },
+    
   }
 }
 </script>
-
-<style>
-
-</style>

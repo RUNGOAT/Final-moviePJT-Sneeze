@@ -32,7 +32,7 @@ export default new Vuex.Store({
   },
   getters: {
     isLogin(state) {
-      return state.username ? true : false
+      return state.token ? true : false
     }
   },
   mutations: {
@@ -54,9 +54,9 @@ export default new Vuex.Store({
     GET_RECOMENDED(state, recommendations) {
       state.recommendations = recommendations
     },
-    SAVE_TOKEN(state, loginInfo) {
-      state.token = loginInfo.token
-      state.username = loginInfo.username
+    SAVE_TOKEN(state, userInfo) {
+      state.token = userInfo.token
+      state.username = userInfo.username
       router.push({ name: 'Home' })
     },
     GET_COMMUNITY_LIST(state, communities) {
@@ -157,64 +157,64 @@ export default new Vuex.Store({
         })
         .catch(err => console.log(err))
     },
-    // signUp(context, payload) {
-    //   axios({
-    //     method: 'post',
-    //     url: `${API_URL}/accounts/signup/`,
-    //     data: {
-    //         username: payload.username,
-    //         password1: payload.password1,
-    //         password2: payload.password2,
-    //     }
-    //   })
-    //     .then((res) => {
-    //       const userInfo = {
-    //         username: payload.username,
-    //         token: res.data.key
-    //       }
-    //       console.log(userInfo)
-    //       console.log(res.data.key)
-    //       context.commit('SAVE_TOKEN', userInfo)
-    //     })
-    //     .cath(err => console.log(err))
-    // },
-    // logIn(context, payload) {
-    //   axios({
-    //     method: 'post',
-    //     url: `${API_URL}/accounts/login/`,
-    //     data: {
-    //       username: payload.username,
-    //       password: payload.password,
-    //     }
-    //   })
-    //     .then((res) => {
-    //       const userInfo = {
-    //         username: payload.username,
-    //         token: res.data.key
-    //       }
-    //       console.log(userInfo)
-    //       console.log(res)
-    //       context.commit('SAVE_TOKEN', userInfo)
+    signUp(context, payload) {
+      axios({
+        method: 'post',
+        url: `${API_URL}/accounts/signup/`,
+        data: {
+            username: payload.username,
+            password1: payload.password1,
+            password2: payload.password2,
+        }
+      })
+        .then((res) => {
+          const userInfo = {
+            username: payload.username,
+            token: res.data.key
+          }
+          console.log(userInfo)
+          console.log(res.data.key)
+          context.commit('SAVE_TOKEN', userInfo)
+        })
+        .cath(err => console.log(err))
+    },
+    logIn(context, payload) {
+      axios({
+        method: 'post',
+        url: `${API_URL}/accounts/login/`,
+        data: {
+          username: payload.username,
+          password: payload.password,
+        }
+      })
+        .then((res) => {
+          const userInfo = {
+            username: payload.username,
+            token: res.data.key
+          }
+          console.log(userInfo)
+          console.log(res)
+          context.commit('SAVE_TOKEN', userInfo)
 
-    //       axios({
-    //         method: 'get',
-    //         url: `${API_URL}/userinfo/${payload.username}/`,
-    //         headers: {
-    //           Authorization: `Token ${res.data.key}`
-    //         }
-    //       })
-    //         .then((res) => {
-    //           // const profile = {
-    //           //   nickname: 
-    //           // }
-    //           console.log(res)
-    //           context.commit('GET_PROFILE')
-    //         })
-    //     })
-    //     .cath(err => console.log(err))
+          axios({
+            method: 'get',
+            url: `${API_URL}/userinfo/${payload.username}/`,
+            headers: {
+              Authorization: `Token ${res.data.key}`
+            }
+          })
+            .then((res) => {
+              // const profile = {
+              //   nickname: 
+              // }
+              console.log(res)
+              context.commit('GET_PROFILE')
+            })
+        })
+        .cath(err => console.log(err))
 
       
-    // },
+    },
     getCommunityList(context) {
       console.log(this.state.token)
       axios({

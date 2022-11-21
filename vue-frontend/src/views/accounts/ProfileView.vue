@@ -163,7 +163,7 @@ export default {
         userId: this.user.id,
       }
 
-      axios.post(`${SERVER_URL}/accounts/follow/${this.me.id}/${this.user.id}/`, item, config)
+      axios.post(`${SERVER_URL}/userinfo/follow/${this.me.id}/${this.user.id}/`, item, config)
       .then( () => {
         // console.log(res)
         

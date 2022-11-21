@@ -11,11 +11,11 @@
                         <p class="content-font" style="font-size: 20px"><strong>username: </strong> {{ user.username }} </p>
                                             </div>
                     <br>             
-                    <div class="col-xs-12 col-sm-4 text-center">
+                    <!-- <div class="col-xs-12 col-sm-4 text-center">
                         <figure>
                             <img src="@/assets/logo.png" alt="" class="img-circle img-responsive">
                         </figure>
-                    </div>
+                    </div> -->
                   <!-- 절취선 -->
                   <!-- 절취선 -->
                 </div>            
@@ -141,19 +141,19 @@ export default {
       }
       return config
     },
-    getMyName: function () {
+    getMyName() {
       const config = this.getToken()
       // console.log(config)
       const hash = this.$store.state.token
       const info = VueJwtDecode.decode(hash)
       // console.log(hash)
-      axios.post(`${SERVER_URL}/accounts/myprofile/`, info, config)
+      axios.post(`${SERVER_URL}/userinfo/myprofile/`, info, config)
       .then( (res) => {
-        // console.log(res)
+        console.log(res)
         this.user = res.data
         const item = this.user.like_movies
 
-        axios.post(`${SERVER_URL}/movies/${this.user.id}/like/`, item, config)
+        axios.post(`${SERVER_URL}/movies/${this.user.pk}/like/`, item, config)
         .then( (res) => {
           // console.log(res)
           this.myMovies = res.data
