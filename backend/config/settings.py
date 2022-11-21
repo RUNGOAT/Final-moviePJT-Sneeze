@@ -99,7 +99,8 @@ MIDDLEWARE = [
 
 # vue origin 허용
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:8080', # 특정 origin의 요청만 허용하는데, Vue의 로컬호스트만 요청을 허용.
+    # 'http://localhost:8080', # 특정 origin의 요청만 허용하는데, Vue의 로컬호스트만 요청을 허용.
+    'http://localhost:8081', 
 ]
 
 ROOT_URLCONF = 'config.urls'

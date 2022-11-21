@@ -62,7 +62,6 @@ export default {
 body {
   height :100vh;
   background-attachment: fixed;
-  attachment: fixed;
   background: linear-gradient(0deg, rgba(45,47,59,1) 0%, rgba(8,9,14,1) 35%) no-repeat;
 }
 #app {
