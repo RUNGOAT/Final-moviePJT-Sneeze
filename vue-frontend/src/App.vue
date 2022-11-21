@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <nav class="navbar navbar-expand-lg bg-light">
+    <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="http://localhost:8080/">
           <img src="../src/assets/logo.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
           Movie
         </a>
@@ -25,7 +25,7 @@
 
         <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-dark" type="submit">Search</button>
+          <button class="btn btn-outline-light" type="submit">Search</button>
         </form>
 
       </div>
@@ -59,25 +59,34 @@ export default {
 </script>
 
 <style>
+body {
+  height :100vh;
+  background-attachment: fixed;
+  attachment: fixed;
+  background: linear-gradient(0deg, rgba(45,47,59,1) 0%, rgba(8,9,14,1) 35%) no-repeat;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height :100%;
+  margin: 0;
+  background: transparent;
   /* text-align: center; */
-  color: black;
-  /* color: #2c3e50; */
+  color: white;
 }
 
-/* nav {
-  padding: 30px;
-} */
+nav {
+  background-color: #08090E;
+}
 
 nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: white
+  ;
 }
 
 nav a.router-link-exact-active {
-  color: #42b983;
+  color: #009DC9;
 }
 </style>
