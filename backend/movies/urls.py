@@ -22,4 +22,6 @@ urlpatterns = [
 
     path('recommended/', views.recommended, name='recommended'),
     path('current_popularity/', views.current_popularity),
+
+    path('list/', views.MovieListView.as_view())
 ]

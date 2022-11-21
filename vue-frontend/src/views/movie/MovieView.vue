@@ -12,12 +12,31 @@
         :movie="movie"
       />
     </div>
+    <br><br><br>
+    <b-pagination
+      @input="changeList"
+      v-model="currentPage"
+      :total-rows="total_row"
+      :per-page="perPage"
+      aria-controls="my-table"
+      align="center"
+    ></b-pagination>
+
+    <b-table
+      id="my-table"
+      :movies="movies"
+      :per-page="perPage"
+      :current-page="currentPage"
+      small
+    ></b-table>
   </div>
 </template>
 
 <script>
 import MovieCardView from '@/views/movie/MovieCardView'
+import axios from 'axios'
 
+const API_URL = 'http://127.0.0.1:8000'
 
 export default {
   name: 'MovieView',
@@ -27,10 +46,32 @@ export default {
   data () {
     return {
       title: null,
-      movies: this.$store.state.movies.slice(0, 20)
+      movies: this.$store.state.movies.slice(0, 20),
+      // list: [],
+      currentPage: 1,
+      perPage: 5,
+      total_row: 20,
     }
   },
+  created() {
+    this.getList()
+  },
   methods: {
+    changeList() {
+      this.getList()
+    },
+    getList() {
+      console.log(this.currentPage)
+      axios({
+        methods: 'get',
+        url: `${API_URL}/movies/list/?page=${this.currentPage}`,
+      })
+        .then(res => {
+          // console.log(res)
+          this.movies = res.data.results
+          this.total_row = parseInt(res.data.count / 20)
+        })
+    },
     searchMovie() {
       const moviedata = this.$store.state.movies
       if (this.title) {
@@ -38,8 +79,9 @@ export default {
           return movie.title.includes(this.title)
         })
         this.movies = searchMovies
-      } else {
-        this.movies = moviedata.slice(0, 20)
+      } 
+      else {
+        this.getList()
       }
     }
   }

@@ -22,6 +22,7 @@
       </div>
     </nav>
     <router-view></router-view>
+    <div style="height: 70vh"></div>
   </div>
 </template>
 
@@ -50,9 +51,7 @@ export default {
 </script>
 
 <style>
-html, body {
-  width: 100%;
-  height :100%;
+html {
   background-attachment: fixed;
   /* background-attachment: scroll; */
   background: linear-gradient(0deg, rgba(45,47,59,1) 0%, rgba(8,9,14,1) 35%) no-repeat;
@@ -64,6 +63,7 @@ html, body {
   height :100%;
   margin: 0;
   background: transparent;
+  background: linear-gradient(0deg, rgba(45,47,59,1) 0%, rgba(8,9,14,1) 35%) no-repeat;;
   /* text-align: center; */
   color: white;
 }

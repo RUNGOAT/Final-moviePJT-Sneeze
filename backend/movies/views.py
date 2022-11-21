@@ -7,11 +7,20 @@ from django.contrib.auth import get_user_model
 from rest_framework import status
 from random import sample
 
-
 from .models import Movie, Review, ReviewComment, Genre
 from .serializers import MovieSerializer, ReviewListSerializer, ReviewCommentSerializer
 from accounts.serializers import UserSerializer
 
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.generics import ListAPIView
+
+
+class MovieListView(ListAPIView):
+  queryset = Movie.objects.all()
+  serializer_class = MovieSerializer
+  pagination_class = PageNumberPagination
+
+  
 
 @api_view(['GET'])
 def home(request):
