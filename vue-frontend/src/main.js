@@ -6,6 +6,10 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import VueGlide from 'vue-glide-js'
+import 'vue-glide-js/dist/vue-glide.css'
+
+Vue.use(VueGlide)
 
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue)

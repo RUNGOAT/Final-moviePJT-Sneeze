@@ -1,11 +1,25 @@
 <template>
-  <div
-    class="py-3 text-light"
-    @click="reviewDetail"
-    style="cursor: pointer"
-  >
-    {{ review.userName }} : 
-    {{ review }}
+  <div class="px-3">
+    <div
+      class="text-light py-2 px-2"
+      @click="reviewDetail"
+      style="cursor: pointer"
+    >
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="row col-3 d-flex align-items-center p-0">
+          <p class="m-0 fw-bold fs-3">{{ review.userName }}</p>
+          <p class="m-0" style="font-size: x-small;">{{ review.created_at.slice(0, 16) }}</p>
+        </div>
+
+        <!-- {{ review }} -->
+        <div>
+          {{ review.rank }}
+          <img src="@/assets/star.png" style="width: 20px; height: 10px margin-left: 1rem;">
+        </div>
+      </div>
+      <p class="mt-3 mb-1 fs-2">{{ review.content }}</p>
+    </div>
+    <hr>
   </div>
 </template>
 

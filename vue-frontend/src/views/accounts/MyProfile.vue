@@ -101,16 +101,17 @@
 
 <script>
 import axios from 'axios'
-import VueJwtDecode from "vue-jwt-decode"
+// import VueJwtDecode from "vue-jwt-decode"
 
 // import MovieCard from "@/components/MovieCard"
 // import MyFollower from "@/components/MyFollower"
 
-const SERVER_URL = 'http://127.0.0.1:8000/'
+const API_URL = 'http://127.0.0.1:8000'
 export default {
   name: "MyProfile",
   data: function () {
     return {
+      me: [],
       user: [],
       users: [],
       myFollowings: [],
@@ -126,46 +127,38 @@ export default {
       footerTextVariant: "dark",
     }
   },
+  created() {
+    this.getMe()
+  },
   components: {
     // MovieCard,
     // MyFollower,
   },
   methods: {
-    getToken() {
-      // const token = localStorage.getItem('jwt')
-      const token = this.$store.state.token
-      const config = {
+    getMe() {
+      axios({
+        method: 'get',
+        url: `${API_URL}/accounts/user/`,
         headers: {
-          Authorization: `JWT ${token}`
+          Authorization: `Token ${this.$store.state.token}`
         },
-      }
-      return config
+      })
+        .then(res => {
+          this.me = res.data
+          this.getMyName(res.data.pk)
+        })
     },
-    getMyName() {
-      const config = this.getToken()
-      // console.log(config)
-      const hash = this.$store.state.token
-      const info = VueJwtDecode.decode(hash)
-      // console.log(hash)
-      axios.post(`${SERVER_URL}/userinfo/myprofile/`, info, config)
-      .then( (res) => {
-        console.log(res)
-        this.user = res.data
-        const item = this.user.like_movies
-
-        axios.post(`${SERVER_URL}/movies/${this.user.pk}/like/`, item, config)
-        .then( (res) => {
-          // console.log(res)
-          this.myMovies = res.data
-        })
-        .catch( (err) => {
-          console.log(err)
-        })
-
+    getMyName(my_pk) {
+      axios({
+        method: 'post',
+        url: `${API_URL}/userinfo/user/${my_pk}/`,
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`
+        },
       })
-      .catch( (err) => {
-        console.log(err)
-      })
+        .then(res => {
+          this.user = res.data
+        })
     },
     open1: function () {
       this.show1 = true
@@ -179,10 +172,6 @@ export default {
     close2: function () {
       this.show2 = false
     },
-  },
-  created: function () {
-    this.getMyName()
-    // this.getMyMovie()
   },
   computed: {
     followingsLength: function () {

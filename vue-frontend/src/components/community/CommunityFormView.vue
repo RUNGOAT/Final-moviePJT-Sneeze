@@ -1,11 +1,12 @@
 <template>
-  <div>
+  <div class="container">
+    <h1>게시글 작성</h1>
     <form @submit.prevent="createCommunity">
       <label for="title">title: </label>
-      <input type="text" id="title" v-model.trim="title">
+      <input type="text" id="title" v-model.trim="title" class="form-control">
       <label for="content">content: </label>
-      <textarea v-model.trim="content" id="content" cols="30" rows="10"></textarea>
-      <button>제출</button>
+      <textarea v-model.trim="content" id="content" cols="30" rows="10" class="form-control"></textarea>
+      <button class="btn btn-warning">제출</button>
     </form>
   </div>
 </template>

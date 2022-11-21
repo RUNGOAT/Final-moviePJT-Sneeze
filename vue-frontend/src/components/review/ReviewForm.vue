@@ -1,13 +1,14 @@
 <template>
-  <div>
-    <form @submit.prevent="createReview">
+  <div class="container">
+    <h1>리뷰 작성</h1>
+    <form @submit.prevent="createReview" class="form">
       <label for="title">title: </label>
-      <input type="text" id="title" v-model.trim="title">
+      <input type="text" id="title" v-model.trim="title" class="form-control">
       <label for="content">content: </label>
-      <textarea v-model.trim="content" id="content" cols="30" rows="10"></textarea>
+      <textarea v-model.trim="content" id="content" cols="30" rows="10" class="form-control"></textarea>
       <label for="rank">평점: </label>
-      <input type="number" id="rank" v-model.trim="rank">
-      <button>제출</button>
+      <input type="number" id="rank" v-model.trim="rank" class="form-control">
+      <button class="btn btn-warning">제출</button>
     </form>
   </div>
 </template>

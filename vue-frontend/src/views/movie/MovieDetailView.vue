@@ -1,63 +1,83 @@
 <template>
-    <div 
-      v-if="movie" 
-      :style="{ 'background-image': `url(${this.imageUrl + movie.backdrop_path})` }" 
-      class="back-image text-light"
-    >
-
-      <div class="ms-4">
-        <div class="row justify-content-start">
-          <div class="movie-detail-upper col-5">
-            <div class="movie-detail-info-header">
-              <div class="movie-detail-info-header-left mt-3">
-                <div class="movie-detail-title d-flex align-items-center">
-                  <p>{{ movie?.title }}</p>
-                  <div class="d-flex align-items-baseline ms-2 heart-box p-2" @click="like">
-                    <i v-if="isLiked" class="bi bi-heart-fill heart"></i>
-                    <i v-else class="bi bi-heart heart"></i>
-                    <p class="ps-2">{{ this.likeNumber }}개</p>
-                  </div>
-                </div>
-                <div v-if="movie?.release_date" class="movie-release-date">
-                  개봉 : {{ movie.release_date }}
-                </div>
-                <div v-if="movie?.genre_ids">
-                  <!-- {{ movie.genre_ids }} -->
+  <div class="movie-detail-card">
+    <!-- <div class="movie-detail-toolbar">
+      <v-btn
+        icon
+        dark
+        @click="dialog = false">
+        <v-icon>mdi-close</v-icon>
+      </v-btn>
+      <img id="logo-image" src="@/assets/images/logo.png"/>
+    </div> -->
+    <div class="movie-detail-body">
+      <div class="movie-detail-poster">
+        <img :src="this.imageUrl + movie?.poster_path" alt="포스터 없음">
+      </div>
+      <div class="movie-detail-info">
+        <!-- info header -->
+        <div class="movie-detail-upper">
+          <div class="movie-detail-info-header">
+            <div class="movie-detail-info-header-left">
+              <div class="movie-detail-title d-flex align-items-center">
+                <p>{{ movie?.title }}</p>
+                <div class="d-flex align-items-baseline ms-2 heart-box p-2" @click="like">
+                  <i v-if="isLiked" class="bi bi-heart-fill heart"></i>
+                  <i v-else class="bi bi-heart heart"></i>
+                  <p class="ps-2">{{ this.likeNumber }}개</p>
                 </div>
               </div>
-
-              <div class="movie-detail-info-header-right">
-                <div class="movie-vote">
-                  {{ movie?.vote_average }}
-                </div>
-                <img id="movie-star" src="@/assets/star.png">
+              <div v-if="movie?.release_date" class="movie-release-date">
+                개봉 : {{ movie.release_date }}
+              </div>
+              <div v-if="movie?.genre_ids">
+                <!-- {{ movie.genre_ids }} -->
               </div>
             </div>
-            
-            <!-- info overview -->
-            <div class="movie-detail-overview-header">
-              줄거리
+
+            <div class="movie-detail-info-header-right">
+              <div class="movie-vote">
+                {{ movie?.vote_average }}
+              </div>
+              <img id="movie-star" src="@/assets/star.png">
             </div>
-            <hr>
-            <div v-if="movie?.overview" class="movie-detail-overview-body">
-              {{ movie?.overview }}
-            </div>
-            <div v-else class="movie-detail-overview-body">
-              해당 영화는 줄거리가 제공되지 않습니다.
-            </div>
-            <button @click="searchYoutube">Youtube Video</button>
           </div>
+          
+          <!-- info overview -->
+          <div class="movie-detail-overview-header">
+            줄거리
+          </div>
+          <hr>
+          <div v-if="movie?.overview" class="movie-detail-overview-body">
+            {{ movie?.overview }}
+          </div>
+          <div v-else class="movie-detail-overview-body">
+            해당 영화는 줄거리가 제공되지 않습니다.
+          </div>
+          <button @click="searchYoutube">Youtube Video</button>
         </div>
-
-        <br><br><br>
-        <div v-if="movie">
-          <ReviewList 
-            :movieId="movieId"
-            :movie="movie"
-          />
+        <div class="movie-detail-lower">
+          <!-- youtube -->
+          <!-- <div class="movie-youtube-area">
+            관련 영상
+            <hr>
+            <YoutubeList :title="movie.title"/>
+          </div> -->
         </div>
       </div>
     </div>
+    <br>
+      <div v-if="movie"
+      style="background-color: rgb(255, 255, 255, 0.4);"
+      class="rounded"
+      >
+        <ReviewList 
+          :movieId="movieId"
+          :movie="movie"
+          class="m-3"
+        />
+      </div>
+  </div>
+
 </template>
 
 <script>
@@ -75,7 +95,6 @@ export default {
   data() {
     return {
       imageUrl: 'https://image.tmdb.org/t/p/original',
-      // movies: this.$store.state.movies,
       movieId: this.$route.params.movie_id.toString(),
       movie: null,
       isLiked: false,
@@ -181,9 +200,34 @@ export default {
 
 <style>
 
-.back-image {
-  height: 100vh;
-  background-size: cover;
+.movie-detail-card {
+  font-family: 'Noto Sans KR', sans-serif;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  padding: 2rem;
+  min-height: 100%;
+  height: auto;
+  background-color: #000000;
+  color: white;
+}
+
+.movie-detail-toolbar {
+  height: 56px;
+}
+
+.movie-detail-body {
+  display: flex;
+  flex-flow: row wrap;
+  margin: 1rem;
+}
+
+.movie-detail-info {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+  margin: 1rem 0 0 4rem;
+  width: 60%;
 }
 
 .movie-detail-info-header {
@@ -194,7 +238,7 @@ export default {
 }
 
 .movie-detail-poster>img {
-  width: 500px;
+  width: 400px;
 }
 
 .movie-detail-title {
