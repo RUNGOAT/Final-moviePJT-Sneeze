@@ -286,49 +286,59 @@ def users_info(request):
 
 @api_view(['GET'])
 def recommended(request):
-    if request.user.is_authenticated:
-        movies = get_list_or_404(Movie)
-        User = request.user
-        my_genres = {}
-        my_movies = User.like_movies.all()
-        if my_movies:
-            for movie in my_movies:
+  if request.user.is_authenticated:
+    movies = get_list_or_404(Movie)
+    User = request.user
+    my_genres = {}
+    my_movies = User.like_movies.all()
+    
+    if my_movies:
+        for movie in my_movies:
+            genres = movie.genres.all()
+            for genre in genres:
+                if genre.pk in my_genres:
+                    my_genres[genre.pk] += 1
+                else:
+                    my_genres[genre.pk] = 1
+
+        my_genres = sorted(my_genres, key=lambda x: my_genres[x])[:3]
+
+        recommendations_list = set()
+        for my_genre in my_genres:
+            for movie in movies:
                 genres = movie.genres.all()
                 for genre in genres:
-                    if genre.pk in my_genres:
-                        my_genres[genre.pk] += 1
-                    else:
-                        my_genres[genre.pk] = 1
-
-            my_genres = sorted(my_genres, key=lambda x: my_genres[x])[:3]
-
-            recommendations_list = set()
-            for my_genre in my_genres:
-                for movie in movies:
-                    genres = movie.genres.all()
-                    for genre in genres:
-                        if genre.pk == my_genre:
-                            recommendations_list.add(movie)
-                            break
-            recommendations = sample(recommendations_list, 10)
-            serializer = MovieSerializer(recommendations)
-            # liked = True
-        else:
-            movies = get_list_or_404(Movie)
-            recommendations = sample(movies, 10)
-            serializer = MovieSerializer(recommendations)
-            # liked = False
-
-        # context = {
-        #     'my_movies': my_movies,
-        #     'my_genres': my_genres,
-        #     'recommendations': recommendations,
-        #     'liked': liked
-        # }
-        return Response(serializer.data)
-        # return render(request, 'movies/recommended.html', context)
+                    if genre.pk == my_genre:
+                        recommendations_list.add(movie)
+                        break
+        recommendations = sample(recommendations_list, 20)
+        serializer = MovieSerializer(recommendations)
+        # liked = True
     else:
-      movies = get_list_or_404(Movie)
-      recommendations = sample(movies, 10)
-      serializer = MovieSerializer(recommendations)
-    # return redirect('accounts:login')
+        movies = get_list_or_404(Movie)
+        recommendations = sample(movies, 20)
+        serializer = MovieSerializer(recommendations, many=True)
+        # print('============================')
+        # liked = False
+
+    # context = {
+    #     'my_movies': my_movies,
+    #     'my_genres': my_genres,
+    #     'recommendations': recommendations,
+    #     'liked': liked
+    # }
+    return Response(serializer.data)
+    # return render(request, 'movies/recommended.html', context)
+  else:
+    movies = get_list_or_404(Movie)
+    recommendations = sample(movies, 10)
+    serializer = MovieSerializer(recommendations)
+  # return redirect('accounts:login')
+
+
+@api_view(['GET'])
+def current_popularity(request):
+  if request.method == 'GET':
+    movies = Movie.objects.order_by('-popularity')[:20]
+    serializer = MovieSerializer(movies, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)

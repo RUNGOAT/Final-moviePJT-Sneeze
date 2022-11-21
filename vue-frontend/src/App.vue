@@ -51,8 +51,10 @@ export default {
 
 <style>
 html, body {
+  width: 100%;
   height :100%;
-  background-attachment: scroll;
+  background-attachment: fixed;
+  /* background-attachment: scroll; */
   background: linear-gradient(0deg, rgba(45,47,59,1) 0%, rgba(8,9,14,1) 35%) no-repeat;
 }
 #app {
