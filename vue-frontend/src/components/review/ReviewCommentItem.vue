@@ -1,7 +1,11 @@
 <template>
   <div>
     <div v-if="update">
-      <router-link :to="{ name: 'Profile', params: { user_pk: comment.user }}">{{ comment.userName }}</router-link>
+      <p 
+        class="m-0 fw-bold fs-3 user"
+        @click="goProfile"
+        >{{ comment.userName }}
+      </p>
       {{ comment.content }}
       <div v-if="this.me.username === comment.userName">
         <button @click="updateForm">UPDATE</button>
@@ -93,7 +97,10 @@ export default {
           this.updateContent = ''
           this.$emit('updateComment')
         })
-    }
+    },
+    goProfile() {
+      this.$router.push({ name: 'Profile', params: { user_pk: this.review.user }})
+    },
   },
 }
 </script>

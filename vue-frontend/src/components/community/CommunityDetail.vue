@@ -24,7 +24,10 @@
     </div>
 
     <div class="row">
-      <h5>{{ community?.userName }}</h5>
+      <p 
+        class="m-0 fw-bold fs-3 user"
+        @click="goProfile"
+        >{{ community.userName }}</p>
       <p>{{ community?.updated_at }}</p>
     </div>
     <hr>
@@ -136,7 +139,10 @@ export default {
     },
     updateComment() {
       this.getCommunityComment()
-    }
+    },
+    goProfile() {
+      this.$router.push({ name: 'Profile', params: { user_pk: this.review.user }})
+    },
   },
 }
 </script>

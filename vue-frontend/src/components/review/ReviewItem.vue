@@ -7,14 +7,19 @@
     >
       <div class="d-flex justify-content-between align-items-center">
         <div class="row col-3 d-flex align-items-center p-0">
-          <router-link 
+          <!-- <router-link 
             :to="{ name: 'Profile', params: { user_pk: review.user }}"
             class="m-0 fw-bold fs-3"
-          >{{ review.userName }}</router-link>
+          >{{ review.userName }}</router-link> -->
+          <p 
+          class="m-0 fw-bold fs-3 user"
+          @click="goProfile"
+          >{{ review.userName }}</p>
           <p class="m-0" style="font-size: x-small;">{{ review.created_at.slice(0, 16) }}</p>
         </div>
 
         <!-- {{ review }} -->
+
         <div>
           {{ review.rank }}
           <img src="@/assets/star.png" style="width: 20px; height: 10px margin-left: 1rem;">
@@ -41,6 +46,9 @@ export default {
         movie_pk: this.movie.id
       }})
     },
+    goProfile() {
+      this.$router.push({ name: 'Profile', params: { user_pk: this.review.user }})
+    }
   }
 }
 </script>

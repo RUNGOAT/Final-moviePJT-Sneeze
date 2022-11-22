@@ -38,22 +38,31 @@
                         <p><small>'좋아요'한 영화 수</small></p>
                     </div>
                 </div>
-                <button v-if="isFollowing" @click="follow" class="btn btn-secondary btn-block"><span class="fa fa-plus-circle"></span> UnFollow </button>
-                <button v-else @click="follow" class="btn btn-primary btn-block"><span class="fa fa-plus-circle"></span> Follow </button>
+                <div v-if="me.username === user.username">
+                  <br>
+                </div>
+                <div v-else>
+                  <button v-if="isFollowing" @click="follow" class="btn btn-secondary btn-block"><span class="fa fa-plus-circle"></span> UnFollow </button>
+                  <button v-else @click="follow" class="btn btn-primary btn-block"><span class="fa fa-plus-circle"></span> Follow </button>
+                </div>
           </div>                 
       </div>
     </div>
     <h2 class="title-font">{{ user.username }}님이 좋아요 한 영화</h2>    
-    <ul v-if="usersMovies">
-      <HomeRecoCard 
-        :movies="usersMovies"
+    <ul v-if="usersMovies" class="row">
+      <MovieCardView
+        v-for="movie in usersMovies"
+        :key="movie.created_at"
+        :movie="movie"
       />
     </ul>
     <br>
     <h2 class="title-font">{{ user.username }}님이 리뷰한 영화</h2>    
     <ul v-if="usersMovies">
-      <HomeRecoCard 
-        :movies="reviewMovies"
+      <MovieCardView
+        v-for="movie in reviewMovies"
+        :key="movie.created_at"
+        :movie="movie"
       />
     </ul>
   </div>
@@ -61,7 +70,8 @@
 
 <script>
 import axios from 'axios'
-import HomeRecoCard from '@/components/HomeRecoCard.vue'
+// import HomeRecoCard from '@/components/HomeRecoCard.vue'
+import MovieCardView from '../movie/MovieCardView.vue'
 
 const API_URL = 'http://127.0.0.1:8000'
 
@@ -69,7 +79,8 @@ export default {
   name: "ProfileView",
 
   components: {
-    HomeRecoCard,
+    // HomeRecoCard,
+    MovieCardView,
   },
   data() {
     return {

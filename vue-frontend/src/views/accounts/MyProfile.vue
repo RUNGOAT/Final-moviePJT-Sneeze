@@ -9,7 +9,7 @@
                         <h2 class="title-font" style="margin-bottom: 10px">My Profile</h2>
                         <div><button @click="open2" style="background-color:black; border:0px; color:white;" class="m-1 btn content-font">Following <span>{{ this.followingsLength }}명</span></button> <button @click="open1" style="background-color:black; border:0px; color:white;" class="m-1 btn content-font">Follower <span>{{ this.followesLength }}명</span></button></div>
                         <p class="content-font" style="font-size: 20px"><strong>username: </strong> {{ user.username }} </p>
-                                            </div>
+                    </div>
                     <br>             
                     <!-- <div class="col-xs-12 col-sm-4 text-center">
                         <figure>
@@ -45,8 +45,8 @@
                 <div class="col-lg-8 mx-auto">
                     <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19.-->
                   <div class="control-group">
-                      <div v-for="(follow, idx) in user.followings" :key="idx" style="cursor:pointer" class="content-font form-group floating-label-form-group controls mb-0 pb-2">
-                          <MyFollower :follow="follow" />
+                      <div v-for="(userId, idx) in user.followings" :key="idx" style="cursor:pointer" class="content-font form-group floating-label-form-group controls mb-0 pb-2">
+                          <FollowingsView :userId="userId" />
                       </div>
                   </div>
                 </div>
@@ -79,8 +79,8 @@
                 <div class="col-lg-8 mx-auto">
                     <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19.-->
                   <div class="control-group">
-                      <div v-for="(follower, idx) in user.followers" :key="idx" style="cursor:pointer" class="content-font form-group floating-label-form-group controls mb-0 pb-2">
-                          <!-- <MyFollower :follow="follower" /> -->
+                      <div v-for="(userId, idx) in user.followers" :key="idx" style="cursor:pointer" class="content-font form-group floating-label-form-group controls mb-0 pb-2">
+                          <FollowersView :userId="userId" />
                       </div>
                   </div>
                 </div>
@@ -105,6 +105,8 @@ import axios from 'axios'
 
 // import MovieCard from "@/components/MovieCard"
 // import MyFollower from "@/components/MyFollower"
+import FollowersView from '@/components/FollowersView.vue'
+import FollowingsView from '@/components/FollowingsView.vue'
 
 const API_URL = 'http://127.0.0.1:8000'
 
@@ -133,7 +135,8 @@ export default {
   },
   components: {
     // MovieCard,
-    // MyFollower,
+    FollowersView,
+    FollowingsView,
   },
   methods: {
     getMe() {
@@ -159,6 +162,7 @@ export default {
       })
         .then(res => {
           this.user = res.data
+          console.log(res.data)
         })
     },
     open1: function () {

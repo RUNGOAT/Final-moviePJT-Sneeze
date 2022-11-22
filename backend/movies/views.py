@@ -19,13 +19,6 @@ class MovieListView(ListAPIView):
   queryset = Movie.objects.all()
   serializer_class = MovieSerializer
   pagination_class = PageNumberPagination
-
-
-class SearchMovieView(ListAPIView):
-  
-  def search(self, request):
-    return request.data
-
   
 
 @api_view(['GET'])

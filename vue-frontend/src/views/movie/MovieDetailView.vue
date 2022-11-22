@@ -54,11 +54,10 @@
             해당 영화는 줄거리가 제공되지 않습니다.
           </div>
 
+          
+
           <!-- <button @click="searchYoutube">Youtube Video</button> -->
-          <iframe
-            :src="youtubeURI"
-            width="560" height="315" >
-          </iframe>
+          
           
         </div>
         <div class="movie-detail-lower">
@@ -72,16 +71,63 @@
       </div>
     </div>
     <br>
-      <div v-if="movie"
-      style="background-color: rgba(48, 51, 62, 1);"
-      class="rounded"
-      >
-        <ReviewList 
-          :movieId="movieId"
-          :movie="movie"
-          class="m-3"
-        />
+
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button"
+          role="tab" aria-controls="home-tab-pane" aria-selected="true">리뷰</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button"
+          role="tab" aria-controls="profile-tab-pane" aria-selected="false">Youtube</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button"
+          role="tab" aria-controls="contact-tab-pane" aria-selected="false">Contact</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="similar-tab" data-bs-toggle="tab" data-bs-target="#similar-tab-pane" type="button"
+          role="tab" aria-controls="similar-tab-pane" aria-selected="false">similar</button>
+      </li>
+
+      <!-- <li class="nav-item" role="presentation">
+        <button class="nav-link" id="disabled-tab" data-bs-toggle="tab" data-bs-target="#disabled-tab-pane" type="button"
+          role="tab" aria-controls="disabled-tab-pane" aria-selected="false" disabled>Disabled</button>
+      </li> -->
+    </ul>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+        <div v-if="movie" style="background-color: rgba(48, 51, 62, 1);" class="rounded">
+          <ReviewList :movieId="movieId" :movie="movie" class="m-3" />
+        </div>
       </div>
+      <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+        <iframe :src="youtubeURI" width="560" height="315">
+        </iframe>
+      </div>
+      <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+        <div class="row">
+          <MovieCardView
+            v-for="movie in cosMovies"
+            :key="movie.created_at"
+            :movie="movie"
+          />
+        </div>
+      </div>
+      <div class="tab-pane fade" id="similar-tab-pane" role="tabpanel" aria-labelledby="similar-tab" tabindex="0">
+        <div class="row">
+          <MovieCardView
+            v-for="movie in similarMovies"
+            :key="movie.created_at"
+            :movie="movie"
+          />
+        </div>
+      </div>
+
+      <!-- <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">...
+      </div> -->
+    </div>
+
   </div>
 
 </template>
@@ -89,6 +135,8 @@
 <script>
 import ReviewList from '@/views/movie/ReviewList'
 import axios from 'axios'
+// import HomeRecoCard from '@/components/HomeRecoCard.vue'
+import MovieCardView from '../movie/MovieCardView.vue'
 
 const API_URL = 'http://127.0.0.1:8000'
 
@@ -96,6 +144,8 @@ export default {
   name: 'MovieDetailView',
   components: {
     ReviewList,
+    // HomeRecoCard,
+    MovieCardView,
   },
   data() {
     return {
@@ -106,6 +156,8 @@ export default {
       isLiked: false,
       me: null,
       likeNumber: '',
+      cosMovies: this.$store.state.cosMovies,
+      similarMovies: this.$store.state.similarMovies
     }
   },
   computed: {

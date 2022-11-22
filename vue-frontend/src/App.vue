@@ -81,4 +81,9 @@ nav a {
 nav a.router-link-exact-active {
   color: #0072D2;
 }
+
+.user:hover { 
+  text-decoration:underline; color:#0072D2;
+  cursor: pointer;
+}
 </style>

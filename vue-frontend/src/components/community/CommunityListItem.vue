@@ -2,16 +2,20 @@
   <div class="row d-flex justify-content-around">
     <!-- {{ community.content }} -->
     <div class="col-3">
-      <router-link :to="{ name: 'CommunityDetail', params: { community_pk: community.id } }">
-        {{ community.title }}
-      </router-link>
+      <p 
+        class="m-0 fw-bold fs-5 user"
+        @click="goDetail"
+        >{{ community.title }}</p>
       
     </div>
     <div class="col-1">
-      {{ community?.userName }}
+      <p 
+        class="m-0 fw-bold fs-5 user"
+        @click="goProfile"
+        >{{ community.userName }}</p>
     </div>
     <div class="col-1">
-      {{ community?.created_at }}
+      {{ community.created_at }}
     </div>
     <hr>
   </div>
@@ -22,6 +26,14 @@ export default {
   name: 'CommunityListItem',
   props: {
     community: Object,
+  },
+  methods: {
+    goProfile() {
+      this.$router.push({ name: 'Profile', params: { user_pk: this.review.user }})
+    },
+    goDetail() {
+      this.$router.push({ name: 'CommunityDetail', params: { community_pk: this.community.id } })
+    },
   }
 }
 </script>
