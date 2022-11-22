@@ -7,7 +7,7 @@ from django.contrib.auth import get_user_model
 from rest_framework import status
 
 from .models import Community, Comment
-from .serializers import CommunityListSerializer, CommentSerializer
+from .serializers import CommunityListSerializer, CommentSerializer, CommunitySerializer, CommentListSerializer
 
 
 
@@ -22,7 +22,7 @@ def community_list_create(request):
     print(get_user_model().username)
     return Response(serializer.data)
   else:
-    serializer = CommunityListSerializer(data=request.data)
+    serializer = CommunitySerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):
       serializer.save(user=request.user)
       return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -44,7 +44,7 @@ def community_detail(request, community_pk):
 def comment_list(request, community_pk):
     community = get_object_or_404(Community, pk=community_pk)
     comments = community.comment_set.all()
-    serializer = CommentSerializer(comments, many=True)
+    serializer = CommentListSerializer(comments, many=True)
     return Response(serializer.data)
 
 
@@ -71,7 +71,7 @@ def community_update_delete(request, community_pk):
     return Response({'message': '권한이 없습니다.'})
 
   if request.method == 'PUT':
-      serializer = CommunityListSerializer(community, data=request.data)
+      serializer = CommunitySerializer(community, data=request.data)
       if serializer.is_valid(raise_exception=True):
           serializer.save(user=request.user)
           return Response(serializer.data)

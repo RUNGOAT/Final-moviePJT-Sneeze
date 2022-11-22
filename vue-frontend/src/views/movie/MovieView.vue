@@ -63,7 +63,7 @@ export default {
       this.getList()
     },
     getList() {
-      console.log(this.currentPage)
+      // console.log(this.currentPage)
       axios({
         methods: 'get',
         url: `${API_URL}/movies/list/?page=${this.currentPage}`,
@@ -72,6 +72,7 @@ export default {
           // console.log(res)
           this.movies = res.data.results
           this.total_row = parseInt(res.data.count / 20)
+          this.searchCardMovie()
         })
     },
     searchMovie() {
@@ -85,7 +86,24 @@ export default {
       else {
         this.getList()
       }
-    }
+    },
+    cardSearch() {
+      if ( this.$route.params.title ) {
+        this.title = this.$route.params.title
+      }
+    },
+    searchCardMovie() {
+      if ( this.$route.params.title ) {
+        this.title = this.$route.params.title
+        const moviedata = this.$store.state.movies
+        if (this.title) {
+          const searchMovies = moviedata.filter(movie => {
+            return movie.title.includes(this.title)
+          })
+          this.movies = searchMovies
+        } 
+      }
+    },
   }
 }
 </script>
