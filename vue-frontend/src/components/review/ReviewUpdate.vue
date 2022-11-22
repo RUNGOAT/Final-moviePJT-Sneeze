@@ -19,7 +19,7 @@
       </div>
       <div class="mb-3 py-3" style="width:100px;">
         <!-- <label for="content" class="form-label">내용</label> -->
-        <input type="number" class="form-control" id="content" v-model.trim="rank" placeholder="평점" >
+        <input type="number" class="form-control" id="content" min="0" max="10" v-model.trim="rank" placeholder="평점" >
       </div>
       
       <button type="submit" class="btn btn-primary">수정</button>

@@ -13,10 +13,10 @@
 
         <div class="col-2 d-flex justify-content-end" v-if="this.me.username === review.userName">
           <span class="px-2" @click="updateReview">
-            <img src="@/assets/pencil.png" style="width:28px;" alt="edit">
+            <img src="@/assets/pencil.png" style="width:28px; cursor: pointer;" alt="edit">
           </span> 
           <span class="px-2" @click="deleteReview">
-            <img src="@/assets/trash.png" style="width:30px;" alt="edit">
+            <img src="@/assets/trash.png" style="width:30px; cursor: pointer;" alt="edit">
           </span>
         </div>
       </div>

@@ -5,7 +5,9 @@
       <input type="search" id="search" v-model="title" @input="searchMovie" class="form-control col">
       <button class="btn btn-primary col-1 ms-3">검색</button>
     </form>
-    <div class="popular-list row gx-2 gy-4 text-center">
+    <div class="popular-list row gx-2 gy-4 text-center"
+      v-if="movies"
+    >
       <MovieCardView
         v-for="movie in movies"
         :key="movie.created_at"
@@ -15,7 +17,7 @@
     <br><br><br><br>
     <div v-show="!title">
       <b-pagination
-        @input="changeList"
+        @input="getList"
         v-model="currentPage"
         :total-rows="total_row"
         :per-page="perPage"
@@ -59,9 +61,6 @@ export default {
     this.getList()
   },
   methods: {
-    changeList() {
-      this.getList()
-    },
     getList() {
       // console.log(this.currentPage)
       axios({

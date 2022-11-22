@@ -11,7 +11,7 @@
         <textarea type="text" class="form-control" id="content" v-model.trim="content" placeholder="내용" style="height: 200px;"></textarea>
       </div>
       <div class="mb-3 py-3">
-        <input type="number" class="form-control" id="content" v-model.trim="rank" placeholder="평점" style="height: 200px;">
+        <input type="number" class="form-control" id="content" min="0" max="10" v-model.trim="rank" placeholder="평점" style="height: 200px;">
       </div>
 
       <!-- <label for="rank">평점: </label>

@@ -2,7 +2,7 @@
   <div class="movie-detail-card">
     <div class="d-flex justify-content">
       <!-- 포스터 -->
-      <div class="movie-detail-poster">
+      <div class="movie-detail-poster" v-if="movie">
         <img :src="this.imageUrl + movie?.poster_path" alt="포스터 없음">
       </div>
       <!-- 포스터 끝 -->
@@ -89,12 +89,17 @@
         </div>
       </div>
       <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-        <iframe :src="youtubeURI" width="560" height="315">
-        </iframe>
+        <div class="d-flex justify-content-start flex-wrap">
+          <YoutubeItem
+            v-for="(youtube, idx) in youtubeVideos"
+            :key="idx"
+            :youtube="youtube"
+          />
+        </div>
       </div>
 
       <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
-        <div class="row">
+        <div class="row popular-list">
           <MovieDetailCard
             v-for="movie in cosMovies"
             :key="movie.created_at"
@@ -104,7 +109,7 @@
       </div>
 
       <div class="tab-pane fade" id="similar-tab-pane" role="tabpanel" aria-labelledby="similar-tab" tabindex="0">
-        <div class="row">
+        <div class="row popular-list">
           <MovieDetailCard
             v-for="movie in similarMovies"
             :key="movie.created_at"
@@ -122,6 +127,7 @@ import ReviewList from '@/views/movie/ReviewList'
 import axios from 'axios'
 // import HomeRecoCard from '@/components/HomeRecoCard.vue'
 import MovieDetailCard from './MovieDetailCard.vue'
+import YoutubeItem from '@/components/YoutubeItem.vue'
 
 const API_URL = 'http://127.0.0.1:8000'
 // const API_KEY = 'c12ca67b05f1378e09cf647da6b26b3e'
@@ -132,6 +138,7 @@ export default {
     ReviewList,
     // HomeRecoCard,
     MovieDetailCard,
+    YoutubeItem,
   },
   data() {
     return {
@@ -151,21 +158,20 @@ export default {
       return this.$store.state.cosMovies
     },
     youtubeVideos() {
-      return this.$store.state.youtubeVideos[0]
+      return this.$store.state.youtubeVideos
     },
-    youtubeURI() {
-      if (this.youtubeVideos) {
-        const videoId = this.youtubeVideos.key
-        return `https://www.youtube.com/embed/${videoId}`
-      } else {
-        return ''
-      }
-    },
+    // youtubeURI() {
+    //   if (this.youtubeVideos) {
+    //     const videoId = this.youtubeVideos.key
+    //     return `https://www.youtube.com/embed/${videoId}`
+    //   } else {
+    //     return ''
+    //   }
+    // },
   },
   created() {
     this.getMovie(this.$route.params.movie_id)
     this.getMe()
-    this.islike()
     this.getCosMovie()
     this.getSimilarMovie()
     this.searchYoutube()

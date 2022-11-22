@@ -23,7 +23,7 @@
       </div>
     </nav>
     <router-view></router-view>
-    <div style="height: 70vh"></div>
+    <div style="height: 80vh"></div>
   </div>
 </template>
 

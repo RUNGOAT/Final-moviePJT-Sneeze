@@ -58,7 +58,7 @@
     </ul>
     <br>
     <h2 class="title-font">{{ user.username }}님이 리뷰한 영화</h2>    
-    <ul v-if="usersMovies">
+    <ul v-if="usersMovies" class="row">
       <MovieCardView
         v-for="movie in reviewMovies"
         :key="movie.created_at"
