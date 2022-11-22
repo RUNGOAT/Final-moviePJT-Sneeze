@@ -5,19 +5,20 @@
         <a class="navbar-brand" href="http://localhost:8080/">
           <img src="../src/assets/logo.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
           <span style="color:white;"> Movie</span>
-        
         </a>
       
-        <router-link :to="{ name: 'Home' }">Home</router-link>
-        <router-link :to="{ name: 'Movie' }">Movie</router-link>
-        <router-link :to="{ name: 'Community' }">Community</router-link>
-        <router-link :to="{ name: 'MyProfile', params: { username: username }  }">Profile</router-link>
-        <div v-if="!isLogin">
-          <router-link :to="{ name: 'Signup' }">Signup</router-link> .
-          <router-link :to="{ name: 'Login' }">Login</router-link>
-        </div>
-        <div v-else>
-          <button @click="logOut" v-show="isLogin">Logout</button>
+        <div class="row">
+          <router-link class="col-2" :to="{ name: 'Home' }">Home</router-link>
+          <router-link class="col-2" :to="{ name: 'Movie' }">Movie</router-link>
+          <router-link class="col-3" :to="{ name: 'Community' }">Community</router-link>
+          <router-link class="col-2" :to="{ name: 'MyProfile', params: { username: username }  }">Profile</router-link>
+          <span class="col-3 d-flex justify-content-between" v-if="!isLogin">
+            <router-link :to="{ name: 'Signup' }">Signup</router-link> .
+            <router-link :to="{ name: 'Login' }">Login</router-link>
+          </span>
+          <div class="col-2" v-else>
+            <button @click="logOut" v-show="isLogin">Logout</button>
+          </div>
         </div>
       </div>
     </nav>

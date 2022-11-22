@@ -30,7 +30,6 @@ export default {
   },
   methods: {
     createCommunity() {
-
       const title = this.title
       const content = this.content
       if (!title) {

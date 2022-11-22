@@ -1,7 +1,6 @@
 <template>
-  <div class="container" id="community">
+  <div class="container" id="communityDetail">
     <div class="row">
-      
       <router-link class="col-1" :to="{name : 'Community'}">
         <img src="@/assets/back.png" style="width:25px;" alt="back">
       </router-link>
@@ -33,10 +32,6 @@
     <br>
     
     <hr>
-    <CommunityCommentForm
-      @comment_add="commentAdd"
-      :communityId="communityId"
-    />
     <div v-if="comments">
       <CommunityCommentItem
         @update_comment="updateComment"
@@ -46,6 +41,10 @@
         :comment="comment"
         :communityId="communityId"
       />
+    <CommunityCommentForm
+      @comment_add="commentAdd"
+      :communityId="communityId"
+    />
     </div>
   </div>
 </template>
@@ -142,9 +141,10 @@ export default {
 </script>
 
 <style>
-#community{
+#communityDetail{
     width:800px;
-    height: 530px;
+    min-height: 500px;
+    height: auto;
     padding: 3%;
     margin-top: 50px;
     border-radius: 10px;

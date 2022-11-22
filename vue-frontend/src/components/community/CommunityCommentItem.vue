@@ -1,16 +1,21 @@
 <template>
-  <div>
+  <div class="container">
     <div v-if="update">
-      {{ comment.userName }}
-      {{ comment.content }}
-      <div v-if="this.me.username === comment.userName">
-        <button @click="updateForm">UPDATE</button>
-        <button @click="deleteComment">DELETE</button>
+      <div class="row justify-content-between">
+        <p class="col-3" id="commentUsername">{{ comment.userName }}</p>
+        <div class="col-3 justify-content-left" v-if="this.me.username === comment.userName">
+          <span class="mx-2" @click="updateForm">수정</span>
+          <span class="mx-2" @click="deleteComment">삭제</span>
+        </div>
+
       </div>
+      <p id="commentContent">{{ comment.content }}</p>
     </div>
+
     <div v-else>
+      <p id="commentUsername">{{ comment.userName }}</p>
       <form @submit.prevent="updateComment">
-        <label for="content">댓글: </label>
+        <!-- <label for="content">댓글: </label> -->
         <input type="text" id="content" v-model.trim="updateContent">
         <button>작성</button>
         <button @click="cancelUpdate">취소</button>
@@ -96,5 +101,10 @@ export default {
 </script>
 
 <style>
-
+#commentUsername{
+  font: bolder;
+}
+#commentContent{
+  font:lighter
+}
 </style>

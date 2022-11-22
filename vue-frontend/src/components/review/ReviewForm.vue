@@ -1,6 +1,27 @@
 <template>
-  <div class="container">
-    <h1>리뷰 작성</h1>
+
+  <div class="container" id="community">
+    <div class="row">
+      <router-link class="col-1" :to="{name: 'MovieDetail', params: { movie_id: movieId } }">
+        <img src="@/assets/back.png" style="width:25px;" alt="back">
+      </router-link>
+      <span class="col-10" style="text-align: center;">리뷰 작성</span>
+    </div>
+    <br>
+
+    <form @submit.prevent="createReview">
+      <div class="mb-3 py-3">
+        <input type="text" class="form-control" id="title1" aria-describedby="titleHelp" v-model.trim="title" placeholder="제목">
+        <div id="titleHelp" class="form-text">100자 이하</div>
+      </div>
+      <div class="mb-3 py-3">
+        <textarea type="text" class="form-control" id="content" v-model.trim="content" placeholder="내용" style="height: 200px;"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">등록</button>
+    </form>
+  </div>
+
+    <!-- <h1>리뷰 작성</h1>
     <form @submit.prevent="createReview" class="form">
       <label for="title">title: </label>
       <input type="text" id="title" v-model.trim="title" class="form-control">
@@ -9,8 +30,7 @@
       <label for="rank">평점: </label>
       <input type="number" id="rank" v-model.trim="rank" class="form-control">
       <button class="btn btn-warning">제출</button>
-    </form>
-  </div>
+    </form> -->
 </template>
 
 <script>

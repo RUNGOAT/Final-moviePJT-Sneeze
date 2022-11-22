@@ -1,15 +1,27 @@
 <template>
-  <div>
-    <h1>CommunityUpdate</h1>
+  <div class="container" id="communityUpdate">
+    <div class="row">
+      <router-link class="col-1" :to="{name : 'Community'}">
+        <img src="@/assets/back.png" style="width:25px;" alt="back">
+      </router-link>
+      <span class="col-10" style="text-align: center;">게시글 수정</span>
+    </div>
+    <br>
     <form @submit.prevent="updateCommunity">
-      <label for="title">title: </label>
-      <input type="text" id="title" v-model.trim="title">
-      <label for="content">content: </label>
-      <textarea v-model.trim="content" id="content" cols="30" rows="10"></textarea>
-      <button>제출</button>
+      <div class="mb-3 py-3">
+        <!-- <label for="title" class="form-label">제목</label> -->
+        <input type="text" class="form-control" id="title1" aria-describedby="titleHelp" v-model.trim="title" placeholder="제목">
+        <div id="titleHelp" class="form-text">100자 이하</div>
+      </div>
+      <div class="mb-3 py-3">
+        <!-- <label for="content" class="form-label">내용</label> -->
+        <textarea type="text" class="form-control" id="content" v-model.trim="content" placeholder="내용" style="height: 200px;"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">수정</button>
     </form>
-    <router-link :to="{ name: 'CommunityDetail', params: { community_pk: communityId }}">[BACK]</router-link>
   </div>
+
+  
 </template>
 
 <script>
@@ -58,5 +70,14 @@ export default {
 </script>
 
 <style>
-
+#communityUpdate {
+  width:800px;
+  min-height: 500px;
+  height: auto;
+  padding: 3%;
+  margin-top: 50px;
+  border-radius: 10px;
+  background-color: #30333E;
+  /* text-align: center; */
+}
 </style>

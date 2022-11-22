@@ -13,6 +13,8 @@ class MovieSerializer(serializers.ModelSerializer):
 
 class ReviewListSerializer(serializers.ModelSerializer):
   movie_title = serializers.SerializerMethodField()
+  created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
+  updated_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
 
   def get_movie_title(self, obj):
     return obj.movie.title
@@ -30,7 +32,9 @@ class ReviewListSerializer(serializers.ModelSerializer):
 
 class ReviewCommentSerializer(serializers.ModelSerializer):
   userName = serializers.SerializerMethodField()
-  
+  created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
+  updated_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
+
   def get_userName(self,obj):
     return obj.user.username
 
