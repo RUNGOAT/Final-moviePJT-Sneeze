@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     goProfile() {
-      this.$router.push({ name: 'Profile', params: { user_pk: this.review.user }})
+      this.$router.push({ name: 'Profile', params: { user_pk: this.community.user }})
     },
     goDetail() {
       this.$router.push({ name: 'CommunityDetail', params: { community_pk: this.community.id } })
