@@ -18,6 +18,8 @@ urlpatterns = [
     path('<int:my_pk>/<int:movie_id>/is_liked/', views.is_liked),
     path('<int:my_pk>/like/', views.my_movie_like),
     path('<int:my_pk>/like/users/', views.like_movie_users),
+    path('<int:user_pk>/like/review/', views.user_like_movies),
+
     path('info/', views.users_info),
 
     path('recommended/', views.recommended, name='recommended'),

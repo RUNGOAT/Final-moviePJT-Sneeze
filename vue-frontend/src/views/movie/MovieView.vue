@@ -12,23 +12,25 @@
         :movie="movie"
       />
     </div>
-    <br><br><br>
-    <b-pagination
-      @input="changeList"
-      v-model="currentPage"
-      :total-rows="total_row"
-      :per-page="perPage"
-      aria-controls="my-table"
-      align="center"
-    ></b-pagination>
+    <br><br><br><br>
+    <div v-show="!title">
+      <b-pagination
+        @input="changeList"
+        v-model="currentPage"
+        :total-rows="total_row"
+        :per-page="perPage"
+        aria-controls="my-table"
+        align="center"
+      ></b-pagination>
 
-    <b-table
-      id="my-table"
-      :movies="movies"
-      :per-page="perPage"
-      :current-page="currentPage"
-      small
-    ></b-table>
+      <b-table
+        id="my-table"
+        :movies="movies"
+        :per-page="perPage"
+        :current-page="currentPage"
+        small
+      ></b-table>
+    </div>
   </div>
 </template>
 

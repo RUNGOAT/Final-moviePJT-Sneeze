@@ -44,11 +44,11 @@ def my_profile(request):
 
 
 @api_view(['POST'])
-@authentication_classes([JSONWebTokenAuthentication])
-@permission_classes([IsAuthenticated])
-def profile(request, username):
+# @authentication_classes([JSONWebTokenAuthentication])
+# @permission_classes([IsAuthenticated])
+def profile(request, user_pk):
     print(request.data)
-    user = get_object_or_404(get_user_model(), pk=request.data.get('user_pk'))
+    user = get_object_or_404(get_user_model(), pk=user_pk)
     serializer = UserSerializer(user)
     return Response(serializer.data)
 
@@ -70,8 +70,8 @@ def user(request, my_pk):
 
 
 @api_view(['POST'])
-@authentication_classes([JSONWebTokenAuthentication])
-@permission_classes([IsAuthenticated])
+# @authentication_classes([JSONWebTokenAuthentication])
+# @permission_classes([IsAuthenticated])
 def follow(request, my_pk, user_pk):
     person = get_object_or_404(get_user_model(), pk=user_pk)
     me = get_object_or_404(get_user_model(), pk=my_pk)
@@ -84,7 +84,20 @@ def follow(request, my_pk, user_pk):
         else:
             me.followings.add(person)
             following = True
-        print(me.followings.filter(pk=person.pk))
+        # print(me.followings.filter(pk=person.pk))
+        return Response(following)
+
+
+@api_view(['POST'])
+def is_follow(request, my_pk, user_pk):
+    person = get_object_or_404(get_user_model(), pk=user_pk)
+    me = get_object_or_404(get_user_model(), pk=my_pk)
+    if person != me:
+        if me.followings.filter(pk=person.pk).exists():
+            following = True
+            # followed가 더 좋은 표현인 듯
+        else:
+            following = False
         return Response(following)
 
 

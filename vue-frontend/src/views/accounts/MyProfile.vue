@@ -107,6 +107,7 @@ import axios from 'axios'
 // import MyFollower from "@/components/MyFollower"
 
 const API_URL = 'http://127.0.0.1:8000'
+
 export default {
   name: "MyProfile",
   data: function () {

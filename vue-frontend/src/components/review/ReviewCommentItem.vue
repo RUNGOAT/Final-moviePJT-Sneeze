@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="update">
-      {{ comment.userName }}: 
+      <router-link :to="{ name: 'Profile', params: { user_pk: comment.user }}">{{ comment.userName }}</router-link>
       {{ comment.content }}
       <div v-if="this.me.username === comment.userName">
         <button @click="updateForm">UPDATE</button>

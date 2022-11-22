@@ -13,7 +13,6 @@
     <div class="col-1">
       {{ community?.created_at }}
     </div>
-
     <hr>
   </div>
 </template>
