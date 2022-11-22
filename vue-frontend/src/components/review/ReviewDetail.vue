@@ -1,28 +1,51 @@
 <template>
   <div>
-    {{ review }}
-    <div v-if="this.me.username === review.userName">
-      <button @click="updateReview">UPDATE</button>
-      <button @click="deleteReview">DELETE</button>
-    </div>
-    <hr>
-    <div v-if="review">
-      <ReviewCommentForm
-        @reviewCommentAdd="reviewCommentAdd"
-        :review="review"
-      />
+    <div class="container" id="communityDetail">
+      <div class="row">
+        <router-link class="col-1" :to="{name: 'MovieDetail', params: { movie_id: movieId } }">
+          <img src="@/assets/back.png" style="width:25px;" alt="back">
+        </router-link>
+        <span class="col-10" style="text-align: center;">Review</span>
+      </div>
       <br>
-      <div v-if="comments">
-        <ReviewCommentItem
-          @delComment="delComment"
-          @updateComment="updateComment"
-          v-for="comment in comments"
-          :key="comment.created_at"
-          :comment="comment"
+      <div class="row d-flex justify-content-between">
+        <h2 class="col-3">{{ review?.title }}</h2>
+
+        <div class="col-2 d-flex justify-content-end" v-if="this.me.username === review.userName">
+          <span class="px-2" @click="updateReview">
+            <img src="@/assets/pencil.png" style="width:28px;" alt="edit">
+          </span> 
+          <span class="px-2" @click="deleteReview">
+            <img src="@/assets/trash.png" style="width:30px;" alt="edit">
+          </span>
+        </div>
+      </div>
+  
+      <div class="row">
+        <h5>{{ review?.userName }}</h5>
+        <p>{{ review?.updated_at }}</p>
+      </div>
+      <div class="row">
+        <p>{{ review?.content }}</p>
+      </div>
+      <hr>
+      <div v-if="review">
+        <ReviewCommentForm
+          @reviewCommentAdd="reviewCommentAdd"
           :review="review"
         />
+        <br>
+        <div v-if="comments">
+          <ReviewCommentItem
+            @delComment="delComment"
+            @updateComment="updateComment"
+            v-for="comment in comments"
+            :key="comment.created_at"
+            :comment="comment"
+            :review="review"
+          />
       </div>
-      <router-link :to="{name: 'MovieDetail', params: { movie_id: movieId } }">[BACK]</router-link>
+    </div>
     </div>
   </div>
 </template>

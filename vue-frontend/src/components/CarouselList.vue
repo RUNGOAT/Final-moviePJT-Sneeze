@@ -15,7 +15,7 @@
           :key="movie.id"
           :movie="movie"
         >
-          <div :class="[movie.id == 1 ? 'carousel-item active' : 'carousel-item']" data-bs-interval="20">
+          <div :class="[movie.id == 1 ? 'carousel-item active' : 'carousel-item']" data-bs-interval="2000">
             <img :src="backdrop_path + movie.backdrop_path" class="d-block w-100" alt="movie.title" id="carouselImg">
             <div class="carousel-caption d-none d-md-block text-left">
               <h2 style="font-weight: bold;">{{ movie.title }}</h2>
