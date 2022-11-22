@@ -1,7 +1,7 @@
 <template>
   <div 
     class="movie-item"
-    @click="goDetail"
+    @click="goMovie"
   >
     <img
       :src="poster_path + movie.poster_path" alt="..."
@@ -12,7 +12,7 @@
 <script>
 
 export default {
-  name: 'MovieCardView',
+  name: 'MovieDetailCard',
   props: {
     movie: Object,
   },
@@ -22,8 +22,8 @@ export default {
     }
   },
   methods: {
-    goDetail() {
-      this.$router.push({ name: 'MovieDetail', params: { movie_id: this.movie.movie_id }})
+    goMovie() {
+      this.$router.push({ name: 'Movie', params: { title: this.movie.title }})
     }
   }
 }

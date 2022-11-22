@@ -19,6 +19,8 @@ import ProfileView from '@/views/accounts/ProfileView'
 import LoginView from '@/views/accounts/LoginView'
 import SignupView from '@/views/accounts/SignupView'
 
+import LoadingView from '@/components/LoadingView'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -100,6 +102,12 @@ const routes = [
     name: 'ReviewUpdate',
     component: ReviewUpdate
   },
+  {
+    path: '/loading/movie_id',
+    name: 'LoadingView',
+    component: LoadingView
+  },
+
 
 ]
 

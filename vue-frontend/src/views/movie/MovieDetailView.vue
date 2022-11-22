@@ -107,7 +107,7 @@
       </div>
       <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
         <div class="row">
-          <MovieCardView
+          <MovieDetailCard
             v-for="movie in cosMovies"
             :key="movie.created_at"
             :movie="movie"
@@ -116,7 +116,7 @@
       </div>
       <div class="tab-pane fade" id="similar-tab-pane" role="tabpanel" aria-labelledby="similar-tab" tabindex="0">
         <div class="row">
-          <MovieCardView
+          <MovieDetailCard
             v-for="movie in similarMovies"
             :key="movie.created_at"
             :movie="movie"
@@ -136,16 +136,17 @@
 import ReviewList from '@/views/movie/ReviewList'
 import axios from 'axios'
 // import HomeRecoCard from '@/components/HomeRecoCard.vue'
-import MovieCardView from '../movie/MovieCardView.vue'
+import MovieDetailCard from './MovieDetailCard.vue'
 
 const API_URL = 'http://127.0.0.1:8000'
+// const API_KEY = 'c12ca67b05f1378e09cf647da6b26b3e'
 
 export default {
   name: 'MovieDetailView',
   components: {
     ReviewList,
     // HomeRecoCard,
-    MovieCardView,
+    MovieDetailCard,
   },
   data() {
     return {
@@ -157,7 +158,7 @@ export default {
       me: null,
       likeNumber: '',
       cosMovies: this.$store.state.cosMovies,
-      similarMovies: this.$store.state.similarMovies
+      similarMovies: this.$store.state.similarMovies,
     }
   },
   computed: {
@@ -168,17 +169,21 @@ export default {
       return this.$store.state.youtubeVideos[0]
     },
     youtubeURI() {
-      const videoId = this.youtubeVideos.key
-      return `https://www.youtube.com/embed/${videoId}`
-    },  
+      if (this.youtubeVideos) {
+        const videoId = this.youtubeVideos.key
+        return `https://www.youtube.com/embed/${videoId}`
+      } else {
+        return ''
+      }
+    },
   },
   created() {
-    this.getCosMovie()
-    this.getMovie()
-    this.getSimilarMovie()
+    this.getMovie(this.$route.params.movie_id)
     this.getMe()
+    this.islike()
+    this.getCosMovie()
+    this.getSimilarMovie()
     this.searchYoutube()
-    // this.islike()
   },
   methods: {
     getCosMovie() {
@@ -187,12 +192,13 @@ export default {
     getSimilarMovie() {
       this.$store.dispatch('getSimilarMovie', this.movieId)
     },
-    getMovie() {
+    getMovie(movieId) {
+      // console.log(movieId)
       axios({
         method: 'get',
-        url: `${API_URL}/movies/${this.movieId}/`,
+        url: `${API_URL}/movies/${movieId}/`,
         data: {
-          movie_id: this.movieId
+          movie_id: movieId
         }
       })
         .then(res => {
@@ -204,6 +210,19 @@ export default {
     searchYoutube() {
       this.$store.dispatch('searchYoutube', this.movieId)
     },
+    // searchYoutube() {
+    //   axios({
+    //     method: 'get',
+    //     url: `https://api.themoviedb.org/3/movie/${this.movieId}/videos?api_key=${API_KEY}&language=ko-KR`
+    //   })
+    //     .then(res => {
+    //       const youtubes = res.data.results.filter(youtube => {
+    //         return youtube.key
+    //       })
+    //       this.searchVideos = youtubes
+    //     })
+    //     .catch(err => console.log(err))
+    // },
     getMe() {
       axios({
         method: 'get',
@@ -255,7 +274,7 @@ export default {
           // console.log(res)
           this.isLiked = res.data
         })
-    }
+    },
   },
 
 }

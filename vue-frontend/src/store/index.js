@@ -93,7 +93,10 @@ export default new Vuex.Store({
       })
         .then(res => {
           // console.log(res.data.results)
-          context.commit('GET_COS_MOVIE', res.data.results)
+          const movies = res.data.results.filter(movie => {
+            return movie.poster_path
+          })
+          context.commit('GET_COS_MOVIE', movies)
         })
         .catch(err => {
           console.log(err)
@@ -106,7 +109,10 @@ export default new Vuex.Store({
       })
       .then(res => {
         // console.log(res.data.results)
-        context.commit('GET_SIMILAR_MOVIE', res.data.results)
+        const movies = res.data.results.filter(movie => {
+          return movie.poster_path
+        })
+        context.commit('GET_SIMILAR_MOVIE', movies)
       })
       .catch(err => {
         console.log(err)
