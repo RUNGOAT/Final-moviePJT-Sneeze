@@ -1,12 +1,17 @@
 <template>
-  <div class="container">
-    <h1>게시글 작성</h1>
+  <div class="container" id="community">
+    <h2>게시글 작성</h2>
     <form @submit.prevent="createCommunity">
-      <label for="title">title: </label>
-      <input type="text" id="title" v-model.trim="title" class="form-control">
-      <label for="content">content: </label>
-      <textarea v-model.trim="content" id="content" cols="30" rows="10" class="form-control"></textarea>
-      <button class="btn btn-warning">제출</button>
+      <div class="mb-3 py-3">
+        <!-- <label for="title" class="form-label">제목</label> -->
+        <input type="text" class="form-control" id="title1" aria-describedby="titleHelp" v-model.trim="title" placeholder="제목">
+        <div id="titleHelp" class="form-text">100자 이하</div>
+      </div>
+      <div class="mb-3 py-3">
+        <!-- <label for="content" class="form-label">내용</label> -->
+        <textarea type="text" class="form-control" id="content" v-model.trim="content" placeholder="내용" style="height: 200px;"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">등록</button>
     </form>
   </div>
 </template>
@@ -58,5 +63,13 @@ export default {
 </script>
 
 <style>
-
+#community{
+    width:800px;
+    height: 530px;
+    padding: 3%;
+    margin-top: 50px;
+    border-radius: 10px;
+    background-color: #30333E;
+    /* text-align: center; */
+  }
 </style>

@@ -1,17 +1,37 @@
 <template>
-  <div>
-    <p>{{ community?.userName }}</p>
-    <p>{{ community?.related_name }}</p>
-    <p>{{ community?.title }}</p>
-    <p>{{ community?.content }}</p>
-    <p>{{ community?.created_at }}</p>
-    <p>{{ community?.updated_at }}</p>
-    <br>
-    <div v-if="this.me.username === community?.userName">
-      <button @click="updateCommunity">UPDATE</button>
-      <button @click="deleteCommunity">DELETE</button>
+  <div class="container" id="community">
+    <div class="row">
+      
+      <router-link class="col-1" :to="{name : 'Community'}">
+        <img src="@/assets/back.png" style="width:25px;" alt="back">
+      </router-link>
+      <span class="col-10" style="text-align: center;">Community</span>
     </div>
-    <router-link :to="{name : 'Community'}">[BACK]</router-link>
+    <br>
+    <div class="row">
+      <h2 class="col-10">{{ community?.title }}</h2>
+
+      <div class="col-2 d-flex justify-content-end" v-if="this.me.username === community?.userName">
+        <span class="px-2" @click="updateCommunity">
+          <img src="@/assets/pencil.png" style="width:28px;" alt="edit">
+          <!-- 수정 -->
+        </span> 
+        <span class="px-2" @click="deleteCommunity">
+          <img src="@/assets/trash.png" style="width:30px;" alt="edit">
+          <!-- 삭제 -->
+        </span>
+      </div>
+    </div>
+
+    <div class="row">
+      <h5>{{ community?.userName }}</h5>
+      <p>{{ community?.updated_at }}</p>
+    </div>
+    <hr>
+    <p>{{ community?.content }}</p>
+    <!-- <p>{{ community?.created_at }}</p> -->
+    <br>
+    
     <hr>
     <CommunityCommentForm
       @comment_add="commentAdd"
@@ -122,5 +142,13 @@ export default {
 </script>
 
 <style>
-
+#community{
+    width:800px;
+    height: 530px;
+    padding: 3%;
+    margin-top: 50px;
+    border-radius: 10px;
+    background-color: #30333E;
+    /* text-align: center; */
+  }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1>HOME</h1>
-    <!-- <CarouselList/> -->
+    <!-- <h1>HOME</h1> -->
+    <CarouselList/>
     <br>
     <h3 class="content-font" v-if="my_users_like_movies.length > 0">{{user.username}} 님의 취향저격 베스트 콘텐츠</h3>
     <h2 v-else >리뷰와 좋아요를 눌러주시면 취향저격 콘텐츠를 추천해드립니다!</h2>
@@ -22,13 +22,11 @@
     <br>
     <h3 class="content-font" v-if="users_movies.length === 20">SSAFLIX 유저들이 많이 리뷰한 영화</h3>
     <HomeRecoCard v-if="users_movies.length === 20" :movies="users_movies"/>
-    
-  
   </div>
 </template>
 
 <script>
-// import CarouselList from '@/components/CarouselList'
+import CarouselList from '@/components/CarouselList'
 
 import HomeRecoCard from '@/components/HomeRecoCard.vue'
 import axios from 'axios'
@@ -51,7 +49,7 @@ export default {
     }
   },
   components: {
-    // CarouselList,
+    CarouselList,
 
     HomeRecoCard,
   },
