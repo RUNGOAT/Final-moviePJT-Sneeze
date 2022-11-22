@@ -65,10 +65,10 @@ const routes = [
     // props: true,
   },
   {
-    path: '/profile/:username',
+    path: '/profile/:user_pk',
     name: 'Profile',
     component: ProfileView,
-    props: true,
+    // props: true,
   },
   {
     path: '/login',

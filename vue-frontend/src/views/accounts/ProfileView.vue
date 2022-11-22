@@ -1,5 +1,8 @@
 <template>
   <div class="container">
+    <!-- {{ user }}
+    {{ usersMovies }}
+    <button @click="follow">팔로우</button> -->
     <div class="container" style="margin-bottom:30px">
       <div class="row">
           <div class="well profile">
@@ -12,6 +15,7 @@
                             <span class="tags" style="margin-right:5px">{{user.sex}}</span>
                         </p>
                         <p v-if="isFollowing" class="st-font">{{ user.username }}님을 팔로우 중 입니다.</p>
+                        <p v-else><br></p>
                     </div>
                     <br>             
                     <div class="col-xs-12 col-sm-4 text-center">
@@ -29,10 +33,10 @@
                         <h2><strong>{{followingsLength}}</strong></h2>                    
                         <p><small>Following</small></p>
                     </div>
-                    <!-- <div class="col-xs-12 col-sm-4 emphasis">
+                    <div class="col-xs-12 col-sm-4 emphasis">
                         <h2><strong v-if="user.followings">{{user.like_movies.length}}</strong></h2>                    
                         <p><small>'좋아요'한 영화 수</small></p>
-                    </div> -->
+                    </div>
                 </div>
                 <button v-if="isFollowing" @click="follow" class="btn btn-secondary btn-block"><span class="fa fa-plus-circle"></span> UnFollow </button>
                 <button v-else @click="follow" class="btn btn-primary btn-block"><span class="fa fa-plus-circle"></span> Follow </button>
@@ -41,145 +45,122 @@
     </div>
     <h2 class="title-font">{{ user.username }}님이 좋아요 한 영화</h2>    
     <ul v-if="usersMovies">
-      <!-- <MovieCard 
+      <HomeRecoCard 
         :movies="usersMovies"
-      /> -->
+      />
+    </ul>
+    <br>
+    <h2 class="title-font">{{ user.username }}님이 리뷰한 영화</h2>    
+    <ul v-if="usersMovies">
+      <HomeRecoCard 
+        :movies="reviewMovies"
+      />
     </ul>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
-import VueJwtDecode from "vue-jwt-decode"
+import HomeRecoCard from '@/components/HomeRecoCard.vue'
 
-// import MovieCard from "@/components/MovieCard"
-
-const SERVER_URL = 'http://127.0.0.1:8000'
+const API_URL = 'http://127.0.0.1:8000'
 
 export default {
   name: "ProfileView",
-  props: {
-    user_pk: {
-      type: Number,
-    },
-    username: {
-      type: String,
-    },
-  },
+
   components: {
-    // MovieCard,
+    HomeRecoCard,
   },
   data() {
     return {
-      user: [],
       me: [],
-      following: '',
+      user: [],
       usersMovies: [],
+      reviewMovies: [],
+      user_pk: this.$route.params.user_pk,
+      movies: this.$store.state.movies,
+      isFollowing: false,
     }
   },
+  created() {
+    this.getMe()
+  },
   methods: {
-    getToken: function () {
-      const token = localStorage.getItem('jwt')
-
-      const config = {
+    getMe() {
+      axios({
+        method: 'get',
+        url: `${API_URL}/accounts/user/`,
         headers: {
-          Authorization: `JWT ${token}`
+          Authorization: `Token ${this.$store.state.token}`
         },
-      }
-      return config
-    },
-    getMyName: function () {
-      const config = this.getToken()
-
-      const hash = localStorage.getItem('jwt')
-      // console.log(VueJwtDecode.decode(hash))
-      const info = VueJwtDecode.decode(hash)
-      axios.post(`${SERVER_URL}/accounts/${this.username}/`, info, config)
-      .then( (res) => {
-        // console.log(res.data)
-        this.me = res.data
-        if (this.me.followings != undefined && this.me.followings != null && this.me.followings.includes(this.user.id)) {
-          this.following = true
-        } else {
-          this.following = false
-        }
-        // console.log(this.me.followings)
       })
-      .catch( (err) => {
-        console.log(err)
-      })
-    },
-    getUserInfoSub: function () {
-      const config = this.getToken()
-      // const user_pk = this.$route.params.user_pk
-      const username = this.$route.params.username
-      const userItem = {
-        // user_pk: user_pk,
-        username: username,
-      }
-      axios.post(`${SERVER_URL}/accounts/${username}/`, userItem, config)
-      .then( (res) => {
-        // console.log(res.data)
-        // console.log(res)
-        this.user = res.data
-      })
-      .catch( (err) => {
-        console.log(err)
-      })
-    },
-    getUserInfo: function () {
-      const config = this.getToken()
-      const user_pk = this.$route.params.user_pk
-      const username = this.$route.params.username
-      const userItem = {
-        user_pk: user_pk,
-        username: username,
-      }
-      axios.post(`${SERVER_URL}/accounts/${username}/`, userItem, config)
-      .then( (res) => {
-        // console.log(res.data)
-        // console.log(res)
-        this.user = res.data
-        const item = this.user.like_movies
-
-        axios.post(`${SERVER_URL}/movies/${this.user.id}/like/`, item, config)
-        .then( (res) => {
-          // console.log(res)
-          this.usersMovies = res.data
+        .then(res => {
+          this.me = res.data
+          this.getMyName()
+          this.isFollow()
         })
-        .catch( (err) => {
-          console.log(err)
+    },
+    getMyName() {
+      axios({
+        method: 'post',
+        url: `${API_URL}/userinfo/user/${this.user_pk}/`,
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`
+        },
+      })
+        .then(res => {
+          this.user = res.data
+          this.getUserMovies(res.data.like_movies, res.data.reviews)
         })
-
-      })
-      .catch( (err) => {
-        console.log(err)
-      })
     },
-    follow: function () {
-      const config = this.getToken()
-      const item = {
-        myId: this.me.id,
-        userId: this.user.id,
-      }
-
-      axios.post(`${SERVER_URL}/userinfo/follow/${this.me.id}/${this.user.id}/`, item, config)
-      .then( () => {
-        // console.log(res)
-        
-        // console.log(this.me)
-        this.getMyName()
-        this.getUserInfoSub()
+    getUserMovies(like_movies, reviews) {
+      axios({
+        method: 'post',
+        url: `${API_URL}/movies/${this.user_pk}/like/review/`,
+        data: {
+          like_movies,
+          reviews,
+        },
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`
+        },
       })
-      .catch( (err) => {
-        console.log(err)
-      })
+        .then(res => {
+          this.usersMovies = res.data[0]
+          this.reviewMovies = res.data[1]
+        })
     },
+    follow() {
+      axios({
+        method: 'post',
+        url: `${API_URL}/userinfo/follow/${this.me.pk}/${this.user_pk}/`,
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`
+        },
+      })
+        .then((res) => {
+          this.isFollowing = res.data
+          this.getMyName()
+        })
+    },
+    isFollow() {
+      axios({
+        method: 'post',
+        url: `${API_URL}/userinfo/is_follow/${this.me.pk}/${this.user_pk}/`,
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`
+        },
+      })
+        .then((res) => {
+          this.isFollowing = res.data
+        })
+    }
+    
   },
   computed: {
-    isFollowing: function () {
-      return this.following
-    },
+    // isFollowing: function () {
+    //   return this.following
+    // },
     followingsLength: function () {
       if (this.user.followings) {
         return this.user.followings.length
@@ -195,10 +176,7 @@ export default {
       }
     },
   },
-  created: function () {
-    this.getUserInfo()
-    this.getMyName()
-  },
+
 }
 </script>
 

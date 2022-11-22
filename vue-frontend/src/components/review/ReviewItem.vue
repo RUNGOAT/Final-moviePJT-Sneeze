@@ -7,7 +7,10 @@
     >
       <div class="d-flex justify-content-between align-items-center">
         <div class="row col-3 d-flex align-items-center p-0">
-          <p class="m-0 fw-bold fs-3">{{ review.userName }}</p>
+          <router-link 
+            :to="{ name: 'Profile', params: { user_pk: review.user }}"
+            class="m-0 fw-bold fs-3"
+          >{{ review.userName }}</router-link>
           <p class="m-0" style="font-size: x-small;">{{ review.created_at.slice(0, 16) }}</p>
         </div>
 

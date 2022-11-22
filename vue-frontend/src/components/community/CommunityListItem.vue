@@ -1,8 +1,9 @@
 <template>
   <div>
-    {{ community?.userName }}
+    <router-link :to="{ name: 'Profile', params: { user_pk: community.user }}">{{ community.userName }}</router-link>
     {{ community.title }}
     {{ community.content }}
+    {{ community }}
     <router-link :to="{ name: 'CommunityDetail', params: { community_pk: community.id } }">
       [DETAIL]
     </router-link>
