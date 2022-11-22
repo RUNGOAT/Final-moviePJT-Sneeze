@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container" id="communityDetail">
+    <div class="container" id="background">
       <div class="row">
         <router-link class="col-1" :to="{name: 'MovieDetail', params: { movie_id: movieId } }">
           <img src="@/assets/back.png" style="width:25px;" alt="back">
@@ -30,11 +30,6 @@
       </div>
       <hr>
       <div v-if="review">
-        <ReviewCommentForm
-          @reviewCommentAdd="reviewCommentAdd"
-          :review="review"
-        />
-        <br>
         <div v-if="comments">
           <ReviewCommentItem
             @delComment="delComment"
@@ -44,6 +39,11 @@
             :comment="comment"
             :review="review"
           />
+        <br>
+        <ReviewCommentForm
+          @reviewCommentAdd="reviewCommentAdd"
+          :review="review"
+        />
       </div>
     </div>
     </div>

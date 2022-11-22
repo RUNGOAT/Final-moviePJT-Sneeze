@@ -1,13 +1,28 @@
 <template>
-  <div>
+  <div class="container" id="communityUpdate">
+    <div class="row">
+      <router-link class="col-1" :to="{ name : 'ReviewDetail', params: { movie_id: movieId, review_pk: reviewId} }">
+        <img src="@/assets/back.png" style="width:25px;" alt="back">
+      </router-link>
+      <span class="col-10" style="text-align: center;">리뷰 수정</span>
+    </div>
+    <br>
     <form @submit.prevent="updateReview">
-      <label for="title">title: </label>
-      <input type="text" id="title" v-model.trim="title">
-      <label for="content">content: </label>
-      <textarea v-model.trim="content" id="content" cols="30" rows="10"></textarea>
-      <label for="rank">평점: </label>
-      <input type="number" id="rank" v-model.trim="rank">
-      <button>제출</button>
+      <div class="mb-3 py-3">
+        <!-- <label for="title" class="form-label">제목</label> -->
+        <input type="text" class="form-control" id="title1" aria-describedby="titleHelp" v-model.trim="title" placeholder="제목">
+        <div id="titleHelp" class="form-text">100자 이하</div>
+      </div>
+      <div class="mb-3 py-3">
+        <!-- <label for="content" class="form-label">내용</label> -->
+        <textarea type="text" class="form-control" id="content" v-model.trim="content" placeholder="내용" style="height: 200px;"></textarea>
+      </div>
+      <div class="mb-3 py-3" style="width:100px;">
+        <!-- <label for="content" class="form-label">내용</label> -->
+        <input type="number" class="form-control" id="content" v-model.trim="rank" placeholder="평점" >
+      </div>
+      
+      <button type="submit" class="btn btn-primary">수정</button>
     </form>
   </div>
 </template>

@@ -1,7 +1,7 @@
 <template>
   <div class="container" id="communityUpdate">
     <div class="row">
-      <router-link class="col-1" :to="{name : 'Community'}">
+      <router-link class="col-1" :to="{name : 'CommunityDetail', params: { community_pk: communityId } }">
         <img src="@/assets/back.png" style="width:25px;" alt="back">
       </router-link>
       <span class="col-10" style="text-align: center;">게시글 수정</span>

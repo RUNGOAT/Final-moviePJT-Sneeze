@@ -1,14 +1,7 @@
 <template>
-
-  <div class="container" id="community">
-    <div class="row">
-      <router-link class="col-1" :to="{name: 'MovieDetail', params: { movie_id: movieId } }">
-        <img src="@/assets/back.png" style="width:25px;" alt="back">
-      </router-link>
-      <span class="col-10" style="text-align: center;">리뷰 작성</span>
-    </div>
+  <div class="container" id="background">
     <br>
-
+    <h3>리뷰 작성</h3>
     <form @submit.prevent="createReview">
       <div class="mb-3 py-3">
         <input type="text" class="form-control" id="title1" aria-describedby="titleHelp" v-model.trim="title" placeholder="제목">
@@ -17,6 +10,14 @@
       <div class="mb-3 py-3">
         <textarea type="text" class="form-control" id="content" v-model.trim="content" placeholder="내용" style="height: 200px;"></textarea>
       </div>
+      <div class="mb-3 py-3">
+        <input type="number" class="form-control" id="content" v-model.trim="rank" placeholder="평점" style="height: 200px;">
+      </div>
+
+      <!-- <label for="rank">평점: </label>
+      <input type="number" id="rank" v-model.trim="rank" class="form-control"> -->
+
+
       <button type="submit" class="btn btn-primary">등록</button>
     </form>
   </div>

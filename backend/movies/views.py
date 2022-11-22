@@ -8,7 +8,7 @@ from rest_framework import status
 from random import sample
 
 from .models import Movie, Review, ReviewComment, Genre
-from .serializers import MovieSerializer, ReviewListSerializer, ReviewCommentSerializer
+from .serializers import MovieSerializer, ReviewListSerializer, ReviewCommentSerializer, ReviewCommentReadSerializer, ReviewReadSerializer
 from accounts.serializers import UserSerializer
 
 from rest_framework.pagination import PageNumberPagination
@@ -76,7 +76,7 @@ def review_list_create(request, movie_pk):
 def review_comment_list(request, review_pk):
   review = get_object_or_404(Review, pk=review_pk)
   comments = review.reviewcomment_set.all()
-  serializer = ReviewCommentSerializer(comments, many=True)
+  serializer = ReviewCommentReadSerializer(comments, many=True)
   return Response(serializer.data)
 
 
@@ -94,7 +94,7 @@ def create_review_comment(request, review_pk):
 @api_view(['GET'])
 def review_detail(request, review_pk):
     review = get_object_or_404(Review, id=review_pk)
-    serializer = ReviewListSerializer(review)
+    serializer = ReviewReadSerializer(review)
     return Response(serializer.data)
 
 

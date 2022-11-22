@@ -1,5 +1,5 @@
 <template>
-  <div class="container" id="communityDetail">
+  <div class="container" id="background">
     <div class="row">
       <router-link class="col-1" :to="{name : 'Community'}">
         <img src="@/assets/back.png" style="width:25px;" alt="back">
@@ -147,14 +147,4 @@ export default {
 </script>
 
 <style>
-#communityDetail{
-    width:800px;
-    min-height: 500px;
-    height: auto;
-    padding: 3%;
-    margin-top: 50px;
-    border-radius: 10px;
-    background-color: #30333E;
-    /* text-align: center; */
-  }
 </style>

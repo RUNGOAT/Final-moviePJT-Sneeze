@@ -6,7 +6,7 @@
           class="m-0 fw-bold fs-3 col-3 user"
           @click="goProfile"
         >{{ comment.userName }}</p>
-        <div class="col-3 justify-content-left" v-if="this.me.username === comment.userName">
+        <div class="col-3 d-flex justify-content-end" v-if="this.me.username === comment.userName">
           <span class="mx-2" @click="updateForm">수정</span>
           <span class="mx-2" @click="deleteComment">삭제</span>
         </div>

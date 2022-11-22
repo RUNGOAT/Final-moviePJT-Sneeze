@@ -1,9 +1,11 @@
 <template>
   <div>
     <form @submit.prevent="createReviewComment">
-      <label for="content">댓글: </label>
-      <input type="text" id="content" v-model.trim="content">
-      <button>작성</button>
+      <label for="comment" class="form-label">{{ this.$store.state.username }}</label>
+      <div class="d-flex justify-content-between">
+        <input type="text" id="comment" class="form-control" v-model.trim="content" placeholder="악플금지!">
+        <button class="btn mx-2" type="submit" style="background-color: #0072D2; color:white;">등록</button>
+      </div>
     </form>
   </div>
 </template>
@@ -50,5 +52,7 @@ export default {
 </script>
 
 <style>
-
+.comment-btn {
+  background-color: #0072D2;
+}
 </style>

@@ -1,77 +1,68 @@
 <template>
   <div class="movie-detail-card">
-    <!-- <div class="movie-detail-toolbar">
-      <v-btn
-        icon
-        dark
-        @click="dialog = false">
-        <v-icon>mdi-close</v-icon>
-      </v-btn>
-      <img id="logo-image" src="@/assets/images/logo.png"/>
-    </div> -->
-    <div class="movie-detail-body">
+    <div class="d-flex justify-content">
+      <!-- 포스터 -->
       <div class="movie-detail-poster">
         <img :src="this.imageUrl + movie?.poster_path" alt="포스터 없음">
       </div>
-      <div class="movie-detail-info">
-        <!-- info header -->
-        <div class="movie-detail-upper">
-          <div class="movie-detail-info-header">
-            <div class="movie-detail-info-header-left">
-              <div class="movie-detail-title d-flex align-items-center">
-                <p>{{ movie?.title }}</p>
-                <div class="d-flex align-items-baseline ms-2 heart-box p-2" @click="like">
-                  <i v-if="isLiked" class="bi bi-heart-fill heart"></i>
-                  <i v-else class="bi bi-heart heart"></i>
-                  <p class="ps-2">{{ this.likeNumber }}개</p>
-                </div>
-              </div>
-              <div v-if="movie?.release_date" class="movie-release-date">
-                개봉 : {{ movie.release_date }}
-              </div>
-              <div v-if="movie?.genre_ids">
-                <!-- {{ movie.genre_ids }} -->
-              </div>
-            </div>
+      <!-- 포스터 끝 -->
 
-            <div class="movie-detail-info-header-right">
-              <img id="movie-star" src="@/assets/star.png">
-              <div class="movie-vote">
-                {{ movie?.vote_average }}
-              </div>
+      <!-- 영화 정보 -->
+      <div class="container">
+        <div class="row d-flex justify-content-between">
+          <!-- 제목 & 별점 -->
+          <span class="col-10 movie-detail-title">
+            <p>{{ movie?.title }}</p>
+          </span>
+
+          <div class="col-2 d-flex justify-content-left">
+            <img id="movie-star" src="@/assets/star.png" style="height:50px;">
+            <div class="movie-vote px-2">
+              {{ movie?.vote_average }}
             </div>
           </div>
-          
-          <!-- info overview -->
-          <div class="movie-detail-overview-header">
+
+          <!-- 개봉일 -->
+          <div v-if="movie?.release_date" class="movie-release-date">
+            개봉 : {{ movie.release_date }}
+          </div>
+          <!-- 개봉일 끝 -->
+
+          <!-- 줄거리 -->
+          <div class="movie-detail-header">
             줄거리
-          </div>
-          <hr>
-          <div v-if="movie?.overview" class="movie-detail-overview-body">
-            {{ movie?.overview }}
-          </div>
-          <div v-else class="movie-detail-overview-body">
-            해당 영화는 줄거리가 제공되지 않습니다.
-          </div>
-
-          
-
-          <!-- <button @click="searchYoutube">Youtube Video</button> -->
-          
-          
-        </div>
-        <div class="movie-detail-lower">
-          <!-- youtube -->
-          <!-- <div class="movie-youtube-area">
-            관련 영상
             <hr>
-            <YoutubeList :title="movie.title"/>
-          </div> -->
-        </div>
+            <div v-if="movie?.overview" class="movie-detail-body">
+              {{ movie?.overview }}
+            </div>
+            <div v-else class="movie-detail-overview-body">
+              해당 영화는 줄거리가 제공되지 않습니다.
+            </div>
+          </div>
+          <!-- 줄거리 끝 -->
+
+          <!-- 좋아요, 리뷰 작성 -->
+          <div class="d-flex justify-content-end align-middle movie-detail-header">
+            <span class="d-flex align-items-baseline ms-2 p-2 heart-box" @click="like">
+              <i v-if="isLiked" class="bi bi-heart-fill heart" style="height:50px;"></i>
+              <i v-else class="bi bi-heart heart"></i>
+              <p class="px-2">좋아요</p>
+              <!-- <p class="ps-2">{{ this.likeNumber }}개</p> -->
+            </span>
+
+            <span class="d-flex justify-content-space-between review-create" @click="reviewForm">
+              <img src="@/assets/plus.png" style="height:40px;">
+              <p class="px-2">리뷰 쓰기</p>
+            </span>
+          </div>
+          <!-- 좋아요, 리뷰작성 끝 -->
       </div>
     </div>
+  </div>
     <br>
 
+  <!-- 탭 -->
+  <!-- 탭 -->
     <ul class="nav nav-tabs" id="myTab" role="tablist">
       <li class="nav-item" role="presentation">
         <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button"
@@ -79,25 +70,21 @@
       </li>
       <li class="nav-item" role="presentation">
         <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button"
-          role="tab" aria-controls="profile-tab-pane" aria-selected="false">Youtube</button>
+          role="tab" aria-controls="profile-tab-pane" aria-selected="false">예고편</button>
       </li>
       <li class="nav-item" role="presentation">
         <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button"
-          role="tab" aria-controls="contact-tab-pane" aria-selected="false">Contact</button>
+          role="tab" aria-controls="contact-tab-pane" aria-selected="false">추천 영화</button>
       </li>
       <li class="nav-item" role="presentation">
         <button class="nav-link" id="similar-tab" data-bs-toggle="tab" data-bs-target="#similar-tab-pane" type="button"
-          role="tab" aria-controls="similar-tab-pane" aria-selected="false">similar</button>
+          role="tab" aria-controls="similar-tab-pane" aria-selected="false">비슷한 영화</button>
       </li>
 
-      <!-- <li class="nav-item" role="presentation">
-        <button class="nav-link" id="disabled-tab" data-bs-toggle="tab" data-bs-target="#disabled-tab-pane" type="button"
-          role="tab" aria-controls="disabled-tab-pane" aria-selected="false" disabled>Disabled</button>
-      </li> -->
     </ul>
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-        <div v-if="movie" style="background-color: rgba(48, 51, 62, 1);" class="rounded">
+        <div v-if="movie">
           <ReviewList :movieId="movieId" :movie="movie" class="m-3" />
         </div>
       </div>
@@ -105,6 +92,7 @@
         <iframe :src="youtubeURI" width="560" height="315">
         </iframe>
       </div>
+
       <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
         <div class="row">
           <MovieCardView
@@ -114,6 +102,7 @@
           />
         </div>
       </div>
+
       <div class="tab-pane fade" id="similar-tab-pane" role="tabpanel" aria-labelledby="similar-tab" tabindex="0">
         <div class="row">
           <MovieCardView
@@ -124,12 +113,8 @@
         </div>
       </div>
 
-      <!-- <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">...
-      </div> -->
     </div>
-
   </div>
-
 </template>
 
 <script>
@@ -181,6 +166,12 @@ export default {
     // this.islike()
   },
   methods: {
+    reviewForm() {
+      this.$router.push({ name: 'ReviewForm', params: {
+        movie_id: this.movieId,
+        movie_pk: this.movie.id
+       }})
+    },
     getCosMovie() {
       this.$store.dispatch('getCosMovie', this.movieId)  // 디테일 페이지의 영화 id
     },
@@ -279,11 +270,11 @@ export default {
   height: 56px;
 }
 
-.movie-detail-body {
+/* .movie-detail-body {
   display: flex;
   flex-flow: row wrap;
   margin: 1rem;
-}
+} */
 
 .movie-detail-info {
   display: flex;
@@ -306,6 +297,7 @@ export default {
 
 .movie-detail-title {
   font-size: 40px;
+  font-weight: bolder;
 }
 
 .movie-detail-info-header-right {
@@ -323,13 +315,13 @@ export default {
   margin-left: 1rem;
 }
 
-.movie-detail-overview-header {
+.movie-detail-header {
   margin-top: 5rem;
   padding-top: 5rem;
   font-size: 32px;
 }
 
-.movie-detail-overview-body {
+.movie-detail-body {
   font-size: 20px;
 }
 .heart {
@@ -339,38 +331,8 @@ export default {
   transition-duration: 0.4s;
 }
 
-.heart-box {
+.heart-box, .review-create {
   cursor: pointer;
 }
 
 </style>
-
-
-
-
-
-
-
-<!-- 동작 x 보류 -->
-      <!-- <nav>
-        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-          <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button"
-            role="tab" aria-controls="nav-home" aria-selected="true">Home</button>
-          <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button"
-            role="tab" aria-controls="nav-profile" aria-selected="false">Profile</button>
-          <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button"
-            role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button>
-          <button class="nav-link" id="nav-disabled-tab" data-bs-toggle="tab" data-bs-target="#nav-disabled" type="button"
-            role="tab" aria-controls="nav-disabled" aria-selected="false" disabled>Disabled</button>
-        </div>
-      </nav>
-      <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
-          ...</div>
-        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">...
-        </div>
-        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">...
-        </div>
-        <div class="tab-pane fade" id="nav-disabled" role="tabpanel" aria-labelledby="nav-disabled-tab" tabindex="0">...
-        </div>
-      </div> -->

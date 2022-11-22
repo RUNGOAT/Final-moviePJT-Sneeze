@@ -87,4 +87,14 @@ nav a.router-link-exact-active {
   text-decoration:underline; color:#0072D2;
   cursor: pointer;
 }
+
+#background {
+  width:800px;
+  /* min-height: 600px; */
+  height: auto;
+  padding: 3%;
+  margin-top: 50px;
+  border-radius: 10px;
+  background-color: #30333E;
+}
 </style>
