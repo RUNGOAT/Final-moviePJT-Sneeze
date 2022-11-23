@@ -4,8 +4,8 @@ from .models import Community, Comment
 
 class CommunityListSerializer(serializers.ModelSerializer):
   userName = serializers.SerializerMethodField()
-  # created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
-  # updated_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
+  created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
+  updated_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
 
   
   def get_userName(self,obj):
@@ -33,8 +33,8 @@ class CommunitySerializer(serializers.ModelSerializer):
 
 class CommentListSerializer(serializers.ModelSerializer):
   userName = serializers.SerializerMethodField()
-  # created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
-  # updated_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
+  created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
+  updated_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
   
   def get_userName(self,obj):
     return obj.user.username

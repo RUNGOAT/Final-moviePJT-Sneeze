@@ -169,6 +169,7 @@ def recommend(request):
   users_movies = []
   # 좋아요 기반
   users_movies2 = []
+  
   reviews = Review.objects.all()
   for review in reviews:
     movie = Movie.objects.get(pk=review.movie_id)
@@ -326,27 +327,27 @@ def recommended(request):
     my_movies = User.like_movies.all()
     
     if my_movies:
-        for movie in my_movies:
-            genres = movie.genres.all()
-            for genre in genres:
-                if genre.pk in my_genres:
-                    my_genres[genre.pk] += 1
-                else:
-                    my_genres[genre.pk] = 1
+      for movie in my_movies:
+          genres = movie.genres.all()
+          for genre in genres:
+              if genre.pk in my_genres:
+                  my_genres[genre.pk] += 1
+              else:
+                  my_genres[genre.pk] = 1
 
-        my_genres = sorted(my_genres, key=lambda x: my_genres[x])[:3]
+      my_genres = sorted(my_genres, key=lambda x: my_genres[x])[:3]
 
-        recommendations_list = set()
-        for my_genre in my_genres:
-            for movie in movies:
-                genres = movie.genres.all()
-                for genre in genres:
-                    if genre.pk == my_genre:
-                        recommendations_list.add(movie)
-                        break
-        recommendations = sample(recommendations_list, 20)
-        serializer = MovieSerializer(recommendations)
-        # liked = True
+      recommendations_list = set()
+      for my_genre in my_genres:
+          for movie in movies:
+              genres = movie.genres.all()
+              for genre in genres:
+                  if genre.pk == my_genre:
+                      recommendations_list.add(movie)
+                      break
+      recommendations = sample(recommendations_list, 20)
+      serializer = MovieSerializer(recommendations)
+      # liked = True
     else:
         movies = get_list_or_404(Movie)
         recommendations = sample(movies, 20)
