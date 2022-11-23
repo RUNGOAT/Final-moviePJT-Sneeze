@@ -21,6 +21,8 @@ import SignupView from '@/views/accounts/SignupView'
 
 import LoadingView from '@/components/LoadingView'
 
+import MapView from '@/views/MapView.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -107,7 +109,11 @@ const routes = [
     name: 'LoadingView',
     component: LoadingView
   },
-
+  {
+    path: '/maps',
+    name: 'MapView',
+    component: MapView
+  },
 
 ]
 

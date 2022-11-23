@@ -10,6 +10,7 @@
           <router-link class="col-lg-2 col-12 mt-2 text-center fs-4" :to="{ name: 'Home' }">홈</router-link>
           <router-link class="col-lg-2 col-12 mt-2 text-center fs-4" :to="{ name: 'Movie' }">영화</router-link>
           <router-link class="col-lg-2 col-12 mt-2 text-center fs-4" :to="{ name: 'Community' }">게시판</router-link>
+          <router-link :to="{ name: 'MapView' }">맵</router-link>
         </div>
       
         <div class="row">
