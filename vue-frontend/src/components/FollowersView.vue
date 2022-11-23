@@ -4,7 +4,6 @@
       class="m-0 fw-bold fs-3 user"
       @click="goProfile"
       >{{ user.username }}</p>
-    <hr>
   </div>
 </template>
 
@@ -40,7 +39,7 @@ export default {
         })
     },
     goProfile() {
-      this.$router.push({ name: 'Profile', params: { user_pk: this.review.user }})
+      this.$router.push({ name: 'Profile', params: { user_pk: this.userId }})
     },
   }
 }

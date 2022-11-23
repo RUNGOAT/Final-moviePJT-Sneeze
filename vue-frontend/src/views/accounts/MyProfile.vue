@@ -1,33 +1,40 @@
 <template>
   <div class="container">
-    <h1 class="title-font" style="margin-bottom:40px">My Profile</h1>
-    <div class="containter" style="margin-bottom:30px">
-      <div class="row">
-          <div class="well profile containerSpecial" style="position:relative;">
-                <div class="col-sm-12">
-                    <div class="col-xs-6 col-sm-8 center" style="margin-bottom:20px">
-                        <h2 class="title-font" style="margin-bottom: 10px">My Profile</h2>
-                        <div><button @click="open2" style="background-color:black; border:0px; color:white;" class="m-1 btn content-font">Following <span>{{ this.followingsLength }}명</span></button> <button @click="open1" style="background-color:black; border:0px; color:white;" class="m-1 btn content-font">Follower <span>{{ this.followesLength }}명</span></button></div>
-                        <p class="content-font" style="font-size: 20px"><strong>username: </strong> {{ user.username }} </p>
-                    </div>
-                    <br>             
-                    <!-- <div class="col-xs-12 col-sm-4 text-center">
-                        <figure>
-                            <img src="@/assets/logo.png" alt="" class="img-circle img-responsive">
-                        </figure>
-                    </div> -->
-                  <!-- 절취선 -->
-                  <!-- 절취선 -->
-                </div>            
-          </div>                 
+    <!-- 프로필 -->
+    <div class="row">
+      <div class="col-sm-3 col-12">
+        <img src="@/assets/user.png" alt="profile" style="width:150px;">
+      </div>
+      <div class="col-sm-9 col-12">
+        <div class="col-12 d-flex justify-content-around pb-2">
+          <h1>{{ user.username }}</h1>
+        </div>
+        <div class="col-sm-12 divider text-center row d-flex justify-content-around" style="margin-bottom:20px">
+            <div class="col-sm-3 col-12" @click="open2">
+              <h2><strong>{{ followingsLength }}</strong></h2>                    
+              <p><small>팔로잉</small></p>
+            </div>
+            <div class="col-sm-3 col-12" @click="open1">
+              <h2><strong>{{ followersLength }}</strong></h2>                    
+              <p><small>팔로워</small></p>
+            </div>
+            <div class="col-sm-3 col-12">
+              <h2><strong>{{ user.like_movies.length }}</strong></h2>                    
+              <p><small>좋아요한 영화 수</small></p>
+            </div>
+        </div>            
       </div>
     </div>
+    <br>
+    <!-- 프로필 끝 -->
+
+    <!-- 팔로잉 모달 -->
     <b-modal
       hide-footer
       v-model="show2"
       id="review-modal"
       size="sm"
-      title="My Follwings"
+      title="팔로잉"
       :header-bg-variant="headerBgVariant"
       :header-text-variant="headerTextVariant"
       :body-bg-variant="bodyBgVariant"
@@ -35,33 +42,23 @@
       :footer-bg-variant="footerBgVariant"
       :footer-text-variant="footerTextVariant"
     >
-      <hr>
       <section class="page-section" id="contact">
-        <div class="container">
-            <!-- Contact Section Heading-->
-            <h2 class="st-font page-section-heading text-center text-uppercase text-white mb-0">Followings</h2>
-            <!-- Contact Section Form-->
-            <div class="row">
-                <div class="col-lg-8 mx-auto">
-                    <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19.-->
-                  <div class="control-group">
-                      <div v-for="(userId, idx) in user.followings" :key="idx" style="cursor:pointer" class="content-font form-group floating-label-form-group controls mb-0 pb-2">
-                          <FollowingsView :userId="userId" />
-                      </div>
-                  </div>
-                </div>
+        <div class="control-group">
+            <div v-for="(userId, idx) in user.followings" :key="idx" style="cursor:pointer" class="content-font form-group floating-label-form-group controls mb-0 pb-2">
+                <FollowingsView :userId="userId" />
             </div>
         </div>
       </section>
-      <div class="text-white st-font form-group"><button @click="close2" class="btn btn-secondary btn-xl" id="sendMessageButton" type="submit">창 닫기</button></div>
     </b-modal>
-    <!-- 절취선 -->
+    <!-- 팔로잉 모달 끝 -->
+
+    <!-- 팔로워 모달 -->
     <b-modal
       hide-footer
       v-model="show1"
       id="review-modal"
       size="sm"
-      title="My Follwers"
+      title="팔로워"
       :header-bg-variant="headerBgVariant"
       :header-text-variant="headerTextVariant"
       :body-bg-variant="bodyBgVariant"
@@ -69,27 +66,15 @@
       :footer-bg-variant="footerBgVariant"
       :footer-text-variant="footerTextVariant"
     >
-      <hr>
       <section class="page-section" id="contact">
-        <div class="container">
-            <!-- Contact Section Heading-->
-            <h2 class="st-font page-section-heading text-center text-uppercase text-white mb-0">Followers</h2>
-            <!-- Contact Section Form-->
-            <div class="row">
-                <div class="col-lg-8 mx-auto">
-                    <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19.-->
-                  <div class="control-group">
-                      <div v-for="(userId, idx) in user.followers" :key="idx" style="cursor:pointer" class="content-font form-group floating-label-form-group controls mb-0 pb-2">
-                          <FollowersView :userId="userId" />
-                      </div>
-                  </div>
-                </div>
+        <div class="control-group">
+            <div v-for="(userId, idx) in user.followers" :key="idx" style="cursor:pointer" class="content-font form-group floating-label-form-group controls mb-0 pb-2">
+                <FollowersView :userId="userId" />
             </div>
         </div>
       </section>
-      <div class="text-white st-font form-group"><button @click="close" class="btn btn-secondary btn-xl" id="sendMessageButton" type="submit">창 닫기</button></div>
     </b-modal>
-    <!-- 절취선 -->
+    <!-- 팔로워 모달 끝 -->
     
     <!-- 탭 -->
     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -129,7 +114,6 @@
 
       </div>
     </div>
-
   </div>
 </template>
 
@@ -240,7 +224,7 @@ export default {
         return 0
       }
     },
-    followesLength: function () {
+    followersLength: function () {
       if (this.user.followers) {
         return this.user.followers.length
       } else {

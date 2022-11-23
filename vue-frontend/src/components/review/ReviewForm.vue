@@ -10,28 +10,13 @@
       <div class="mb-3 py-3">
         <textarea type="text" class="form-control" id="content" v-model.trim="content" placeholder="내용" style="height: 200px;"></textarea>
       </div>
-      <div class="mb-3 py-3">
-        <input type="number" class="form-control" id="content" min="0" max="10" v-model.trim="rank" placeholder="평점" style="height: 200px;">
+      <div class="mb-3 py-3" style="width:80px;">
+        <input type="number" class="form-control" id="content" min="0" max="10" aria-describedby="rankHelp" v-model.trim="rank" placeholder="평점">
+        <div id="rankHelp" class="form-text">0 ~ 10점</div>
       </div>
-
-      <!-- <label for="rank">평점: </label>
-      <input type="number" id="rank" v-model.trim="rank" class="form-control"> -->
-
-
       <button type="submit" class="btn btn-primary">등록</button>
     </form>
   </div>
-
-    <!-- <h1>리뷰 작성</h1>
-    <form @submit.prevent="createReview" class="form">
-      <label for="title">title: </label>
-      <input type="text" id="title" v-model.trim="title" class="form-control">
-      <label for="content">content: </label>
-      <textarea v-model.trim="content" id="content" cols="30" rows="10" class="form-control"></textarea>
-      <label for="rank">평점: </label>
-      <input type="number" id="rank" v-model.trim="rank" class="form-control">
-      <button class="btn btn-warning">제출</button>
-    </form> -->
 </template>
 
 <script>

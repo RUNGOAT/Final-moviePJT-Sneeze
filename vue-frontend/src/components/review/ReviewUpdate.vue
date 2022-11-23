@@ -9,17 +9,15 @@
     <br>
     <form @submit.prevent="updateReview">
       <div class="mb-3 py-3">
-        <!-- <label for="title" class="form-label">제목</label> -->
         <input type="text" class="form-control" id="title1" aria-describedby="titleHelp" v-model.trim="title" placeholder="제목">
         <div id="titleHelp" class="form-text">100자 이하</div>
       </div>
       <div class="mb-3 py-3">
-        <!-- <label for="content" class="form-label">내용</label> -->
         <textarea type="text" class="form-control" id="content" v-model.trim="content" placeholder="내용" style="height: 200px;"></textarea>
       </div>
-      <div class="mb-3 py-3" style="width:100px;">
-        <!-- <label for="content" class="form-label">내용</label> -->
-        <input type="number" class="form-control" id="content" min="0" max="10" v-model.trim="rank" placeholder="평점" >
+      <div class="mb-3 py-3" style="width:80px;">
+        <input type="number" class="form-control" id="content" min="0" max="10" aria-describedby="rankHelp" v-model.trim="rank" placeholder="평점" >
+        <div id="rankHelp" class="form-text">0 ~ 10점</div>
       </div>
       
       <button type="submit" class="btn btn-primary">수정</button>

@@ -6,46 +6,46 @@
     <div class="container" style="margin-bottom:30px">
       <div class="row">
           <div class="well profile">
-                <div class="col-sm-12">
-                    <div class="col-xs-12 col-sm-8 center" style="margin-bottom:20px">
-                        <h2 class="title-font" style="margin-bottom: 30px">{{ user.username }}님의 Profile</h2>
-                        <p class="content-font" style="font-size: 20px"><strong>Email: </strong> {{ user.email }} </p>
-                        <p class="content-font" style="font-size: 20px"><strong>Info: </strong>
-                            <span class="tags" style="margin-right:5px">{{user.age}}</span> 
-                            <span class="tags" style="margin-right:5px">{{user.sex}}</span>
-                        </p>
-                        <p v-if="isFollowing" class="st-font">{{ user.username }}님을 팔로우 중 입니다.</p>
-                        <p v-else><br></p>
-                    </div>
-                    <br>             
-                    <div class="col-xs-12 col-sm-4 text-center">
-                        <figure>
-                            <img src="@/assets/logo.png" alt="" class="img-circle img-responsive">
-                        </figure>
-                    </div>
-                </div>            
-                <div class="col-xs-12 divider text-center">
-                    <div class="col-xs-12 col-sm-4 emphasis">
-                        <h2><strong>{{followersLength}}</strong></h2>                    
-                        <p><small>Follower</small></p>
-                    </div>
-                    <div class="col-xs-12 col-sm-4 emphasis">
-                        <h2><strong>{{followingsLength}}</strong></h2>                    
-                        <p><small>Following</small></p>
-                    </div>
-                    <div class="col-xs-12 col-sm-4 emphasis">
-                        <h2><strong v-if="user.followings">{{user.like_movies.length}}</strong></h2>                    
-                        <p><small>'좋아요'한 영화 수</small></p>
-                    </div>
+            <div class="row">
+              <div class="col-sm-3 col-12">
+                <img src="@/assets/user.png" alt="profile" style="width:150px;">
+              </div>
+              <div class="col-sm-9 col-12">
+                <div class="col-12 d-flex justify-content-around">
+                  <h2 class="title-font" style="margin-bottom: 30px">{{ user.username }}님의 프로필</h2>
                 </div>
-                <div v-if="me.username === user.username">
-                  <br>
+                <div class="col-sm-12 divider text-center row d-flex justify-content-around">
+                  <div class="col-sm-3 col-12">
+                    <h2><strong>{{followersLength}}</strong></h2>                    
+                    <p><small>팔로워</small></p>
+                  </div>
+                  <div class="col-sm-3 col-12">
+                    <h2><strong>{{followingsLength}}</strong></h2>                    
+                    <p><small>팔로잉</small></p>
+                  </div>
+                  <div class="col-sm-4 col-12">
+                    <h2><strong v-if="user.followings">{{ user.like_movies.length }}</strong></h2>                    
+                    <p><small>좋아요한 영화 수</small></p>
+                  </div>
+              </div>
+            </div>
+            <div class="row ms-4 py-4">
+              <div v-if="isFollowing" class="">{{ user.username }}님을 팔로우 중 입니다.</div>
+              <div v-else><br></div>
+            </div>    
+            <div class="row mx-2">
+              <div v-if="me.username === user.username">
+                <br>
+              </div>
+              <div class="py-2" v-else>
+                <div class="d-grid gap-2 col-12 mx-auto">
+                  <button v-if="isFollowing" @click="follow" class="btn btn-secondary">언팔로우</button>
+                  <button v-else @click="follow" class="btn btn-primary">팔로우</button>
                 </div>
-                <div v-else>
-                  <button v-if="isFollowing" @click="follow" class="btn btn-secondary btn-block"><span class="fa fa-plus-circle"></span> UnFollow </button>
-                  <button v-else @click="follow" class="btn btn-primary btn-block"><span class="fa fa-plus-circle"></span> Follow </button>
-                </div>
-          </div>                 
+              </div>
+            </div>        
+          </div>
+        </div>                 
       </div>
     </div>
 

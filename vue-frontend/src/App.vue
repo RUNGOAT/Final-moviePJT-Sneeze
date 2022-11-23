@@ -2,22 +2,21 @@
   <div id="app">
     <nav class="navbar navbar-expand-lg d-flex justify-content-between px-4">
       <!-- <div class="container-fluid"> -->
-        <div class="row">
-          <a class="navbar-brand col-3" href="http://localhost:8080/">
-            <img src="../src/assets/logo.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top col-6">
+        <div class="row col-6">
+          <a class="navbar-brand col-lg-3 col-12" href="http://localhost:8080/">
+            <img src="../src/assets/logo.png" alt="Logo" style="width:50px;" class="d-inline-block align-text-top col-6">
             <span class="col-6" style="color:white;"> Movie</span>
           </a>
-          <router-link class="col-2 px-4 mt-2" :to="{ name: 'Home' }">Home</router-link>
-          <router-link class="col-2 px-4 mt-2" :to="{ name: 'Movie' }">Movie</router-link>
-          <router-link class="col-3 px-4 mt-2" :to="{ name: 'Community' }">Community</router-link>
+          <router-link class="col-lg-2 col-12 mt-2 text-center" :to="{ name: 'Movie' }">영화</router-link>
+          <router-link class="col-lg-2 col-12 mt-2 text-center" :to="{ name: 'Community' }">게시판</router-link>
         </div>
       
         <div class="row">
-          <span class="col-3 px-4 d-flex justify-content-between" v-if="!isLogin">
-            <router-link class="px-3" :to="{ name: 'Signup' }">Signup</router-link> 
-            <router-link class="px-3" :to="{ name: 'Login' }">Login</router-link>
+          <span class="col-12 px-4 d-flex justify-content-between" v-if="!isLogin">
+            <router-link class="px-3" :to="{ name: 'Signup' }">회원가입</router-link> 
+            <router-link class="px-3" :to="{ name: 'Login' }">로그인</router-link>
           </span>
-          <span class="nav-item dropdown col-6 px-4 d-felx justify-content-right" v-else>
+          <span class="nav-item dropdown col-12 px-4 d-felx justify-content-right" v-else>
             <a class="nav-link dropdown-toggle d-flex justify-content-around align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <p class="pe-3 mt-3">{{ this.$store.state.username }}</p>
               <img src="@/assets/user.png" alt="profile" style="height:40px;">
