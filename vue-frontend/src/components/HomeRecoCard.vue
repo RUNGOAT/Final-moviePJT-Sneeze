@@ -1,21 +1,22 @@
 <template>
   <div>
-    <swiper ref="filterSwiper" :options="swiperOption">
-      <swiper-slide 
-        v-for="movie in movies"
-        :key="movie.created_at">
-        <MovieCardView
-        :movie="movie"
+    <swiper ref="filterSwiper" :options="swiperOption" role="tablist" >
+        <HomeCardView
+          v-for="movie in movies"
+          :key="movie.created_at"
+          :movie="movie"
         />
-      </swiper-slide>
+      <div class="swiper-button-prev" slot="button-prev"></div>
+      <div class="swiper-button-next" slot="button-next"></div>
     </swiper>
   </div>
 </template>
 
 <script>
 import 'swiper/dist/css/swiper.css'
-import { swiper, swiperSlide } from 'vue-awesome-swiper'
-import MovieCardView from '@/views/movie/MovieCardView.vue'
+import { swiper } from 'vue-awesome-swiper'
+// import MovieCardView from '@/views/movie/MovieCardView.vue'
+import HomeCardView from './HomeCardView.vue'
 
 
 export default {
@@ -26,19 +27,25 @@ export default {
     }
   },
   components: {
-    MovieCardView,
+    // MovieCardView,
+    HomeCardView,
     swiper,
-    swiperSlide
+    // swiperSlide
   },
   data() {
     return {
       swiperOption: {
         slidesPerView: 'auto',
+        slidesPerGroup: 5,
         spaceBetween: 6, // swiper-slide 사이의 간격 지정
         slidesOffsetBefore: 0, // slidesOffsetBefore는 첫번째 슬라이드의 시작점에 대한 변경할 때 사용
         slidesOffsetAfter: 0, // slidesOffsetAfter는 마지막 슬라이드 시작점 + 마지막 슬라이드 너비에 해당하는 위치의 변경이 필요할 때 사용
         freeMode: true, // freeMode를 사용시 스크롤하는 느낌으로 구현 가능
         centerInsufficientSlides: true, // 컨텐츠의 수량에 따라 중앙정렬 여부를 결정함
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
       }
     }
   },

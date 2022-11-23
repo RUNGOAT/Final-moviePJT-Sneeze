@@ -26,7 +26,7 @@
                 <router-link class="dropdown-item" :to="{ name: 'MyProfile', params: { username: username }  }">프로필</router-link>
               </li>
               <li>
-                <div class="dropdown-item" @click="logOut" v-show="isLogin">로그아웃</div>
+                <div class="dropdown-item" @click="logOut" v-show="isLogin" style="cursor: pointer;">로그아웃</div>
               </li>
             </ul>
           </span>

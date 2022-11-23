@@ -1,18 +1,22 @@
 <template>
+
   <div>
     <form @submit.prevent="searchMovie" class="form row mb-5 px-5 py-2">
       <!-- <label for="search" class="h1">영화 검색</label> -->
       <input type="search" id="search" v-model="title" @input="searchMovie" class="form-control col" placeholder="영화제목을 입력하세요.">
       <button class="btn btn-primary col-1 ms-3">검색</button>
     </form>
-    <div class="popular-list row gx-2 gy-4 text-center"
+    <!-- <div class="popular-list row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-6 g-4 text-center px-5 mx-5 d-flex flex-wrap"
+      v-if="movies"
+    > -->
+    <div class="popular-list row gy-4 ms-2"
       v-if="movies"
     >
-      <MovieCardView
-        v-for="movie in movies"
-        :key="movie.created_at"
-        :movie="movie"
-      />
+        <MovieCardView
+          v-for="movie in movies"
+          :key="movie.created_at"
+          :movie="movie"
+        />
     </div>
     <br><br><br><br>
     <div v-show="!title">
