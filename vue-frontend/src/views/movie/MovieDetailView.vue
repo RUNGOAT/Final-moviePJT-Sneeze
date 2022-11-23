@@ -205,6 +205,10 @@ export default {
           this.movie = res.data
           this.likeNumber = this.movie.like_users.length
         })
+        .catch(err => {
+          console.log(err)
+          this.$router.push({ name: 'NotFound404' })
+        })
     },
     searchYoutube() {
       this.$store.dispatch('searchYoutube', this.movieId)

@@ -20,6 +20,7 @@ import LoginView from '@/views/accounts/LoginView'
 import SignupView from '@/views/accounts/SignupView'
 
 import LoadingView from '@/components/LoadingView'
+import NotFound404 from '@/views/NotFound404'
 
 Vue.use(VueRouter)
 
@@ -107,8 +108,15 @@ const routes = [
     name: 'LoadingView',
     component: LoadingView
   },
-
-
+  {
+    path: '/404',
+    name: 'NotFound404',
+    component: NotFound404
+  },
+  {
+    path: '*',
+    redirect: '/404',
+  },
 ]
 
 const router = new VueRouter({

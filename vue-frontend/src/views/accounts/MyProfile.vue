@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container my-profile">
     <!-- 프로필 -->
     <div class="row">
       <div class="col-sm-3 col-12">
@@ -10,15 +10,15 @@
           <h1>{{ user.username }}</h1>
         </div>
         <div class="col-sm-12 divider text-center row d-flex justify-content-around" style="margin-bottom:20px">
-            <div class="col-sm-3 col-12" @click="open2">
-              <h2><strong>{{ followingsLength }}</strong></h2>                    
-              <p><small>팔로잉</small></p>
-            </div>
-            <div class="col-sm-3 col-12" @click="open1">
+            <div class="col-sm-3 col-12 follow-info" @click="open1">
               <h2><strong>{{ followersLength }}</strong></h2>                    
               <p><small>팔로워</small></p>
             </div>
-            <div class="col-sm-3 col-12">
+            <div class="col-sm-3 col-12 follow-info" @click="open2">
+              <h2><strong>{{ followingsLength }}</strong></h2>                    
+              <p><small>팔로잉</small></p>
+            </div>
+            <div class="col-sm-3 col-12 follow-info">
               <h2><strong>{{ user.like_movies.length }}</strong></h2>                    
               <p><small>좋아요한 영화 수</small></p>
             </div>
@@ -134,9 +134,6 @@ export default {
     return {
       me: [],
       user: [],
-      users: [],
-      myFollowings: [],
-      myMovies: [],
       show1: false,
       show2: false,
       variants: ["light", "dark"],
@@ -257,17 +254,8 @@ display: inline-block;
 {
 border-top:1px solid rgba(0,0,0,0.1);
 }
-.emphasis 
-{
-border-top: 4px solid transparent;
-}
-.emphasis:hover 
-{
-border-top: 4px solid #1abc9c;
-}
-.emphasis h2
-{
-margin-bottom:0;
+.follow-info:hover {
+  cursor: pointer;
 }
 span.tags 
 {
@@ -276,5 +264,8 @@ border-radius: 2px;
 color: #f5f5f5;
 font-weight: bold;
 padding: 4px 6px;
+}
+.my-profile {
+  padding: 100px 0;
 }
 </style>

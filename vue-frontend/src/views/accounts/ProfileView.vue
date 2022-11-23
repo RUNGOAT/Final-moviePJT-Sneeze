@@ -1,8 +1,5 @@
 <template>
   <div class="container">
-    <!-- {{ user }}
-    {{ likeMovies }}
-    <button @click="follow">팔로우</button> -->
     <div class="container" style="margin-bottom:30px">
       <div class="row">
           <div class="well profile">
@@ -15,15 +12,15 @@
                   <h2 class="title-font" style="margin-bottom: 30px">{{ user.username }}님의 프로필</h2>
                 </div>
                 <div class="col-sm-12 divider text-center row d-flex justify-content-around">
-                  <div class="col-sm-3 col-12">
+                  <div class="col-sm-3 col-12 follow-info" @click="open1">
                     <h2><strong>{{followersLength}}</strong></h2>                    
                     <p><small>팔로워</small></p>
                   </div>
-                  <div class="col-sm-3 col-12">
+                  <div class="col-sm-3 col-12 follow-info"  @click="open2">
                     <h2><strong>{{followingsLength}}</strong></h2>                    
                     <p><small>팔로잉</small></p>
                   </div>
-                  <div class="col-sm-4 col-12">
+                  <div class="col-sm-4 col-12 follow-info">
                     <h2><strong v-if="user.followings">{{ user.like_movies.length }}</strong></h2>                    
                     <p><small>좋아요한 영화 수</small></p>
                   </div>
@@ -48,6 +45,53 @@
         </div>                 
       </div>
     </div>
+    <!-- 팔로잉 모달 -->
+    <b-modal
+      hide-footer
+      v-model="show2"
+      id="review-modal"
+      size="sm"
+      title="팔로잉"
+      :header-bg-variant="headerBgVariant"
+      :header-text-variant="headerTextVariant"
+      :body-bg-variant="bodyBgVariant"
+      :body-text-variant="bodyTextVariant"
+      :footer-bg-variant="footerBgVariant"
+      :footer-text-variant="footerTextVariant"
+    >
+      <section class="page-section" id="contact">
+        <div class="control-group">
+            <div v-for="(userId, idx) in user.followings" :key="idx" style="cursor:pointer" class="content-font form-group floating-label-form-group controls mb-0 pb-2">
+                <FollowingsView :userId="userId" />
+            </div>
+        </div>
+      </section>
+    </b-modal>
+    <!-- 팔로잉 모달 끝 -->
+
+    <!-- 팔로워 모달 -->
+    <b-modal
+      hide-footer
+      v-model="show1"
+      id="review-modal"
+      size="sm"
+      title="팔로워"
+      :header-bg-variant="headerBgVariant"
+      :header-text-variant="headerTextVariant"
+      :body-bg-variant="bodyBgVariant"
+      :body-text-variant="bodyTextVariant"
+      :footer-bg-variant="footerBgVariant"
+      :footer-text-variant="footerTextVariant"
+    >
+      <section class="page-section" id="contact">
+        <div class="control-group">
+            <div v-for="(userId, idx) in user.followers" :key="idx" style="cursor:pointer" class="content-font form-group floating-label-form-group controls mb-0 pb-2">
+                <FollowersView :userId="userId" />
+            </div>
+        </div>
+      </section>
+    </b-modal>
+    <!-- 팔로워 모달 끝 -->
 
     <!-- 탭 -->
     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -96,6 +140,9 @@
 import axios from 'axios'
 // import HomeRecoCard from '@/components/HomeRecoCard.vue'
 import MovieCardView from '../movie/MovieCardView.vue'
+import FollowingsView from '@/components/FollowingsView.vue'
+import FollowersView from '@/components/FollowersView.vue'
+
 
 const API_URL = 'http://127.0.0.1:8000'
 
@@ -103,8 +150,9 @@ export default {
   name: "ProfileView",
 
   components: {
-    // HomeRecoCard,
     MovieCardView,
+    FollowingsView,
+    FollowersView,
   },
   data() {
     return {
@@ -115,12 +163,25 @@ export default {
       user_pk: this.$route.params.user_pk,
       movies: this.$store.state.movies,
       isFollowing: false,
+
+      show1: false,
+      show2: false,
+      variants: ["light", "dark"],
+      headerBgVariant: "dark",
+      headerTextVariant: "white",
+      bodyBgVariant: "dark",
+      bodyTextVariant: "white",
+      footerBgVariant: "danger",
+      footerTextVariant: "dark",
     }
   },
   created() {
     this.getMe()
   },
   methods: {
+    check() {
+      console.log(this.user.followings)
+    },
     getMe() {
       axios({
         method: 'get',
@@ -147,6 +208,7 @@ export default {
           this.user = res.data
           this.getUserMovies(res.data.like_movies, res.data.reviews)
         })
+        .catch(err => { console.log(err) })
     },
     getUserMovies(like_movies, reviews) {
       axios({
@@ -189,7 +251,19 @@ export default {
         .then((res) => {
           this.isFollowing = res.data
         })
-    }
+    },
+    open1: function () {
+      this.show1 = true
+    },
+    open2: function () {
+      this.show2 = true
+    },
+    close: function () {
+      this.show1 = false
+    },
+    close2: function () {
+      this.show2 = false
+    },
     
   },
   computed: {
@@ -242,6 +316,9 @@ border-top: 4px solid #1abc9c;
 .emphasis h2
 {
 margin-bottom:0;
+}
+.follow-info:hover {
+  cursor: pointer;
 }
 span.tags 
 {

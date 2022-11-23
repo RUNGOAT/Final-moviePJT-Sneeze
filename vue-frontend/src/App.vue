@@ -76,23 +76,20 @@ export default {
   background-size: cover;
   background-repeat: no-repeat;
   min-height: 100vh;
+  position: relative;
 }
 
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Nanum Gothic', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height :100%;
   margin: 0; 
-  /* background: transparent;
-  background: linear-gradient(0deg, rgba(45,47,59,1) 0%, rgba(8,9,14,1) 35%) no-repeat;; */
-  /* text-align: center; */
   color: white;
 } 
 
 nav {
   background-color: #08090E;
-
 }
 
 nav a {
@@ -122,12 +119,19 @@ nav a.router-link-exact-active {
 }
 
 footer {
-  bottom: 0;
-  /* position : relative; */
-  /* transform: translate(-100%); */
+  position: relative;
+  /* float: left; */
+  /* left: 5.00%; */
+  width: 100%;
+  /* margin: 10px 0px; */
+  /* bottom: 0;
+  width: 100%;
+  position : fixed; */
   height: 150px;
   background-color: #08090E;
   color: white;
+  margin: 20px 0 0 0;
   padding: 2%;
+  text-align: center;
 }
 </style>

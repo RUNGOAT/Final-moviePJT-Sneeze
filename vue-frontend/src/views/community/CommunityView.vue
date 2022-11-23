@@ -1,7 +1,7 @@
 <template>
-  <div class="container p-5">
+  <div class="container p-5 community">
     <div class="row justify-content-space-between">
-      <h1 class="col align-right">Community</h1>
+      <h1 class="col align-right">게시판</h1>
       <router-link :to="{ name: 'CommunityCreate' }" class="col-1"><img class="d-flex justify-content-end" src="@/assets/plus.png" style="width:45px;"></router-link>
     </div>
     <br>
@@ -46,5 +46,7 @@ export default {
 </script>
 
 <style>
-
+.community {
+  padding: 100px 0;
+}
 </style>
