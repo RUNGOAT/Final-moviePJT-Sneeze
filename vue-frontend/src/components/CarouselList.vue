@@ -18,8 +18,8 @@
           <div :class="[movie.id == 1 ? 'carousel-item active' : 'carousel-item']" data-bs-interval="2000">
             <img :src="backdrop_path + movie.backdrop_path" class="d-block w-100" alt="movie.title" id="carouselImg">
             <div class="carousel-caption d-none d-md-block text-left">
-              <h2 style="font-weight: bold;">{{ movie.title }}</h2>
-              <p>{{ movie.overview }}</p>
+              <h1 style="font-weight: bold;">{{ movie.title }}</h1>
+              <p class="fs-4">{{ movie.overview }}</p>
             </div>
           </div>
         </div>
@@ -60,33 +60,4 @@ export default {
 #carouselImg {
   filter: brightness(50%);
 }
-/* #carousel-item {
-    position: relative;
-
-    background: url(http://lorempixel.com/300/200/nature/5) no-repeat 0 0;
-}
-#carousel-item .content {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, .7);
-    color: #EEE;
-    padding: 10px;
-} */
-
-/* #carouselImg img {
-    display: block;
-}
-
-#carouselImg:after {
-    position: absolute;
-    content:"";
-    height:100%;
-    width:100%;
-    top:0;
-    left:0;
-    background: linear-gradient(to bottom, rgba(255,0,0,0) 0%,rgba(255,0,0,0.65) 100%);
-} */
 </style>

@@ -4,50 +4,55 @@
       <router-link class="col-1" :to="{name : 'Community'}">
         <img src="@/assets/back.png" style="width:25px;" alt="back">
       </router-link>
-      <span class="col-10" style="text-align: center;">Community</span>
+      <span class="col-10" style="text-align: center;">게시판</span>
     </div>
     <br>
-    <div class="row">
-      <h2 class="col-10">{{ community?.title }}</h2>
+    <div class="p-3">
+      <div class="row">
+        <h2 class="col-10 fw-bold">{{ community?.title }}</h2>
 
-      <div class="col-2 d-flex justify-content-end" v-if="this.me.username === community?.userName">
-        <span class="px-2" @click="updateCommunity">
-          <img src="@/assets/pencil.png" style="width:28px;" alt="edit">
-          <!-- 수정 -->
-        </span> 
-        <span class="px-2" @click="deleteCommunity">
-          <img src="@/assets/trash.png" style="width:30px;" alt="edit">
-          <!-- 삭제 -->
-        </span>
+        <div class="col-2 d-flex justify-content-end" v-if="this.me.username === community?.userName">
+          <span class="px-2" @click="updateCommunity">
+            <img src="@/assets/pencil.png" style="width:28px;" alt="edit">
+            <!-- 수정 -->
+          </span> 
+          <span class="px-2" @click="deleteCommunity">
+            <img src="@/assets/trash.png" style="width:30px;" alt="edit">
+            <!-- 삭제 -->
+          </span>
+        </div>
       </div>
-    </div>
 
-    <div class="row">
-      <p 
-        class="m-0 fw-bold fs-3 user"
-        @click="goProfile"
-        >{{ community?.userName }}</p>
-      <p>{{ community?.updated_at }}</p>
-    </div>
-    <hr>
-    <p>{{ community?.content }}</p>
-    <!-- <p>{{ community?.created_at }}</p> -->
-    <br>
-    
-    <hr>
-    <div v-if="comments">
-      <CommunityCommentItem
-        @update_comment="updateComment"
-        @del_comment="delComment"
-        v-for="comment in comments"
-        :key="comment.created_at"
-        :comment="comment"
+      <div class="row">
+        <p 
+          class="m-0 fw-bold fs-4 user"
+          @click="goProfile"
+          >{{ community?.userName }}</p>
+        <p>{{ community?.updated_at }}</p>
+      </div>
+      <hr>
+      <p>{{ community?.content }}</p>
+      <!-- <p>{{ community?.created_at }}</p> -->
+      <br>
+      
+      <hr style="border:1px solid;">
+      <p class="text-center">댓글</p>
+      <hr>
+      <div v-if="comments">
+        <CommunityCommentItem
+          @update_comment="updateComment"
+          @del_comment="delComment"
+          v-for="comment in comments"
+          :key="comment.created_at"
+          :comment="comment"
+          :communityId="communityId"
+        />
+      <CommunityCommentForm
+        @comment_add="commentAdd"
         :communityId="communityId"
+        class="p-3"
       />
-    <CommunityCommentForm
-      @comment_add="commentAdd"
-      :communityId="communityId"
-    />
+    </div>
     </div>
   </div>
 </template>

@@ -3,13 +3,18 @@
     <div class="card col-md-3 m-auto p-3" id="login" style="width: 20rem; text-align: center;">
       <div class="card-body">
         <h3 class="card-title" style="font-weight: bold;">로그인</h3>
+        <br>
         <form @submit.prevent="logIn">
-            <label for="username" class="card-subtitle mb-2">아이디</label><br>
+          <div class="text-left ps-4">
+            <label for="username" class="card-subtitle mb-2text-start">아이디</label><br>
             <input type="text" id="username" v-model="username">
-
+          </div>
+          <br>
+          <div class="text-left ps-4">
             <label for="password" class="card-subtitle mb-2">비밀번호</label><br>
             <input type="password" id="password" v-model="password">
-
+          </div>
+          <br>
           <div class="d-grid col-11 mx-auto py-3">
             <input type="submit" class="btn btn-outline-light" value="logIn">
           </div>
@@ -65,21 +70,8 @@ export default {
 <style>
   #login{
     width:600px;
-    height: 370px;
+    height: 430px;
     border-radius: 10px;
     background-color: #30333E;
-    /* text-align: center; */
   }
-  /* .button {
-    height: 20px;
-    width: 20px;
-    background-color: white;
-    border: none;
-    color: white;
-    padding: 15px 30px;
-    text-align: center;
-    display: inline-block;
-    margin: 4px 2px;
-    cursor: pointer;
-  } */
 </style>

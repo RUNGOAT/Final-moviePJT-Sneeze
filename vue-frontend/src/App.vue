@@ -7,8 +7,9 @@
             <img src="../src/assets/logo.png" alt="Logo" style="width:50px;" class="d-inline-block align-text-top col-6">
             <span class="col-6" style="color:white;"> Movie</span>
           </a>
-          <router-link class="col-lg-2 col-12 mt-2 text-center" :to="{ name: 'Movie' }">영화</router-link>
-          <router-link class="col-lg-2 col-12 mt-2 text-center" :to="{ name: 'Community' }">게시판</router-link>
+          <router-link class="col-lg-2 col-12 mt-2 text-center fs-4" :to="{ name: 'Home' }">홈</router-link>
+          <router-link class="col-lg-2 col-12 mt-2 text-center fs-4" :to="{ name: 'Movie' }">영화</router-link>
+          <router-link class="col-lg-2 col-12 mt-2 text-center fs-4" :to="{ name: 'Community' }">게시판</router-link>
         </div>
       
         <div class="row">
@@ -18,7 +19,7 @@
           </span>
           <span class="nav-item dropdown col-12 px-4 d-felx justify-content-right" v-else>
             <a class="nav-link dropdown-toggle d-flex justify-content-around align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <p class="pe-3 mt-3">{{ this.$store.state.username }}</p>
+              <p class="pe-3 mt-3 fs-4">{{ this.$store.state.username }}</p>
               <img src="@/assets/user.png" alt="profile" style="height:40px;">
             </a>
             <ul class="dropdown-menu">
@@ -35,6 +36,11 @@
     </nav>
     <router-view></router-view>
     <div style="height: 80vh"></div>
+    <footer>
+      <p>ⓒ SSAFY 8기 과제</p>
+      <p>Chaeeun Lee | e-mail: chaen511@naver.com |</p>
+      <p> | e-mail:  |</p>
+    </footer>
   </div>
 </template>
 
@@ -109,5 +115,15 @@ nav a.router-link-exact-active {
   margin-top: 50px;
   border-radius: 10px;
   background-color: #30333E;
+}
+
+footer {
+  bottom: 0;
+  /* position : relative; */
+  /* transform: translate(-100%); */
+  height: 150px;
+  background-color: #08090E;
+  color: white;
+  padding: 2%;
 }
 </style>

@@ -2,7 +2,7 @@
   <div class="movie-detail-card">
     <div class="d-flex justify-content">
       <!-- 포스터 -->
-      <div class="movie-detail-poster" v-if="movie">
+      <div class="movie-detail-poster pe-4" v-if="movie">
         <img :src="this.imageUrl + movie?.poster_path" alt="포스터 없음">
       </div>
       <!-- 포스터 끝 -->
@@ -30,8 +30,9 @@
 
           <!-- 줄거리 -->
           <div class="movie-detail-header">
-            줄거리
-            <hr>
+            <p class="mb-1">줄거리</p>
+          
+            <hr class="my-1">
             <div v-if="movie?.overview" class="movie-detail-body">
               {{ movie?.overview }}
             </div>
@@ -50,8 +51,8 @@
               <!-- <p class="ps-2">{{ this.likeNumber }}개</p> -->
             </span>
 
-            <span class="d-flex justify-content-space-between review-create" @click="reviewForm">
-              <img src="@/assets/plus.png" style="height:40px;">
+            <span class="d-flex justify-content-space-between ms-2 p-2 review-create" @click="reviewForm">
+              <img class="pt-2 pb-0" src="@/assets/plus.png" style="height:40px;">
               <p class="px-2">리뷰 쓰기</p>
             </span>
           </div>
@@ -59,8 +60,9 @@
       </div>
     </div>
   </div>
-    <br>
-
+  <br>
+  <br>
+  <br>
   <!-- 탭 -->
   <!-- 탭 -->
     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -284,7 +286,7 @@ export default {
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
-  padding: 2rem;
+  padding: 50px 15%;
   min-height: 100%;
   height: auto;
   /* background-color: #000000; */

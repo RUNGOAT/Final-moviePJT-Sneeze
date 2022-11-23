@@ -4,15 +4,23 @@
       <div class="card col-md-3 m-auto p-3" id="signup" style="width: 20rem; text-align: center;">
         <div class="card-body">
           <h3 class="card-title" style="font-weight: bold;">회원가입</h3>
+          <br>
           <form @submit.prevent="signUp">
-              <label for="username" class="card-subtitle mb-2">아이디</label><br>
-              <input type="text" id="username" v-model="username">
-
-              <label for="password1" class="card-subtitle mb-2">비밀번호</label><br>
-              <input type="password" id="password1" v-model="password1">
-              <label for="password2" class="card-subtitle mb-2">비밀번호 재확인</label><br>
-              <input type="password" id="password2" v-model="password2">
-
+              <div class="text-left ps-4">
+                <label for="username" class="card-subtitle mb-2">아이디</label><br>
+                <input type="text" id="username" v-model="username">
+              </div>
+              <br>
+              <div class="text-left ps-4">
+                <label for="password1" class="card-subtitle mb-2">비밀번호</label><br>
+                <input type="password" id="password1" v-model="password1">
+              </div>
+              <br>
+              <div class="text-left ps-4">
+                <label for="password2" class="card-subtitle mb-2">비밀번호 재확인</label><br>
+                <input type="password" id="password2" v-model="password2">
+              </div>
+              <br>
             <div class="d-grid col-11 mx-auto py-3">
               <input type="submit" class="btn btn-outline-light" value="SignUp">
             </div>
@@ -64,7 +72,7 @@ export default {
 <style>
   #signup{
     width:600px;
-    height: 430px;
+    height: 520px;
     border-radius: 10px;
     background-color: #30333E;
     /* text-align: center; */

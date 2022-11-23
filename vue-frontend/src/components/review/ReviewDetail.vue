@@ -5,48 +5,52 @@
         <router-link class="col-1" :to="{name: 'MovieDetail', params: { movie_id: movieId } }">
           <img src="@/assets/back.png" style="width:25px;" alt="back">
         </router-link>
-        <span class="col-10" style="text-align: center;">Review</span>
+        <span class="col-10" style="text-align: center;">리뷰</span>
       </div>
       <br>
-      <div class="row d-flex justify-content-between">
-        <h2 class="col-3">{{ review?.title }}</h2>
+      <div class="p-3">
+        <div class="row d-flex justify-content-between">
+          <h2 class="col-3 fw-bold">{{ review?.title }}</h2>
 
-        <div class="col-2 d-flex justify-content-end" v-if="this.me.username === review.userName">
-          <span class="px-2" @click="updateReview">
-            <img src="@/assets/pencil.png" style="width:28px; cursor: pointer;" alt="edit">
-          </span> 
-          <span class="px-2" @click="deleteReview">
-            <img src="@/assets/trash.png" style="width:30px; cursor: pointer;" alt="edit">
-          </span>
+          <div class="col-2 d-flex justify-content-end" v-if="this.me.username === review.userName">
+            <span class="px-2" @click="updateReview">
+              <img src="@/assets/pencil.png" style="width:28px; cursor: pointer;" alt="edit">
+            </span> 
+            <span class="px-2" @click="deleteReview">
+              <img src="@/assets/trash.png" style="width:30px; cursor: pointer;" alt="edit">
+            </span>
+          </div>
+        </div>
+    
+        <div class="row">
+          <h5 class="m-0 fw-bold fs-4 user">{{ review?.userName }}</h5>
+          <p><small>{{ review?.updated_at }}</small></p>
+        </div>
+        <div class="row">
+          <p>{{ review?.content }}</p>
+        </div>
+        <hr>
+        <div v-if="review">
+          <div v-if="comments">
+            <ReviewCommentItem
+              @delComment="delComment"
+              @updateComment="updateComment"
+              v-for="comment in comments"
+              :key="comment.created_at"
+              :comment="comment"
+              :review="review"
+            />
+          <br>
+          <ReviewCommentForm
+            @reviewCommentAdd="reviewCommentAdd"
+            :review="review"
+            class="p-3"
+          />
         </div>
       </div>
-  
-      <div class="row">
-        <h5>{{ review?.userName }}</h5>
-        <p>{{ review?.updated_at }}</p>
       </div>
-      <div class="row">
-        <p>{{ review?.content }}</p>
+      
       </div>
-      <hr>
-      <div v-if="review">
-        <div v-if="comments">
-          <ReviewCommentItem
-            @delComment="delComment"
-            @updateComment="updateComment"
-            v-for="comment in comments"
-            :key="comment.created_at"
-            :comment="comment"
-            :review="review"
-          />
-        <br>
-        <ReviewCommentForm
-          @reviewCommentAdd="reviewCommentAdd"
-          :review="review"
-        />
-      </div>
-    </div>
-    </div>
   </div>
 </template>
 

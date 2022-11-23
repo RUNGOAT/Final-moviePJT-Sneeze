@@ -7,15 +7,14 @@
     >
       <div class="d-flex justify-content-between align-items-center">
         <div class="row col-3 d-flex align-items-center p-0">
-          <!-- <router-link 
-            :to="{ name: 'Profile', params: { user_pk: review.user }}"
-            class="m-0 fw-bold fs-3"
-          >{{ review.userName }}</router-link> -->
-          <p 
-          class="m-0 fw-bold fs-3 user"
-          @click="goProfile"
-          >{{ review.userName }}</p>
-          <p class="m-0" style="font-size: x-small;">{{ review.created_at.slice(0, 16) }}</p>
+          <div class="row">
+            <img class="col-4 pe-0" src="@/assets/user.png" alt="user" style="width:56px;">
+            <p 
+              class="m-0 fw-bold fs-4 col-6 user"
+              @click="goProfile"
+            >{{ review.userName }}</p>
+          </div>
+          <p class="m-0" style="fs-small;">{{ review.created_at.slice(0, 16) }}</p>
         </div>
 
         <!-- {{ review }} -->
@@ -25,7 +24,7 @@
           <img src="@/assets/star.png" style="width: 20px; height: 10px margin-left: 1rem;">
         </div>
       </div>
-      <p class="mt-3 mb-1 fs-2">{{ review.content }}</p>
+      <p class="mt-3 mb-1 fs-4">{{ review.content }}</p>
     </div>
     <hr>
   </div>

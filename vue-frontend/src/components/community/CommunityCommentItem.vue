@@ -3,7 +3,7 @@
     <div v-if="update">
       <div class="row justify-content-between">
         <p 
-          class="m-0 fw-bold fs-3 col-3 user"
+          class="m-0 fw-bold fs-4 col-3 user"
           @click="goProfile"
         >{{ comment.userName }}</p>
         <div class="col-3 d-flex justify-content-end" v-if="this.me.username === comment.userName">

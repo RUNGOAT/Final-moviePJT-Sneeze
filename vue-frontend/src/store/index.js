@@ -141,9 +141,9 @@ export default new Vuex.Store({
         .then((res) => {
           // console.log(res)
           const movies = res.data
-          _.sortBy(movies, 'popularity').reverse()
+          _.sortBy(movies, 'vote_average').reverse()
           const top5Movies = movies.slice(0, 5)
-          // console.log(top5Movies)
+          console.log(top5Movies)
           context.commit('GET_TOP5_MOVIES', top5Movies)
         })
         .catch(err => console.log(err))
@@ -182,7 +182,7 @@ export default new Vuex.Store({
           console.log(res.data.key)
           context.commit('SAVE_TOKEN', userInfo)
         })
-        .cath(err => console.log(err))
+        .catch(err => console.log(err))
     },
     logIn(context, payload) {
       axios({
@@ -217,9 +217,7 @@ export default new Vuex.Store({
               context.commit('GET_PROFILE')
             })
         })
-        .cath(err => console.log(err))
-
-      
+        .catch(err => console.log(err))     
     },
     getCommunityList(context) {
       console.log(this.state.token)

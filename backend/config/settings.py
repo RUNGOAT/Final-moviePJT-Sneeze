@@ -205,4 +205,4 @@ JWT_AUTH = {
 
 AUTH_USER_MODEL = 'accounts.User'
 
-DATETIME_INPUT_FORMATS = ['%Y-%m-%d %H:%M:%S', ]
+# DATETIME_INPUT_FORMATS = ['%Y-%m-%d %H:%M:%S', ]
