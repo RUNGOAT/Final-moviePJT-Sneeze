@@ -1,25 +1,37 @@
 <template>
   <div id="app">
-    <nav class="navbar navbar-expand-lg">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="http://localhost:8080/">
-          <img src="../src/assets/logo.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
-          <span style="color:white;"> Movie</span>
-        </a>
+    <nav class="navbar navbar-expand-lg d-flex justify-content-between px-4">
+      <!-- <div class="container-fluid"> -->
+        <div class="row">
+          <a class="navbar-brand col-3" href="http://localhost:8080/">
+            <img src="../src/assets/logo.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top col-6">
+            <span class="col-6" style="color:white;"> Movie</span>
+          </a>
+          <router-link class="col-2 px-4 mt-2" :to="{ name: 'Home' }">Home</router-link>
+          <router-link class="col-2 px-4 mt-2" :to="{ name: 'Movie' }">Movie</router-link>
+          <router-link class="col-3 px-4 mt-2" :to="{ name: 'Community' }">Community</router-link>
+        </div>
       
         <div class="row">
-          <router-link class="col-2" :to="{ name: 'Home' }">Home</router-link>
-          <router-link class="col-2" :to="{ name: 'Movie' }">Movie</router-link>
-          <router-link class="col-3" :to="{ name: 'Community' }">Community</router-link>
-          <router-link class="col-2" :to="{ name: 'MyProfile', params: { username: username }  }">Profile</router-link>
-          <span class="col-3 d-flex justify-content-between" v-if="!isLogin">
-            <router-link :to="{ name: 'Signup' }">Signup</router-link> .
-            <router-link :to="{ name: 'Login' }">Login</router-link>
+          <span class="col-3 px-4 d-flex justify-content-between" v-if="!isLogin">
+            <router-link class="px-3" :to="{ name: 'Signup' }">Signup</router-link> 
+            <router-link class="px-3" :to="{ name: 'Login' }">Login</router-link>
           </span>
-          <div class="col-2" v-else>
-            <button @click="logOut" v-show="isLogin">Logout</button>
-          </div>
-        </div>
+          <span class="nav-item dropdown col-6 px-4 d-felx justify-content-right" v-else>
+            <a class="nav-link dropdown-toggle d-flex justify-content-around align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <p class="pe-3 mt-3">{{ this.$store.state.username }}</p>
+              <img src="@/assets/user.png" alt="profile" style="height:40px;">
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <router-link class="dropdown-item" :to="{ name: 'MyProfile', params: { username: username }  }">프로필</router-link>
+              </li>
+              <li>
+                <div class="dropdown-item" @click="logOut" v-show="isLogin">로그아웃</div>
+              </li>
+            </ul>
+          </span>
+        <!-- </div> -->
       </div>
     </nav>
     <router-view></router-view>
@@ -71,16 +83,18 @@ html {
 
 nav {
   background-color: #08090E;
+
 }
 
 nav a {
   font-weight: bold;
-  color: white
-  ;
+  color: white;
+  text-decoration: none;
 }
 
 nav a.router-link-exact-active {
   color: #0072D2;
+  text-decoration: none;
 }
 
 .user:hover { 
