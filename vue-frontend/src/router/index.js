@@ -22,6 +22,8 @@ import SignupView from '@/views/accounts/SignupView'
 import LoadingView from '@/components/LoadingView'
 import NotFound404 from '@/views/NotFound404'
 
+import MapView from '@/views/MapView.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -114,9 +116,15 @@ const routes = [
     component: NotFound404
   },
   {
+    path: '/maps',
+    name: 'MapView',
+    component: MapView
+  },
+  {
     path: '*',
     redirect: '/404',
   },
+
 ]
 
 const router = new VueRouter({

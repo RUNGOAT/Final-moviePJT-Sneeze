@@ -1,11 +1,5 @@
 <template>
   <div>
-    <!-- <CarouselItem
-      v-for="movie in backgroundMovies"
-      :key="movie.id"
-      :movie="movie"
-    > -->
-
     <CarouselList/>
     <br>
     <h3 class="content-font ps-4" v-if="my_users_like_movies.length > 0">{{user.username}} 님의 취향저격 베스트 콘텐츠</h3>
