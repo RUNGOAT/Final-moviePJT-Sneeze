@@ -37,7 +37,11 @@ const routes = [
     name: 'Movie',
     component: MovieView
   },
-  
+  {
+    path: '/maps/maps',
+    name: 'MapView',
+    component: MapView
+  },
   {
     path: '/movie/search/:keyword',
     name: 'MovieSearch',
@@ -114,11 +118,6 @@ const routes = [
     path: '/404',
     name: 'NotFound404',
     component: NotFound404
-  },
-  {
-    path: '/maps',
-    name: 'MapView',
-    component: MapView
   },
   {
     path: '*',
