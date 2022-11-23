@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <!-- {{ user }}
-    {{ usersMovies }}
+    {{ likeMovies }}
     <button @click="follow">팔로우</button> -->
     <div class="container" style="margin-bottom:30px">
       <div class="row">
@@ -48,23 +48,47 @@
           </div>                 
       </div>
     </div>
-    <h2 class="title-font">{{ user.username }}님이 좋아요 한 영화</h2>    
-    <ul v-if="usersMovies" class="row">
-      <MovieCardView
-        v-for="movie in usersMovies"
-        :key="movie.created_at"
-        :movie="movie"
-      />
+
+    <!-- 탭 -->
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button"
+          role="tab" aria-controls="home-tab-pane" aria-selected="true">좋아요 영화</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button"
+          role="tab" aria-controls="profile-tab-pane" aria-selected="false">리뷰 영화</button>
+      </li>
+
     </ul>
-    <br>
-    <h2 class="title-font">{{ user.username }}님이 리뷰한 영화</h2>    
-    <ul v-if="usersMovies" class="row">
-      <MovieCardView
-        v-for="movie in reviewMovies"
-        :key="movie.created_at"
-        :movie="movie"
-      />
-    </ul>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+        <br>
+        <h2 class="title-font">{{ user.username }}님이 좋아요 한 영화</h2>    
+        <ul v-if="likeMovies" class="row popular-list">
+          <MovieCardView
+            v-for="movie in likeMovies"
+            :key="movie.created_at"
+            :movie="movie"
+          />
+        </ul>
+
+      </div>
+      <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+        <br>
+        <h2 class="title-font">{{ user.username }}님이 리뷰한 영화</h2>    
+        <ul v-if="reviewMovies" class="row popular-list">
+          <MovieCardView
+            v-for="movie in reviewMovies"
+            :key="movie.created_at"
+            :movie="movie"
+          />
+        </ul>
+
+      </div>
+    </div>
+
+
   </div>
 </template>
 
@@ -86,7 +110,7 @@ export default {
     return {
       me: [],
       user: [],
-      usersMovies: [],
+      likeMovies: [],
       reviewMovies: [],
       user_pk: this.$route.params.user_pk,
       movies: this.$store.state.movies,
@@ -137,7 +161,7 @@ export default {
         },
       })
         .then(res => {
-          this.usersMovies = res.data[0]
+          this.likeMovies = res.data[0]
           this.reviewMovies = res.data[1]
         })
     },
@@ -229,3 +253,10 @@ padding: 4px 6px;
 }
 
 </style>
+
+
+
+
+
+
+

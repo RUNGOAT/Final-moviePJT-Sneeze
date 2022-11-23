@@ -90,12 +90,46 @@
       <div class="text-white st-font form-group"><button @click="close" class="btn btn-secondary btn-xl" id="sendMessageButton" type="submit">창 닫기</button></div>
     </b-modal>
     <!-- 절취선 -->
-      <h3 class="my-2 title-font">내가 좋아요 한 영화</h3>
-      <ul v-if="myMovies">
-        <!-- <MovieCard 
-          :movies="myMovies"
-        /> -->
-      </ul>
+    
+    <!-- 탭 -->
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button"
+          role="tab" aria-controls="home-tab-pane" aria-selected="true">좋아요 영화</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button"
+          role="tab" aria-controls="profile-tab-pane" aria-selected="false">리뷰 영화</button>
+      </li>
+
+    </ul>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+        <br>
+        <h2 class="title-font">{{ user.username }}님이 좋아요 한 영화</h2>    
+        <ul v-if="likeMovies" class="row popular-list">
+          <MovieCardView
+            v-for="movie in likeMovies"
+            :key="movie.created_at"
+            :movie="movie"
+          />
+        </ul>
+
+      </div>
+      <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">        
+        <br>
+        <h2 class="title-font">{{ user.username }}님이 리뷰한 영화</h2>    
+        <ul v-if="reviewMovies" class="row popular-list">
+          <MovieCardView
+            v-for="movie in reviewMovies"
+            :key="movie.created_at"
+            :movie="movie"
+          />
+        </ul>
+
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -103,7 +137,7 @@
 import axios from 'axios'
 // import VueJwtDecode from "vue-jwt-decode"
 
-// import MovieCard from "@/components/MovieCard"
+import MovieCardView from "@/views/movie/MovieCardView"
 // import MyFollower from "@/components/MyFollower"
 import FollowersView from '@/components/FollowersView.vue'
 import FollowingsView from '@/components/FollowingsView.vue'
@@ -128,13 +162,15 @@ export default {
       bodyTextVariant: "white",
       footerBgVariant: "danger",
       footerTextVariant: "dark",
+      likeMovies: [],
+      reviewMovies: [],
     }
   },
   created() {
     this.getMe()
   },
   components: {
-    // MovieCard,
+    MovieCardView,
     FollowersView,
     FollowingsView,
   },
@@ -162,7 +198,25 @@ export default {
       })
         .then(res => {
           this.user = res.data
-          console.log(res.data)
+          // console.log(res.data)
+          this.getUserMovies(res.data.like_movies, res.data.reviews)
+        })
+    },
+    getUserMovies(like_movies, reviews) {
+      axios({
+        method: 'post',
+        url: `${API_URL}/movies/${this.user.id}/like/review/`,
+        data: {
+          like_movies,
+          reviews,
+        },
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`
+        },
+      })
+        .then(res => {
+          this.likeMovies = res.data[0]
+          this.reviewMovies = res.data[1]
         })
     },
     open1: function () {
