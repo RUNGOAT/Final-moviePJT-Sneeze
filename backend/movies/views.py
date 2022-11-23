@@ -166,49 +166,78 @@ def recommend(request):
   shortest_movies = Movie.objects.all().order_by('runtime')[30:60]
   serializer2 = MovieSerializer(shortest_movies, many=True)
   # 리뷰 기반 장르 추천
-  users_movies = []
-  # 좋아요 기반
-  users_movies2 = []
+  users_movies = set()
+
+  like_movies = request.data.get('like_movies')
   
   reviews = Review.objects.all()
   for review in reviews:
     movie = Movie.objects.get(pk=review.movie_id)
-    if not movie in users_movies:
-      users_movies.append(movie)
-
+    if not movie in users_movies and movie.pk not in like_movies:
+      users_movies.add(movie)
   if users_movies:
+    users_movies = list(users_movies)
     serializer = MovieSerializer(users_movies[0])
     genre = serializer.data.get('genres')[0]
     # genre_name = Genre.objects.get(id=genre)
-    idx = 1
     
-    while len(users_movies) < 20:
+    idx = 1
+    users_movies = set(users_movies)
+    while len(users_movies) < 30:
       if idx == 118:
         idx += 1
         continue
       movie = Movie.objects.get(pk=idx)
       ser = MovieSerializer(movie)
       if ser.data.get('genres', False):
-        if ser.data.get('genres')[0] == genre and movie not in users_movies:
-          users_movies.append(movie)
+        if ser.data.get('genres')[0] == genre and movie.pk not in users_movies:
+          users_movies.add(movie)
       idx += 1
       if idx == 960:
-        users_movies = Movie.objects.all().order_by('release_date')[:20]
+        latest_movies = Movie.objects.all().order_by('-release_date')
+        while len(users_movies) < 30:
+           users_movies.add(latest_movies.pop())
+        users_movies = list(users_movies)
   else:
-    users_movies = Movie.objects.all().order_by('release_date')[:20]
+    users_movies = Movie.objects.all().order_by('release_date')[:30]
 
-  like_movies = request.data.get('like_movies')
+  # 좋아요 기반
+  my_movies = []
+  User = request.user
+  my_genres = {}
+  my_movies = User.like_movies.all()
   
-  for like_movie in like_movies:
-    movie = get_object_or_404(Movie, pk=like_movie)
-    if not movie in users_movies2:
-      users_movies2.append(movie)
+  if my_movies:
+    for movie in my_movies:
+        genres = movie.genres.all()
+        for genre in genres:
+            if genre.pk in my_genres:
+                my_genres[genre.pk] += 1
+            else:
+                my_genres[genre.pk] = 1
 
+    my_genres = sorted(my_genres, key=lambda x: my_genres[x])[:3]
 
-  serializer3 = MovieSerializer(users_movies, many=True)
-  serializer4 = MovieSerializer(users_movies2, many=True) 
-  
-  return Response([serializer1.data, serializer2.data, serializer3.data, serializer4.data])
+    movies = get_list_or_404(Movie)
+    recommendations_list = set()
+    for my_genre in my_genres:
+        for movie in movies:
+            genres = movie.genres.all()
+            for genre in genres:
+                if genre.pk == my_genre:
+                    recommendations_list.add(movie)
+                    break
+                
+    recommendations = sorted(recommendations_list, key=lambda x: x.popularity, reverse=True)
+
+    serializer4 = MovieSerializer(recommendations, many=True)
+    serializer3 = MovieSerializer(users_movies, many=True)
+    return Response([serializer1.data, serializer2.data, serializer3.data, serializer4.data])
+  else:
+    serializer3 = MovieSerializer(users_movies, many=True)
+    return Response([serializer1.data, serializer2.data, serializer3.data, []])
+    
+
 
 
 @api_view(['POST'])

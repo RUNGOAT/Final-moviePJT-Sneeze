@@ -35,7 +35,7 @@
       </div>
     </nav>
     <router-view></router-view>
-    <div style="height: 80vh"></div>
+    <!-- <div style="height: 80vh"></div> -->
     <footer>
       <p>ⓒ SSAFY 8기 과제</p>
       <p>Chaeeun Lee | e-mail: chaen511@naver.com |</p>
@@ -69,22 +69,26 @@ export default {
 </script>
 
 <style>
-html {
-  background-attachment: fixed;
-  /* background-attachment: scroll; */
-  background: linear-gradient(0deg, rgba(45,47,59,1) 0%, rgba(8,9,14,1) 35%) no-repeat;
+
+#all {
+  margin: 0 auto;
+  background: linear-gradient(0deg, rgba(45,47,59,1) 0%, rgba(8,9,14,1) 35%);
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
 }
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height :100%;
-  margin: 0;
-  background: transparent;
-  background: linear-gradient(0deg, rgba(45,47,59,1) 0%, rgba(8,9,14,1) 35%) no-repeat;;
+  margin: 0; 
+  /* background: transparent;
+  background: linear-gradient(0deg, rgba(45,47,59,1) 0%, rgba(8,9,14,1) 35%) no-repeat;; */
   /* text-align: center; */
   color: white;
-}
+} 
 
 nav {
   background-color: #08090E;
