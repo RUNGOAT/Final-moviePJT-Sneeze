@@ -18,6 +18,12 @@
           :movie="movie"
         />
     </div>
+    <div v-show="movies.length === 0"> 
+      <div class="text-center pt-5">
+        <img src="@/assets/nothing.png" alt="없어요. 그냥 없어요">
+        <p class="p-5 h1">찾으시는 영화가 없습니다. 흑흑</p>
+      </div>
+    </div>
     <br><br><br><br>
     <div v-show="!title">
       <b-pagination
@@ -59,6 +65,7 @@ export default {
       currentPage: 1,
       perPage: 5,
       total_row: 20,
+      notMovies: false,
     }
   },
   created() {
@@ -90,14 +97,10 @@ export default {
         this.getList()
       }
     },
-    cardSearch() {
-      if ( this.$route.params.title ) {
-        this.title = this.$route.params.title
-      }
-    },
     searchCardMovie() {
       if ( this.$route.params.title ) {
         this.title = this.$route.params.title
+        this.$route.params.title = null
         const moviedata = this.$store.state.movies
         if (this.title) {
           const searchMovies = moviedata.filter(movie => {

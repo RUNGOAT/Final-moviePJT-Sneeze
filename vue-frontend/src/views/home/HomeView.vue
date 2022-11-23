@@ -20,8 +20,8 @@
     <HomeRecoCard :movies="shortest_movies"/>
     <br>
     <br>
-    <h3 class="content-font" v-if="users_movies.length === 20">SSAFLIX 유저들이 많이 리뷰한 영화</h3>
-    <HomeRecoCard v-if="users_movies.length === 20" :movies="users_movies"/>
+    <h3 class="content-font" v-if="users_movies.length === 30">SSAFLIX 유저들이 많이 리뷰한 영화</h3>
+    <HomeRecoCard v-if="users_movies.length === 30" :movies="users_movies"/>
   </div>
 </template>
 
@@ -123,7 +123,6 @@ export default {
           })
           .then(res => {
             this.my_like_users_movies = res.data
-            // console.log(res.data)
             axios({
               method: 'post',
               url: `${API_URL}/movies/recommend/`,
