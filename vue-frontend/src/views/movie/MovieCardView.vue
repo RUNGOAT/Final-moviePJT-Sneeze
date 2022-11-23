@@ -1,6 +1,6 @@
 <template>
   <div 
-    class="movie-item"
+    class="movie-item p-0 col-auto g-3 mx-3"
     @click="goDetail"
   >
     <img

@@ -26,7 +26,7 @@
       <p 
         class="m-0 fw-bold fs-3 user"
         @click="goProfile"
-        >{{ community.userName }}</p>
+        >{{ community?.userName }}</p>
       <p>{{ community?.updated_at }}</p>
     </div>
     <hr>
@@ -100,7 +100,7 @@ export default {
         // }
       })
         .then(res => {
-          console.log(res.data)
+          // console.log(res.data)
           this.community = res.data
         })
         .catch(err => console.log(err))
@@ -140,7 +140,7 @@ export default {
       this.getCommunityComment()
     },
     goProfile() {
-      this.$router.push({ name: 'Profile', params: { user_pk: this.review.user }})
+      this.$router.push({ name: 'Profile', params: { user_pk: this.community.user }})
     },
   },
 }

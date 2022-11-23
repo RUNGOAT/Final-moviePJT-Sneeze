@@ -99,7 +99,7 @@ export default {
         })
     },
     goProfile() {
-      this.$router.push({ name: 'Profile', params: { user_pk: this.review.user }})
+      this.$router.push({ name: 'Profile', params: { user_pk: this.comment.user }})
     },
   }
 }

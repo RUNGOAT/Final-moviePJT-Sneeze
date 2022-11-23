@@ -1,20 +1,29 @@
 <template>
-  <div 
-    class="movie-item p-0 col-auto g-3 mx-3 text-nowrap"
-    @click="goMovie"
-  >
-    <img
-      :src="poster_path + movie.poster_path" alt="..."
+  <swiper-slide role="tab">
+    <div 
+      class="movie-item"
+      @click="goDetail"
     >
-  </div>
+      <img
+        :src="poster_path + movie.poster_path" alt="..."
+      >
+    </div>
+  </swiper-slide>
+
 </template>
 
 <script>
+import 'swiper/dist/css/swiper.css'
+import { swiperSlide } from 'vue-awesome-swiper'
 
 export default {
-  name: 'MovieDetailCard',
+  name: 'HomeCardView',
   props: {
     movie: Object,
+  },
+  components: {
+    // swiper,
+    swiperSlide,
   },
   data() {
     return {
@@ -22,8 +31,8 @@ export default {
     }
   },
   methods: {
-    goMovie() {
-      this.$router.push({ name: 'Movie', params: { title: this.movie.title }})
+    goDetail() {
+      this.$router.push({ name: 'MovieDetail', params: { movie_id: this.movie.movie_id }})
     }
   }
 }
