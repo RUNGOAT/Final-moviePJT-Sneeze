@@ -7,7 +7,7 @@
       </div>
       <div class="col-sm-9 col-12">
         <div class="col-12 d-flex justify-content-around pb-2">
-          <h1>{{ user.username }}</h1>
+          <h1>{{ user?.username }}</h1>
         </div>
         <div class="col-sm-12 divider text-center row d-flex justify-content-around" style="margin-bottom:20px">
             <div class="col-sm-3 col-12 follow-info" @click="open1">
@@ -19,7 +19,7 @@
               <p><small>팔로잉</small></p>
             </div>
             <div class="col-sm-3 col-12">
-              <h2><strong>{{ user.like_movies.length }}</strong></h2>                    
+              <h2><strong>{{ user.like_movies?.length }}</strong></h2>                    
               <p><small>좋아요한 영화 수</small></p>
             </div>
         </div>            
@@ -44,7 +44,7 @@
     >
       <section class="page-section" id="contact">
         <div class="control-group">
-            <div v-for="(userId, idx) in user.followings" :key="idx" style="cursor:pointer" class="content-font form-group floating-label-form-group controls mb-0 pb-2">
+            <div v-for="(userId, idx) in user?.followings" :key="idx" style="cursor:pointer" class="content-font form-group floating-label-form-group controls mb-0 pb-2">
                 <FollowingsView :userId="userId" />
             </div>
         </div>
@@ -68,7 +68,7 @@
     >
       <section class="page-section" id="contact">
         <div class="control-group">
-            <div v-for="(userId, idx) in user.followers" :key="idx" style="cursor:pointer" class="content-font form-group floating-label-form-group controls mb-0 pb-2">
+            <div v-for="(userId, idx) in user?.followers" :key="idx" style="cursor:pointer" class="content-font form-group floating-label-form-group controls mb-0 pb-2">
                 <FollowersView :userId="userId" />
             </div>
         </div>
@@ -91,7 +91,7 @@
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
         <br>
-        <h2 class="title-font">{{ user.username }}님이 좋아요 한 영화</h2>    
+        <h2 class="title-font">{{ user?.username }}님이 좋아요 한 영화</h2>    
         <ul v-if="likeMovies" class="row popular-list">
           <MovieCardView
             v-for="movie in likeMovies"
@@ -103,7 +103,7 @@
       </div>
       <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">        
         <br>
-        <h2 class="title-font">{{ user.username }}님이 리뷰한 영화</h2>    
+        <h2 class="title-font">{{ user?.username }}님이 리뷰한 영화</h2>    
         <ul v-if="reviewMovies" class="row popular-list">
           <MovieCardView
             v-for="movie in reviewMovies"
@@ -155,6 +155,9 @@ export default {
   },
   methods: {
     getMe() {
+      if (this.$store.getters.isLogin === false) {
+        return
+      }
       axios({
         method: 'get',
         url: `${API_URL}/accounts/user/`,

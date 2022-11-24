@@ -180,10 +180,12 @@ export default {
   },
   created() {
     this.getMe()
-    this.getMyName()
   },
   methods: {
     getMe() {
+      if (this.$store.getters.isLogin === false) {
+        return
+      }
       axios({
         method: 'get',
         url: `${API_URL}/accounts/user/`,
@@ -193,7 +195,7 @@ export default {
       })
         .then(res => {
           this.me = res.data
-          this.isFollow()
+          this.getMyName()
         })
     },
     getMyName() {
@@ -203,6 +205,7 @@ export default {
       })
         .then(res => {
           this.user = res.data
+          this.isFollow()
           this.getUserMovies(res.data.like_movies, res.data.reviews)
         })
         .catch(err => { console.log(err) })
@@ -240,6 +243,8 @@ export default {
     },
     isFollow() {
       if (this.isLogin === false) {
+        return
+      } else if (this.me.username === this.user.username) {
         return
       }
       axios({

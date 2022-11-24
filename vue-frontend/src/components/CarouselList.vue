@@ -51,7 +51,7 @@ export default {
     }
   },
   created() {
-    this.check()
+    // this.check()
   }
 }
 </script>

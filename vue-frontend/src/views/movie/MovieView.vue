@@ -17,7 +17,7 @@
           :movie="movie"
         />
     </div>
-    <div v-show="movies.length === 0"> 
+    <div v-show="movies?.length === 0"> 
       <div class="text-center pt-5">
         <img src="@/assets/nothing.png" alt="없어요. 그냥 없어요">
         <p class="p-5 h1">찾으시는 영화가 없습니다. 흑흑</p>

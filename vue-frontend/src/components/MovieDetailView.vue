@@ -211,6 +211,9 @@ export default {
       this.$store.dispatch('searchYoutube', this.movieId)
     },
     getMe() {
+      if (this.$store.getters.isLogin === false) {
+        return
+      }
       axios({
         method: 'get',
         url: `${API_URL}/accounts/user/`,

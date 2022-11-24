@@ -29,7 +29,7 @@ export default {
         url: `${API_URL}/community/comments/${this.communityId}`
       })
         .then(res => {
-          console.log(res)
+          // console.log(res)
           this.comments = res.data
         })
     }

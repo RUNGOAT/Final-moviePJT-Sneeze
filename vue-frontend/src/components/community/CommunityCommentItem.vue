@@ -54,6 +54,9 @@ export default {
   },
   methods: {
     getMe() {
+      if (this.$store.getters.isLogin === false) {
+        return
+      }
       axios({
         method: 'get',
         url: `${API_URL}/accounts/user/`,

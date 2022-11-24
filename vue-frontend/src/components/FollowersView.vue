@@ -18,7 +18,7 @@ export default {
   data() {
     return {
       user: [],
-      urls: 'http://localhost:8080/profile/'
+      urls: `http://localhost:8080/profile/${this.userId}/`
     }
   },
   props: {

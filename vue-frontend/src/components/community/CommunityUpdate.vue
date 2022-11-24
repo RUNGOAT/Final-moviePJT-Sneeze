@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     getCommunityDetail(){
-      console.log(this.communityId)
+      // console.log(this.communityId)
       axios({
         method: 'get',
         url: `${API_URL}/community/detail/${this.communityId}/`, 
@@ -52,7 +52,7 @@ export default {
         },
       })
         .then(res => {
-          console.log(res)
+          // console.log(res)
           this.title = res.data.title
           this.content = res.data.content
         })

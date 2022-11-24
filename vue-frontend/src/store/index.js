@@ -143,7 +143,7 @@ export default new Vuex.Store({
           const movies = res.data
           _.sortBy(movies, 'vote_average').reverse()
           const top5Movies = movies.slice(0, 5)
-          console.log(top5Movies)
+          // console.log(top5Movies)
           context.commit('GET_TOP5_MOVIES', top5Movies)
         })
         .catch(err => console.log(err))
@@ -178,8 +178,8 @@ export default new Vuex.Store({
             username: payload.username,
             token: res.data.key
           }
-          console.log(userInfo)
-          console.log(res.data.key)
+          // console.log(userInfo)
+          // console.log(res.data.key)
           context.commit('SAVE_TOKEN', userInfo)
         })
         .catch(err => console.log(err))
@@ -198,8 +198,8 @@ export default new Vuex.Store({
             username: payload.username,
             token: res.data.key
           }
-          console.log(userInfo)
-          console.log(res)
+          // console.log(userInfo)
+          // console.log(res)
           context.commit('SAVE_TOKEN', userInfo)
 
           axios({
@@ -209,18 +209,18 @@ export default new Vuex.Store({
               Authorization: `Token ${res.data.key}`
             }
           })
-            .then((res) => {
+            .then(() => {
               // const profile = {
               //   nickname: 
               // }
-              console.log(res)
+              // console.log(res)
               context.commit('GET_PROFILE')
             })
         })
         .catch(err => console.log(err))     
     },
     getCommunityList(context) {
-      console.log(this.state.token)
+      // console.log(this.state.token)
       axios({
         method: 'get',
         url: `${API_URL}/community/community_list_create/`,
