@@ -39,9 +39,9 @@
     <router-view></router-view>
     <!-- <div style="height: 80vh"></div> -->
     <footer>
-      <p>ⓒ SSAFY 8기 과제</p>
-      <p>Chaeeun Lee | e-mail: chaen511@naver.com |</p>
-      <p> | e-mail:  |</p>
+      <p>ⓒ SNEEZE</p>
+      <p>Chaeeun Lee | e-mail: chaen511@naver.com</p>
+      <p>Jaegun Seo | e-mail: sjk1052005@gmail.com </p>
     </footer>
   </div>
 </template>

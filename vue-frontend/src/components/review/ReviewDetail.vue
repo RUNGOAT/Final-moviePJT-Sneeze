@@ -23,8 +23,11 @@
         </div>
     
         <div class="row">
-          <h5 class="m-0 fw-bold fs-4 user">{{ review?.userName }}</h5>
-          <p><small>{{ review?.updated_at }}</small></p>
+          <!-- <img class="col-2" src="@/assets/user.png" alt="profile" style="height:50px; width:70px;"> -->
+          <!-- <div class="col-3"> -->
+            <h5 class="m-0 fw-bold fs-4 user">{{ review?.userName }}</h5>
+            <p><small>{{ review?.updated_at }}</small></p>
+          <!-- </div> -->
         </div>
         <div class="row">
           <p>{{ review?.content }}</p>
