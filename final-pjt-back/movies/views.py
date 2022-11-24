@@ -51,7 +51,6 @@ def review_list_create(request, movie_pk):
     return Response(serializer.data)
   else:
     serializer = ReviewListSerializer(data=request.data)
-    
     if serializer.is_valid(raise_exception=True):
       movie = get_object_or_404(Movie, pk=request.data.get('movie'))
 
@@ -110,8 +109,6 @@ def review_update_delete(request, review_pk):
   if request.method == 'PUT':
     serializer = ReviewListSerializer(review, data=request.data)
     if serializer.is_valid(raise_exception=True):
-      # print('=================================')
-      # print(serializer)
       movie = get_object_or_404(Movie, pk=request.data.get('movie'))
       pre_point = movie.vote_average * (movie.vote_count - 1)
       pre_count = movie.vote_count - 1

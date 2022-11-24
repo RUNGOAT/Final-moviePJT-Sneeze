@@ -80,7 +80,6 @@ export default {
       this.update = !this.update
     },
     cancelUpdate() {
-      // this.updateContent = ''
       this.update = !this.update
     },
     updateComment() {
@@ -101,7 +100,6 @@ export default {
       })
         .then(() => {
           this.update = !this.update
-          // this.updateContent = ''
           this.$emit('updateComment')
         })
     },

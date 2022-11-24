@@ -68,6 +68,7 @@ export default {
       const title = this.title
       const content = this.content
       const rank = this.rank
+      const movie = this.moviePk
       if (!title) {
         alert('제목을 입력해주세요!')
         return
@@ -85,16 +86,16 @@ export default {
           title,
           content,
           rank,
-          movie: this.moviePk,
+          movie,
         },
         headers: {
           Authorization: `Token ${this.$store.state.token}`
         }
       })
         .then(() => {
-          console.log(11111)
           this.$router.push({ name: 'ReviewDetail', params: {
             movie_id: this.movieId,
+            movie_pk: this.moviePk,
             review_pk: this.reviewId,
           }})
         })
