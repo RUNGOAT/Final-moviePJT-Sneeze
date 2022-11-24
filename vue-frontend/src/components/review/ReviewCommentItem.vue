@@ -97,7 +97,7 @@ export default {
       })
         .then(() => {
           this.update = !this.update
-          this.updateContent = ''
+          // this.updateContent = ''
           this.$emit('updateComment')
         })
     },

@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'movies',
     'accounts',
     'community',
-    'maps',
 
     'rest_framework',
     # CORS policy

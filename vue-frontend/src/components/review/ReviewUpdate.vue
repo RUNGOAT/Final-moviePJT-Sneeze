@@ -40,12 +40,24 @@ export default {
       reviewId: this.$route.params.review_pk,
       movieId: this.$route.params.movie_id,
       moviePk: this.$route.params.movie_pk,
+      movie: null,
     }
   },
   created() {
+    // this.getMovie()
     this.getReviewDetail()
   },
   methods: {
+    // getMovie() {
+    //   axios({
+    //     method: 'get',
+    //     url: `${API_URL}/movies/${this.movieId}/`
+    //   })
+    //     .then(res => {
+    //       this.movie = res.data
+    //     })
+    //     .catch(err => {console.log(err)})
+    // },
     getReviewDetail(){
       axios({
         method: 'get',
@@ -54,19 +66,13 @@ export default {
           Authorization: `Token ${this.$store.state.token}`
         },
       })
-      .catch(res => {
+      .then(res => {
         console.log(res)
         this.title = res.data.title
         this.content = res.data.content
         this.rank = res.data.rank
-        this.check()
       })
-      .then(err => console.log(err))
-    },
-    check(){
-      console.log(this.title)
-      console.log(this.content)
-      console.log(this.rank)
+      .catch(err => console.log(err))
     },
     updateReview() {
       const title = this.title
@@ -96,6 +102,7 @@ export default {
         }
       })
         .then(() => {
+          console.log(11111)
           this.$router.push({ name: 'ReviewDetail', params: {
             movie_id: this.movieId,
             review_pk: this.reviewId,

@@ -12,7 +12,7 @@
         <div class="row d-flex justify-content-between">
           <h2 class="col-3 fw-bold">{{ review?.title }}</h2>
 
-          <div class="col-2 d-flex justify-content-end" v-if="this.me.username === review.userName">
+          <div class="col-2 d-flex justify-content-end" v-if="this.me.username === review?.userName">
             <span class="px-2" @click="updateReview">
               <img src="@/assets/pencil.png" style="width:28px; cursor: pointer;" alt="edit">
             </span> 

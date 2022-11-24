@@ -20,7 +20,6 @@ import SignupView from '@/views/accounts/SignupView'
 
 import NotFound404 from '@/views/NotFound404'
 
-import MapView from '@/views/MapView.vue'
 
 Vue.use(VueRouter)
 
@@ -34,11 +33,6 @@ const routes = [
     path: '/movie/',
     name: 'Movie',
     component: MovieView
-  },
-  {
-    path: '/maps/maps',
-    name: 'MapView',
-    component: MapView
   },
   {
     path: '/community',

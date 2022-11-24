@@ -14,7 +14,7 @@
               @click="goProfile"
             >{{ review.userName }}</p>
           </div>
-          <p class="m-0" style="fs-small;">{{ review.created_at.slice(0, 16) }}</p>
+          <p class="m-0" style="fs-small;">{{ review.created_at }}</p>
         </div>
 
         <!-- {{ review }} -->

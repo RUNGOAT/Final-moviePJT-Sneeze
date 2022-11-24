@@ -26,6 +26,7 @@ class ReviewListSerializer(serializers.ModelSerializer):
     model = Review
     fields = ('id', 'user', 'title', 'content', 'movie', 'rank', 'created_at', 'updated_at', 'movie_title', 'userName')
     read_only_fields = ('user',)
+    
 
 class ReviewReadSerializer(serializers.ModelSerializer):
   movie_title = serializers.SerializerMethodField()
