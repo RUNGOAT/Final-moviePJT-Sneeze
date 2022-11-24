@@ -44,7 +44,7 @@
 
           <!-- 좋아요, 리뷰 작성 -->
           <div class="d-flex justify-content-end align-middle movie-detail-header">
-            <span class="d-flex align-items-baseline ms-2 p-2 heart-box" @click="like">
+            <span class="d-flex align-items-baseline ms-2 p-2 heart-box"      @click="like">
               <i v-if="isLiked" class="bi bi-heart-fill heart" style="height:50px;"></i>
               <i v-else class="bi bi-heart heart"></i>
               <p class="px-2">좋아요</p>
@@ -153,6 +153,7 @@ export default {
       likeNumber: '',
       cosMovies: this.$store.state.cosMovies,
       similarMovies: this.$store.state.similarMovies,
+      isLogin: this.$store.getters.isLogin,
     }
   },
   computed: {
@@ -172,6 +173,10 @@ export default {
   },
   methods: {
     reviewForm() {
+      if (this.isLogin === false) {
+        alert('리뷰 작성을 하시려면 로그인을 하세요!')
+        return
+      }
       this.$router.push({ name: 'ReviewForm', params: {
         movie_id: this.movieId,
         movie_pk: this.movie.id
@@ -219,6 +224,10 @@ export default {
         })
     },
     like() {
+      if (this.isLogin === false) {
+        alert('좋아요를 하시려면 로그인을 하세요!')
+        return
+      }
       axios({
         method: 'post',
         url: `${API_URL}/movies/${this.me.pk}/${this.movieId}/like/`,

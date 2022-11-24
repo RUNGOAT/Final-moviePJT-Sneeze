@@ -43,7 +43,7 @@ def my_profile(request):
 
 
 
-@api_view(['POST'])
+@api_view(['GET'])
 # @authentication_classes([JSONWebTokenAuthentication])
 # @permission_classes([IsAuthenticated])
 def profile(request, user_pk):

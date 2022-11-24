@@ -31,15 +31,18 @@
               <div v-else><br></div>
             </div>    
             <div class="row mx-2">
-              <div v-if="me.username === user.username">
-                <br>
-              </div>
-              <div class="py-2" v-else>
-                <div class="d-grid gap-2 col-12 mx-auto">
-                  <button v-if="isFollowing" @click="follow" class="btn btn-secondary">언팔로우</button>
-                  <button v-else @click="follow" class="btn btn-primary">팔로우</button>
+              <div v-if="isLogin">
+                <div v-if="me.username === user.username">
+                  <br>
+                </div>
+                <div class="py-2" v-else>
+                  <div class="d-grid gap-2 col-12 mx-auto">
+                    <button v-if="isFollowing" @click="follow" class="btn btn-secondary">언팔로우</button>
+                    <button v-else @click="follow" class="btn btn-primary">팔로우</button>
+                  </div>
                 </div>
               </div>
+              <div v-else><br></div>
             </div>        
           </div>
         </div>                 
@@ -162,6 +165,7 @@ export default {
       user_pk: this.$route.params.user_pk,
       movies: this.$store.state.movies,
       isFollowing: false,
+      isLogin: this.$store.getters.isLogin,
 
       show1: false,
       show2: false,
@@ -207,6 +211,7 @@ export default {
         .catch(err => { console.log(err) })
     },
     getUserMovies(like_movies, reviews) {
+      
       axios({
         method: 'post',
         url: `${API_URL}/movies/${this.user_pk}/like/review/`,
@@ -237,6 +242,9 @@ export default {
         })
     },
     isFollow() {
+      if (this.isLogin === false) {
+        return
+      }
       axios({
         method: 'post',
         url: `${API_URL}/userinfo/is_follow/${this.me.pk}/${this.user_pk}/`,
