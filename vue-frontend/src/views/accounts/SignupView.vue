@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="signup">
     <div class="container p-5">
       <div class="card col-md-3 m-auto p-3" id="signup" style="width: 20rem; text-align: center;">
         <div class="card-body">
@@ -71,5 +71,8 @@ export default {
     border-radius: 10px;
     background-color: #30333E;
     /* text-align: center; */
+  }
+  .signup {
+    padding-bottom: 380px;
   }
 </style>

@@ -133,7 +133,7 @@ footer {
   background-color: #08090E;
   color: white;
   margin: 20px 0 0 0;
-  padding: 2%;
+  padding-top: 20px;
   text-align: center;
 }
 </style>

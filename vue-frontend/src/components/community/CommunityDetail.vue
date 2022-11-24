@@ -51,7 +51,11 @@
         @comment_add="commentAdd"
         :communityId="communityId"
         class="p-3"
+        v-if="this.$store.getters.isLogin"
       />
+      <div v-else>
+        <p class="ps-3">댓글을 다시려면 로그인하세요.</p>
+      </div>
     </div>
     </div>
   </div>

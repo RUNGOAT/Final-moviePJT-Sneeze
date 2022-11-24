@@ -1,5 +1,5 @@
 <template>
-  <div class="container p-5">
+  <div class="container login">
     <div class="card col-md-3 m-auto p-3" id="login" style="width: 20rem; text-align: center;">
       <div class="card-body">
         <h3 class="card-title" style="font-weight: bold;">로그인</h3>
@@ -57,5 +57,8 @@ export default {
     height: 430px;
     border-radius: 10px;
     background-color: #30333E;
+  }
+  .login {
+    padding-bottom: 565px;
   }
 </style>

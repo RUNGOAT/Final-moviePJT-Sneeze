@@ -72,7 +72,7 @@
       </li>
       <li class="nav-item" role="presentation">
         <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button"
-          role="tab" aria-controls="profile-tab-pane" aria-selected="false">예고편</button>
+          role="tab" aria-controls="profile-tab-pane" aria-selected="false">관련 영상</button>
       </li>
       <li class="nav-item" role="presentation">
         <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button"
@@ -91,12 +91,15 @@
         </div>
       </div>
       <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-        <div class="d-flex justify-content-start flex-wrap">
+        <div class="d-flex justify-content-start flex-wrap" v-if="youtubeVideos.length">
           <YoutubeItem
             v-for="(youtube, idx) in youtubeVideos"
             :key="idx"
             :youtube="youtube"
           />
+        </div>
+        <div v-else class="text-center p-5">
+          <h4>관련 영상이 없습니다.</h4>
         </div>
       </div>
 
