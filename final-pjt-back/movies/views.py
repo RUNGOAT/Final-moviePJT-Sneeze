@@ -229,8 +229,9 @@ def recommend(request):
                 if genre.pk == my_genre:
                     recommendations_list.add(movie)
                     break
-                
-    recommendations = sorted(recommendations_list, key=lambda x: x.popularity, reverse=True)
+    
+    recommendations_list = list(recommendations_list)
+    recommendations = sorted(recommendations_list, key=lambda x: x.popularity, reverse=True)[:30]
 
     serializer4 = MovieSerializer(recommendations, many=True)
     serializer3 = MovieSerializer(users_movies, many=True)
@@ -403,6 +404,6 @@ def recommended(request):
 @api_view(['GET'])
 def current_popularity(request):
   if request.method == 'GET':
-    movies = Movie.objects.order_by('-popularity')[:20]
+    movies = Movie.objects.order_by('-popularity')[:30]
     serializer = MovieSerializer(movies, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)

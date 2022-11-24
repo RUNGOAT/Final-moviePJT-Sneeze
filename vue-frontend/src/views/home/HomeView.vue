@@ -19,7 +19,7 @@
     <HomeRecoCard :movies="shortest_movies"/>
     <br>
     <br>
-    <h3 class="content-font ps-4" v-if="users_movies.length === 30">SSAFLIX 유저들이 많이 리뷰한 영화</h3>
+    <h3 class="content-font ps-4" v-if="users_movies.length === 30">SNEEZE 유저들이 많이 리뷰한 영화</h3>
     <HomeRecoCard v-if="users_movies.length === 30" :movies="users_movies"/>
   </div>
 </template>
