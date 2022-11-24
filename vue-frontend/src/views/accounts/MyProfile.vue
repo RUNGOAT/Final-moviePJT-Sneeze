@@ -119,10 +119,8 @@
 
 <script>
 import axios from 'axios'
-// import VueJwtDecode from "vue-jwt-decode"
 
-import MovieCardView from "@/views/movie/MovieCardView"
-// import MyFollower from "@/components/MyFollower"
+import MovieCardView from "@/components/MovieCardView"
 import FollowersView from '@/components/FollowersView.vue'
 import FollowingsView from '@/components/FollowingsView.vue'
 

@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import MovieCardView from '@/views/movie/MovieCardView'
+import MovieCardView from '@/components/MovieCardView'
 import axios from 'axios'
 
 const API_URL = 'http://127.0.0.1:8000'
