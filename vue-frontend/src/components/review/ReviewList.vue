@@ -1,12 +1,17 @@
 <template>
   <div class="review-list">
-    <hr>
-    <ReviewItem
-      v-for="review in this.reviews"
-      :key="review.created_at"
-      :review="review"
-      :movie="movie"
-    />
+    <div v-if="reviews.length">
+      <hr>
+      <ReviewItem
+        v-for="review in this.reviews"
+        :key="review.created_at"
+        :review="review"
+        :movie="movie"
+      />
+    </div>
+    <div v-else class="text-center">
+      <h4>리뷰가 없습니다.</h4>
+    </div>
   </div>
 </template>
 
@@ -46,9 +51,10 @@ export default {
         url: `${API_URL}/movies/${this.movie.id}/review_list_create/`,
       })
       .then(res => {
-        // console.log(res)
         this.reviews = res.data
+        console.log(this.reviews)
       })
+      .catch(err => {console.log(err)})
     },
 
   }

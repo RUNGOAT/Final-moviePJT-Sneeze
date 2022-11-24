@@ -2,10 +2,13 @@
   <div class="container">
     <div v-if="update">
       <div class="row justify-content-between">
-        <p 
-          class="m-0 fw-bold fs-3 col-3 user"
-          @click="goProfile"
-        >{{ comment.userName }}</p>
+        <div class="col-3 d-flex justify-content-start pb-2">
+          <img src="@/assets/user.png" alt="profile" style="height:40px;width:40px;">
+          <p 
+            class="m-0 fw-bold fs-3 col-3 user"
+            @click="goProfile"
+          >{{ comment.userName }}</p>
+        </div>
         <div class="col-3 d-flex justify-content-end" v-if="this.me.username === comment.userName">
           <span class="mx-2" @click="updateForm" style="cursor: pointer">수정</span>
           <span class="mx-2" @click="deleteComment" style="cursor: pointer">삭제</span>
