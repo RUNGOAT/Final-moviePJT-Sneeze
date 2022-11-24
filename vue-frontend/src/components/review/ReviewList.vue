@@ -1,6 +1,6 @@
 <template>
   <div class="review-list">
-    <div v-if="reviews.length">
+    <div v-if="reviews?.length">
       <hr>
       <ReviewItem
         v-for="review in this.reviews"

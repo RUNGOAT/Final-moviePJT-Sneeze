@@ -5,7 +5,7 @@
         <router-link class="col-1" :to="{name: 'MovieDetail', params: { movie_id: movieId } }">
           <img src="@/assets/back.png" style="width:25px;" alt="back">
         </router-link>
-        <span class="col-10" style="text-align: center;">리뷰</span>
+        <span class="col-10" style="text-align: center;">리뷰 : <span>"{{ review?.movie_title }}"</span></span>
       </div>
       <br>
       <div class="p-3">
@@ -25,7 +25,13 @@
         <div class="row">
           <!-- <img class="col-2" src="@/assets/user.png" alt="profile" style="height:50px; width:70px;"> -->
           <!-- <div class="col-3"> -->
-            <h5 class="m-0 fw-bold fs-4 user">{{ review?.userName }}</h5>
+            <div class="d-flex justify-content-between">
+              <h5 class="m-0 fw-bold fs-4 user">{{ review?.userName }}</h5>
+              <div class="pe-2">
+                {{ review?.rank }}
+                <img src="@/assets/star.png" style="width: 20px; height: 10px margin-left: 1rem;">
+              </div>
+            </div>
             <p><small>{{ review?.updated_at }}</small></p>
           <!-- </div> -->
         </div>
