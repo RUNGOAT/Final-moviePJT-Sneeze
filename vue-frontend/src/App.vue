@@ -4,8 +4,8 @@
       <!-- <div class="container-fluid"> -->
         <div class="row col-6">
           <a class="navbar-brand col-lg-3 col-12" href="http://localhost:8080/">
-            <img src="../src/assets/logo.png" alt="Logo" style="width:50px;" class="d-inline-block align-text-top col-6">
-            <span class="col-6" style="color:white;"> Movie</span>
+            <img src="../src/assets/logo.png" alt="Logo" class="d-inline-block align-text-top col-6">
+            <!-- <span class="col-6" style="color:white;"> Movie</span> -->
           </a>
           <router-link class="col-lg-2 col-12 mt-2 text-center fs-4" :to="{ name: 'Home' }">홈</router-link>
           <router-link class="col-lg-2 col-12 mt-2 text-center fs-4" :to="{ name: 'Movie' }">영화</router-link>
