@@ -9,14 +9,14 @@
     <br>
     <form @submit.prevent="updateReview">
       <div class="mb-3 py-3">
-        <input type="text" class="form-control" id="title1" aria-describedby="titleHelp" v-model.trim="title" placeholder="제목">
+        <input type="text" class="form-control" id="title1" aria-describedby="titleHelp" v-model.trim="title">
         <div id="titleHelp" class="form-text">100자 이하</div>
       </div>
       <div class="mb-3 py-3">
-        <textarea type="text" class="form-control" id="content" v-model.trim="content" placeholder="내용" style="height: 200px;"></textarea>
+        <textarea type="text" class="form-control" id="content" v-model.trim="content" style="height: 500px;"></textarea>
       </div>
       <div class="mb-3 py-3" style="width:80px;">
-        <input type="number" class="form-control" id="content" min="0" max="10" aria-describedby="rankHelp" v-model.trim="rank" placeholder="평점" >
+        <input type="number" class="form-control" id="content" min="0" max="10" aria-describedby="rankHelp" v-model.trim="rank">
         <div id="rankHelp" class="form-text">0 ~ 10점</div>
       </div>
       
@@ -42,9 +42,33 @@ export default {
       moviePk: this.$route.params.movie_pk,
     }
   },
+  created() {
+    this.getReviewDetail()
+  },
   methods: {
+    getReviewDetail(){
+      axios({
+        method: 'get',
+        url: `${API_URL}/movies/review_detail/${this.reviewId}/`,
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`
+        },
+      })
+      .catch(res => {
+        console.log(res)
+        this.title = res.data.title
+        this.content = res.data.content
+        this.rank = res.data.rank
+        this.check()
+      })
+      .then(err => console.log(err))
+    },
+    check(){
+      console.log(this.title)
+      console.log(this.content)
+      console.log(this.rank)
+    },
     updateReview() {
-      
       const title = this.title
       const content = this.content
       const rank = this.rank

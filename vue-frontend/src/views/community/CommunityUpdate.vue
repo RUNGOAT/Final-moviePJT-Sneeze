@@ -10,12 +10,12 @@
     <form @submit.prevent="updateCommunity">
       <div class="mb-3 py-3">
         <!-- <label for="title" class="form-label">제목</label> -->
-        <input type="text" class="form-control" id="title1" aria-describedby="titleHelp" v-model.trim="title" placeholder="제목">
+        <input type="text" class="form-control" id="title1" aria-describedby="titleHelp" v-model.trim="title">
         <div id="titleHelp" class="form-text">100자 이하</div>
       </div>
       <div class="mb-3 py-3">
         <!-- <label for="content" class="form-label">내용</label> -->
-        <textarea type="text" class="form-control" id="content" v-model.trim="content" placeholder="내용" style="height: 200px;"></textarea>
+        <textarea type="text" class="form-control" id="content" v-model.trim="content" style="height: 500px;"></textarea>
       </div>
       <button type="submit" class="btn btn-primary">수정</button>
     </form>
@@ -38,9 +38,27 @@ export default {
       content: null,
     }
   },
+  created() {
+    this.getCommunityDetail()
+  },
   methods: {
+    getCommunityDetail(){
+      console.log(this.communityId)
+      axios({
+        method: 'get',
+        url: `${API_URL}/community/detail/${this.communityId}/`, 
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`
+        },
+      })
+        .then(res => {
+          console.log(res)
+          this.title = res.data.title
+          this.content = res.data.content
+        })
+        .catch(err => console.log(err))
+    },
     updateCommunity() {
-
       const title = this.title
       const content = this.content
       if (!title) {
