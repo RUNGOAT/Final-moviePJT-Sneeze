@@ -4,7 +4,6 @@ import VueRouter from 'vue-router'
 import HomeView from '@/views/home/HomeView'
 import MovieView from '@/views/movie/MovieView'
 import MovieDetailView from '@/views/movie/MovieDetailView'
-import MovieSearchView from '@/views/movie/MovieSearchView'
 import ReviewForm from '@/components/review/ReviewForm'
 import ReviewDetail from '@/components/review/ReviewDetail'
 import ReviewUpdate from '@/components/review/ReviewUpdate'
@@ -19,7 +18,6 @@ import ProfileView from '@/views/accounts/ProfileView'
 import LoginView from '@/views/accounts/LoginView'
 import SignupView from '@/views/accounts/SignupView'
 
-import LoadingView from '@/components/LoadingView'
 import NotFound404 from '@/views/NotFound404'
 
 import MapView from '@/views/MapView.vue'
@@ -41,11 +39,6 @@ const routes = [
     path: '/maps/maps',
     name: 'MapView',
     component: MapView
-  },
-  {
-    path: '/movie/search/:keyword',
-    name: 'MovieSearch',
-    component: MovieSearchView
   },
   {
     path: '/community',
@@ -71,13 +64,11 @@ const routes = [
     path: '/profile/',
     name: 'MyProfile',
     component: MyProfile,
-    // props: true,
   },
   {
     path: '/profile/:user_pk',
     name: 'Profile',
     component: ProfileView,
-    // props: true,
   },
   {
     path: '/login',
@@ -108,11 +99,6 @@ const routes = [
     path: '/:movie_id/review/:review_pk/update',
     name: 'ReviewUpdate',
     component: ReviewUpdate
-  },
-  {
-    path: '/loading/movie_id',
-    name: 'LoadingView',
-    component: LoadingView
   },
   {
     path: '/404',

@@ -1,8 +1,6 @@
 <template>
   <div class="review-list">
     <hr>
-    <!-- <hr id="reviewItemHr"> -->
-    <!-- <ReviewCommentForm/> -->
     <ReviewItem
       v-for="review in this.reviews"
       :key="review.created_at"
@@ -13,7 +11,6 @@
 </template>
 
 <script>
-// import ReviewCommentForm from '@/components/review/ReviewCommentForm'
 import ReviewItem from '@/components/review/ReviewItem.vue'
 import axios from 'axios'
 
@@ -31,7 +28,6 @@ export default {
     movie: Object,
   },
   components: {
-    // ReviewCommentForm,
     ReviewItem,
   },
   created() {

@@ -127,18 +127,15 @@
 <script>
 import ReviewList from '@/views/movie/ReviewList'
 import axios from 'axios'
-// import HomeRecoCard from '@/components/HomeRecoCard.vue'
 import MovieDetailCard from './MovieDetailCard.vue'
 import YoutubeItem from '@/components/YoutubeItem.vue'
 
 const API_URL = 'http://127.0.0.1:8000'
-// const API_KEY = 'c12ca67b05f1378e09cf647da6b26b3e'
 
 export default {
   name: 'MovieDetailView',
   components: {
     ReviewList,
-    // HomeRecoCard,
     MovieDetailCard,
     YoutubeItem,
   },
@@ -162,14 +159,6 @@ export default {
     youtubeVideos() {
       return this.$store.state.youtubeVideos
     },
-    // youtubeURI() {
-    //   if (this.youtubeVideos) {
-    //     const videoId = this.youtubeVideos.key
-    //     return `https://www.youtube.com/embed/${videoId}`
-    //   } else {
-    //     return ''
-    //   }
-    // },
   },
   created() {
     this.getMovie(this.$route.params.movie_id)
@@ -213,19 +202,6 @@ export default {
     searchYoutube() {
       this.$store.dispatch('searchYoutube', this.movieId)
     },
-    // searchYoutube() {
-    //   axios({
-    //     method: 'get',
-    //     url: `https://api.themoviedb.org/3/movie/${this.movieId}/videos?api_key=${API_KEY}&language=ko-KR`
-    //   })
-    //     .then(res => {
-    //       const youtubes = res.data.results.filter(youtube => {
-    //         return youtube.key
-    //       })
-    //       this.searchVideos = youtubes
-    //     })
-    //     .catch(err => console.log(err))
-    // },
     getMe() {
       axios({
         method: 'get',
