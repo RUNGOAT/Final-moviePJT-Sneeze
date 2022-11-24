@@ -2,7 +2,9 @@
   <div class="container community">
     <div class="row justify-content-space-between">
       <h1 class="col align-right">게시판</h1>
-      <router-link :to="{ name: 'CommunityCreate' }" class="col-1"><img class="d-flex justify-content-end" src="@/assets/plus.png" style="width:45px;"></router-link>
+      <div class="col-1" @click="goCreate">
+        <img class="d-flex justify-content-end" src="@/assets/plus.png" style="width:45px; cursor: pointer;">
+      </div>
     </div>
     <br>
     <div class="row d-flex justify-content-around text-center">
@@ -26,6 +28,11 @@ import CommunityListItem from '@/components/community/CommunityListItem.vue'
 
 export default {
   name:'CommunityView',
+  data() {
+    return {
+      isLogin: this.$store.getters.isLogin,
+    }
+  },
   components: {
     CommunityListItem,
   },
@@ -37,6 +44,13 @@ export default {
   methods: {
     getCommunityList() {
       this.$store.dispatch('getCommunityList')
+    },
+    goCreate() {
+      if (this.isLogin === false) {
+        alert('게시글을 작성하시려면 로그인을 하세요!')
+        return
+      }
+      this.$router.push({ name: 'CommunityCreate' })
     }
   },
   created() {

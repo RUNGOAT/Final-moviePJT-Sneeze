@@ -17,6 +17,7 @@ export default {
   data() {
     return {
       user: [],
+      urls: 'http://localhost:8080/profile/'
     }
   },
   props: {
@@ -33,7 +34,6 @@ export default {
       })
         .then(res => {
           this.user = res.data
-          console.log(res)
         })
     },
     goProfile() {

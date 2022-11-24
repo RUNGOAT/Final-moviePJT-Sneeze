@@ -18,7 +18,7 @@
               <h2><strong>{{ followingsLength }}</strong></h2>                    
               <p><small>팔로잉</small></p>
             </div>
-            <div class="col-sm-3 col-12 follow-info">
+            <div class="col-sm-3 col-12">
               <h2><strong>{{ user.like_movies.length }}</strong></h2>                    
               <p><small>좋아요한 영화 수</small></p>
             </div>

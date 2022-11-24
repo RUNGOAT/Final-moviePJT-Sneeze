@@ -20,7 +20,7 @@
                     <h2><strong>{{followingsLength}}</strong></h2>                    
                     <p><small>팔로잉</small></p>
                   </div>
-                  <div class="col-sm-4 col-12 follow-info">
+                  <div class="col-sm-4 col-12">
                     <h2><strong v-if="user.followings">{{ user.like_movies.length }}</strong></h2>                    
                     <p><small>좋아요한 영화 수</small></p>
                   </div>
@@ -33,7 +33,7 @@
             <div class="row mx-2">
               <div v-if="isLogin">
                 <div v-if="me.username === user.username">
-                  <br>
+                  <!-- <br> -->
                 </div>
                 <div class="py-2" v-else>
                   <div class="d-grid gap-2 col-12 mx-auto">
@@ -42,7 +42,7 @@
                   </div>
                 </div>
               </div>
-              <div v-else><br></div>
+              <!-- <div v-else> </div> -->
             </div>        
           </div>
         </div>                 
@@ -183,9 +183,6 @@ export default {
     this.getMyName()
   },
   methods: {
-    check() {
-      console.log(this.user.followings)
-    },
     getMe() {
       axios({
         method: 'get',
