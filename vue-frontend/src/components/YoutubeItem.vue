@@ -1,6 +1,6 @@
 <template>
   <div class="m-5">
-    <iframe :src="youtubeURI" width="560" height="315">
+    <iframe :src="youtubeURI" width="560" height="315" allowfullscreen>
     </iframe>
   </div>
 </template>

@@ -44,20 +44,10 @@ export default {
     }
   },
   created() {
-    // this.getMovie()
     this.getReviewDetail()
+    this.check()
   },
   methods: {
-    // getMovie() {
-    //   axios({
-    //     method: 'get',
-    //     url: `${API_URL}/movies/${this.movieId}/`
-    //   })
-    //     .then(res => {
-    //       this.movie = res.data
-    //     })
-    //     .catch(err => {console.log(err)})
-    // },
     getReviewDetail(){
       axios({
         method: 'get',
