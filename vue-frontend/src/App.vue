@@ -3,8 +3,10 @@
     <nav class="navbar navbar-expand-lg d-flex justify-content-between px-4">
       <!-- <div class="container-fluid"> -->
         <div class="row col-6">
-          <a class="navbar-brand col-lg-3 col-12" href="http://localhost:8080/">
-            <img src="../src/assets/logo.png" alt="Logo" class="d-inline-block align-text-top col-6">
+          <a class="navbar-brand col-lg-3 col-12 text-center" href="http://localhost:8080/">
+            <img src="../src/assets/logo.png" alt="Logo" class="d-inline-block align-text-top"
+            style="width: 100px;"
+            >
             <!-- <span class="col-6" style="color:white;"> Movie</span> -->
           </a>
           <router-link class="col-lg-2 col-12 mt-2 text-center fs-4" :to="{ name: 'Home' }">홈</router-link>
