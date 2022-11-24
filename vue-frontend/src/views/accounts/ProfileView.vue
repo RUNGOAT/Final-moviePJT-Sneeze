@@ -138,8 +138,7 @@
 
 <script>
 import axios from 'axios'
-// import HomeRecoCard from '@/components/HomeRecoCard.vue'
-import MovieCardView from '../movie/MovieCardView.vue'
+import MovieCardView from "@/components/MovieCardView"
 import FollowingsView from '@/components/FollowingsView.vue'
 import FollowersView from '@/components/FollowersView.vue'
 

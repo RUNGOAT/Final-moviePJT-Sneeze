@@ -125,7 +125,7 @@
 </template>
 
 <script>
-import ReviewList from '@/views/movie/ReviewList'
+import ReviewList from '@/components/review/ReviewList'
 import axios from 'axios'
 import MovieDetailCard from './MovieDetailCard.vue'
 import YoutubeItem from '@/components/YoutubeItem.vue'
