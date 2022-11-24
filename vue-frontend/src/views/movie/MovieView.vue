@@ -59,7 +59,7 @@ export default {
   data () {
     return {
       title: null,
-      movies: this.$store.state.movies.slice(0, 20),
+      movies: null,
       // list: [],
       currentPage: 1,
       perPage: 5,

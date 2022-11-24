@@ -111,6 +111,16 @@ nav a.router-link-exact-active {
   cursor: pointer;
 }
 
+.link {
+  color: white;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration:underline;
+  color:#0072D2;
+}
+
 #background {
   width:800px;
   /* min-height: 600px; */

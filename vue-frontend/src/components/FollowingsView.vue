@@ -1,9 +1,10 @@
 <template>
   <div>
-    <p 
+    <a class="link m-0 fw-bold fs-3" :href="urls">{{ user.username }}</a>
+    <!-- <p 
       class="m-0 fw-bold fs-3 user"
       @click="goProfile"
-      >{{ user.username }}</p>
+      >{{ user.username }}</p> -->
   </div>
 </template>
 
@@ -17,6 +18,7 @@ export default {
   data() {
     return {
       user: [],
+      urls: `http://localhost:8080/profile/${this.userId}/`
     }
   },
   props: {
