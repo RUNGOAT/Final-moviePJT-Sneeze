@@ -44,6 +44,7 @@ export default {
   },
   created() {
     this.getReviewDetail()
+    this.check()
   },
   methods: {
     getReviewDetail(){
@@ -63,7 +64,7 @@ export default {
       })
       .then(err => console.log(err))
     },
-    check(){
+    check() {
       console.log(this.title)
       console.log(this.content)
       console.log(this.rank)

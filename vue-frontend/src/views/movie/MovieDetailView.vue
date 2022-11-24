@@ -228,7 +228,6 @@ export default {
         },
       })
         .then(res => {
-          // console.log(res)
           this.isLiked = res.data
           if (this.isLiked === false) {
             this.likeNumber -= 1
@@ -250,7 +249,6 @@ export default {
         },
       })
         .then(res => {
-          // console.log(res)
           this.isLiked = res.data
         })
     },

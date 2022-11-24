@@ -17,10 +17,11 @@
     <div v-else>
       <p id="commentUsername">{{ comment.userName }}</p>
       <form @submit.prevent="updateComment">
-        <!-- <label for="content">댓글: </label> -->
-        <input type="text" id="content" v-model.trim="updateContent">
-        <button>작성</button>
-        <button @click="cancelUpdate">취소</button>
+        <div class="d-flex justify-content-between">
+          <input type="text" id="content" class="form-control" v-model.trim="updateContent" value="updateContent">
+          <button class="btn mx-2" type="submit" style="background-color: #0072D2; color:white;">등록</button>
+          <button class="btn mx-2" type="submit" style="background-color: #0072D2; color:white;" @click="cancelUpdate">취소</button>
+        </div>
       </form>
     </div>
     <hr>
@@ -40,7 +41,7 @@ export default {
   data() {
     return {
       update: true,
-      updateContent: null,
+      updateContent: this.comment.content,
       me: [],
     }
   },
@@ -76,7 +77,7 @@ export default {
       this.update = !this.update
     },
     cancelUpdate() {
-      this.updateContent = ''
+      // this.updateContent = ''
       this.update = !this.update
     },
     updateComment() {
@@ -97,7 +98,7 @@ export default {
       })
         .then(() => {
           this.update = !this.update
-          this.updateContent = ''
+          // this.updateContent = ''
           this.$emit('updateComment')
         })
     },

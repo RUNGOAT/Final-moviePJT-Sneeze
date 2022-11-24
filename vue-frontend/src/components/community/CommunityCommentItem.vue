@@ -17,10 +17,11 @@
     <div v-else>
       <p id="commentUsername">{{ comment.userName }}</p>
       <form @submit.prevent="updateComment">
-        <!-- <label for="content">댓글: </label> -->
-        <input type="text" id="content" v-model.trim="updateContent">
-        <button>작성</button>
-        <button @click="cancelUpdate">취소</button>
+        <div class="d-flex justify-content-between">
+          <input type="text" id="content" class="form-control" v-model.trim="updateContent" value="content">
+          <button class="btn mx-2" type="submit" style="background-color: #0072D2; color:white;">등록</button>
+          <button class="btn mx-2" type="submit" style="background-color: #0072D2; color:white;" @click="cancelUpdate">취소</button>
+        </div>
       </form>
     </div>
     <hr>
@@ -34,16 +35,16 @@ const API_URL = 'http://127.0.0.1:8000'
 
 export default {
   name: 'CommunityCommentItem',
-  data() {
-    return {
-      update: true,
-      updateContent: null,
-      me: [],
-    }
-  },
   props: {
     comment: Object,
     communityId: String,
+  },
+  data() {
+    return {
+      update: true,
+      updateContent: this.comment.content,
+      me: [],
+    }
   },
   created() {
     this.getMe()
@@ -77,7 +78,6 @@ export default {
       this.update = !this.update
     },
     cancelUpdate() {
-      this.updateContent = ''
       this.update = !this.update
     },
     updateComment() {

@@ -1,6 +1,12 @@
 <template>
-  <div class="container" id="background">
-    <h2>게시글 작성</h2>
+  <div class="container community-form" id="background">
+    <div class="row">
+      <router-link class="col-1" :to="{name: 'Community' }">
+        <img src="@/assets/back.png" style="width:25px;" alt="back">
+      </router-link>
+      <span class="col-10" style="text-align: center;">게시글 작성</span>
+    </div>
+    <br>
     <form @submit.prevent="createCommunity">
       <div class="mb-3 py-3">
         <!-- <label for="title" class="form-label">제목</label> -->
@@ -9,7 +15,7 @@
       </div>
       <div class="mb-3 py-3">
         <!-- <label for="content" class="form-label">내용</label> -->
-        <textarea type="text" class="form-control" id="content" v-model.trim="content" placeholder="내용" style="height: 200px;"></textarea>
+        <textarea type="text" class="form-control" id="content" v-model.trim="content" placeholder="내용" style="height: 500px;"></textarea>
       </div>
       <button type="submit" class="btn btn-primary">등록</button>
     </form>
@@ -62,5 +68,7 @@ export default {
 </script>
 
 <style>
-
+.community-form {
+  margin-bottom: 123px;
+}
 </style>
