@@ -50,10 +50,10 @@ export default {
     HomeRecoCard,
   },
   created() {
+    this.getMe()
     this.getPopularityMovies()
     this.getMovies()
     this.getTop5Movies()
-    this.getMe()
   },
   computed: {
     backgroundMovies() {

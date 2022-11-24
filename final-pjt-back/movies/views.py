@@ -51,6 +51,7 @@ def review_list_create(request, movie_pk):
     return Response(serializer.data)
   else:
     serializer = ReviewListSerializer(data=request.data)
+    
     if serializer.is_valid(raise_exception=True):
       movie = get_object_or_404(Movie, pk=request.data.get('movie'))
 
@@ -169,6 +170,8 @@ def recommend(request):
 
   like_movies = request.data.get('like_movies')
   
+  movies = get_list_or_404(Movie)
+  len_movies = len(movies)
   reviews = Review.objects.all()
   for review in reviews:
     movie = Movie.objects.get(pk=review.movie_id)
@@ -182,23 +185,23 @@ def recommend(request):
     
     idx = 1
     users_movies = set(users_movies)
-    while len(users_movies) < 30:
-      if idx == 118:
+    while len(users_movies) < 30 and idx <= len_movies:
+      try:
+        movie = Movie.objects.get(pk=idx)
+        ser = MovieSerializer(movie)
+        if ser.data.get('genres', False):
+          if ser.data.get('genres')[0] == genre and movie.pk not in users_movies:
+            users_movies.add(movie)
         idx += 1
-        continue
-      movie = Movie.objects.get(pk=idx)
-      ser = MovieSerializer(movie)
-      if ser.data.get('genres', False):
-        if ser.data.get('genres')[0] == genre and movie.pk not in users_movies:
-          users_movies.add(movie)
-      idx += 1
-      if idx == 960:
-        latest_movies = Movie.objects.all().order_by('-release_date')
+      except:
+        idx += 1
+      if idx == len_movies:
+        latest_movies = Movie.objects.all().order_by('vote_count')
         while len(users_movies) < 30:
            users_movies.add(latest_movies.pop())
         users_movies = list(users_movies)
   else:
-    users_movies = Movie.objects.all().order_by('release_date')[:30]
+    users_movies = Movie.objects.all().order_by('-vote_count')[:30]
 
   # 좋아요 기반
   my_movies = []
@@ -236,8 +239,6 @@ def recommend(request):
   else:
     serializer3 = MovieSerializer(users_movies, many=True)
     return Response([serializer1.data, serializer2.data, serializer3.data, []])
-    
-
 
 
 @api_view(['POST'])
