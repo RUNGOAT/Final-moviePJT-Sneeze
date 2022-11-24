@@ -28,11 +28,8 @@ export default {
   methods: {
     getUser() {
       axios({
-        method: 'post',
+        method: 'get',
         url: `${API_URL}/userinfo/${this.userId}/`,
-        headers: {
-          Authorization: `Token ${this.$store.state.token}`
-        },
       })
         .then(res => {
           this.user = res.data

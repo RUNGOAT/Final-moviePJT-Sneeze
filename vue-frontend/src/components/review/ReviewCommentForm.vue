@@ -1,12 +1,16 @@
 <template>
   <div>
-    <form @submit.prevent="createReviewComment">
-      <label for="comment" class="form-label">{{ this.$store.state.username }}</label>
-      <div class="d-flex justify-content-between">
-        <input type="text" id="comment" class="form-control" v-model.trim="content" placeholder="악플금지!">
-        <button class="btn mx-2" type="submit" style="background-color: #0072D2; color:white;">등록</button>
-      </div>
-    </form>
+    <div v-if="isLogin">
+      <br>
+      <form @submit.prevent="createReviewComment">
+        <label for="comment" class="form-label">{{ this.$store.state.username }}</label>
+        <div class="d-flex justify-content-between">
+          <input type="text" id="comment" class="form-control" v-model.trim="content" placeholder="악플금지!">
+          <button class="btn mx-2" type="submit" style="background-color: #0072D2; color:white;">등록</button>
+        </div>
+      </form>
+    </div>
+    <div v-else><p class="ps-3">댓글을 다시려면 로그인을 하세요!</p></div>
   </div>
 </template>
 
@@ -22,6 +26,7 @@ export default {
   data() {
     return {
       content: null,
+      isLogin: this.$store.getters.isLogin,
     }
   },
   methods: {

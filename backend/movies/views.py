@@ -306,12 +306,12 @@ def like_movie_users(request, my_pk):
   return Response(users)
 
 
-@api_view(['POST'])
+@api_view(['post'])
 def user_like_movies(request, user_pk):
   like_movies_id = request.data.get('like_movies')
+  review_ids = request.data.get('reviews')
   movies = Movie.objects.all()
 
-  review_ids = request.data.get('reviews')
   review_movie_id = []
   for review_id in review_ids:
     review = Review.objects.get(pk=review_id)
@@ -324,7 +324,6 @@ def user_like_movies(request, user_pk):
       like_movies.append(movie)
     if movie.pk in review_movie_id:
       review_movies.append(movie)
-  
   serializers = MovieSerializer(like_movies, many=True)
   review_serializers = MovieSerializer(review_movies, many=True)
   return Response([serializers.data, review_serializers.data])

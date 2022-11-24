@@ -40,7 +40,6 @@
               :comment="comment"
               :review="review"
             />
-          <br>
           <ReviewCommentForm
             @reviewCommentAdd="reviewCommentAdd"
             :review="review"
