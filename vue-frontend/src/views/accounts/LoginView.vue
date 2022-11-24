@@ -1,5 +1,5 @@
 <template>
-  <div class="container row p-5">
+  <div class="container p-5">
     <div class="card col-md-3 m-auto p-3" id="login" style="width: 20rem; text-align: center;">
       <div class="card-body">
         <h3 class="card-title" style="font-weight: bold;">로그인</h3>
@@ -25,22 +25,6 @@
       </div>
     </div>
   </div>
-    <!-- <div>
-      <h1>로그인</h1>
-      <form @submit.prevent="logIn">
-        <label for="username">아이디</label><br>
-        <input type="text" id="username" v-model="username"><br>
-
-        <label for="password"> 비밀번호</label><br>
-        <input type="password" id="password" v-model="password"><br>
-        <br>
-        <div class="d-grid gap-2 col-7 mx-auto">
-          <input type="submit" class="btn btn-outline-light" value="logIn">
-        </div>
-      </form>
-      <hr>
-      <p>아직 회원이 아니십니까? <router-link :to="{ name: 'Signup'}">회원가입</router-link></p>
-  </div> -->
 </template>
 
 <script>

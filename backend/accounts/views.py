@@ -62,7 +62,7 @@ def users(request):
     return Response(serializer.data)
 
 
-@api_view(['POST'])
+@api_view(['GET'])
 def user(request, my_pk):
     user = get_object_or_404(get_user_model(), pk=my_pk)
     serializer = UserSerializer(user)

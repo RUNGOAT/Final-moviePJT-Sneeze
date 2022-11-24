@@ -171,11 +171,8 @@ export default {
     },
     getMyName(my_pk) {
       axios({
-        method: 'post',
+        method: 'get',
         url: `${API_URL}/userinfo/user/${my_pk}/`,
-        headers: {
-          Authorization: `Token ${this.$store.state.token}`
-        },
       })
         .then(res => {
           this.user = res.data

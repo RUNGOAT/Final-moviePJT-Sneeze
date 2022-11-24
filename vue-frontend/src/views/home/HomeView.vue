@@ -26,11 +26,8 @@
 
 <script>
 import CarouselList from '@/components/CarouselList'
-// import CarouselItem from '@/components/CarouselItem'
-
 import HomeRecoCard from '@/components/HomeRecoCard.vue'
 import axios from 'axios'
-// import _ from 'lodash'
 
 const API_URL = 'http://127.0.0.1:8000'
 export default {
@@ -50,7 +47,6 @@ export default {
   },
   components: {
     CarouselList,
-    // CarouselItem,
     HomeRecoCard,
   },
   created() {
@@ -82,18 +78,10 @@ export default {
       this.$store.dispatch('getRecommended')
     },
     getMovies() {
-      // if (this.isLogin) {
         this.$store.dispatch('getMovies')
-      // } else {
-        //   alert('로그인이 필요한 서비스 입니다.')
-      //   this.$router.push({ name: 'LogInView'})
     },
     getTop5Movies() {
-      // if (this.isLogin) {
         this.$store.dispatch('getTop5Movies')
-      // } else {
-        //   alert('로그인이 필요한 서비스 입니다.')
-      //   this.$router.push({ name: 'LogInView'})
     },
     getPopularityMovies() {
       axios({
@@ -113,8 +101,6 @@ export default {
         },
       })
         .then(res => {
-          // console.log(res)
-
           axios({
             method: 'post',
             url: `${API_URL}/movies/info/`,

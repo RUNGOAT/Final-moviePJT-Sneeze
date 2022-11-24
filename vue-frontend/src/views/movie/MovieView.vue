@@ -8,9 +8,6 @@
       </form>
 
     </div>
-    <!-- <div class="popular-list row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-6 g-4 text-center px-5 mx-5 d-flex flex-wrap"
-      v-if="movies"
-    > -->
     <div class="popular-list row gy-4 mx-2"
       v-if="movies"
     >

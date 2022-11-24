@@ -6,8 +6,8 @@
           :key="movie.created_at"
           :movie="movie"
         />
-      <div class="swiper-button-prev" slot="button-prev"></div>
-      <div class="swiper-button-next" slot="button-next"></div>
+      <div class="swiper-button-prev" slot="button-prev" style="padding: 3rem;"></div>
+      <div class="swiper-button-next" slot="button-next" style="padding: 3rem;"></div>
     </swiper>
   </div>
 </template>
@@ -15,7 +15,6 @@
 <script>
 import 'swiper/dist/css/swiper.css'
 import { swiper } from 'vue-awesome-swiper'
-// import MovieCardView from '@/views/movie/MovieCardView.vue'
 import HomeCardView from './HomeCardView.vue'
 
 

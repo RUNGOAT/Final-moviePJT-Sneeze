@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container row p-5">
+    <div class="container p-5">
       <div class="card col-md-3 m-auto p-3" id="signup" style="width: 20rem; text-align: center;">
         <div class="card-body">
           <h3 class="card-title" style="font-weight: bold;">회원가입</h3>
@@ -30,9 +30,7 @@
           </form>
         </div>
       </div>
-  </div>
-
-
+    </div>
 
   </div>
 
@@ -55,9 +53,6 @@ export default {
       const password2 = this.password2
 
       const payload = {
-        // username,
-        // password1,
-        // password2,
         username: username,
         password1: password1,
         password2: password2,

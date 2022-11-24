@@ -177,6 +177,7 @@ export default {
   },
   created() {
     this.getMe()
+    this.getMyName()
   },
   methods: {
     check() {
@@ -192,17 +193,13 @@ export default {
       })
         .then(res => {
           this.me = res.data
-          this.getMyName()
           this.isFollow()
         })
     },
     getMyName() {
       axios({
-        method: 'post',
+        method: 'get',
         url: `${API_URL}/userinfo/user/${this.user_pk}/`,
-        headers: {
-          Authorization: `Token ${this.$store.state.token}`
-        },
       })
         .then(res => {
           this.user = res.data
