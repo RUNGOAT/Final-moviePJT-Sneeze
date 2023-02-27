@@ -44,8 +44,6 @@ def my_profile(request):
 
 
 @api_view(['GET'])
-# @authentication_classes([JSONWebTokenAuthentication])
-# @permission_classes([IsAuthenticated])
 def profile(request, user_pk):
     print(request.data)
     user = get_object_or_404(get_user_model(), pk=user_pk)
@@ -70,21 +68,16 @@ def user(request, my_pk):
 
 
 @api_view(['POST'])
-# @authentication_classes([JSONWebTokenAuthentication])
-# @permission_classes([IsAuthenticated])
 def follow(request, my_pk, user_pk):
     person = get_object_or_404(get_user_model(), pk=user_pk)
     me = get_object_or_404(get_user_model(), pk=my_pk)
     if person != me:
         if me.followings.filter(pk=person.pk).exists():
-        # if user in person.followers.all():
             me.followings.remove(person)
             following = False
-            # followed가 더 좋은 표현인 듯
         else:
             me.followings.add(person)
             following = True
-        # print(me.followings.filter(pk=person.pk))
         return Response(following)
 
 
@@ -95,7 +88,6 @@ def is_follow(request, my_pk, user_pk):
     if person != me:
         if me.followings.filter(pk=person.pk).exists():
             following = True
-            # followed가 더 좋은 표현인 듯
         else:
             following = False
         return Response(following)
@@ -105,13 +97,11 @@ def is_follow(request, my_pk, user_pk):
 @authentication_classes([JSONWebTokenAuthentication])
 @permission_classes([IsAuthenticated])
 def users_info(request):
-    # print(request.data)
     users = request.data.get('users')
     movies = []
     for user in users:
         user = get_object_or_404(get_user_model(), pk=user)
         serializer = UserSerializer(user)
-        # print(serializer.data)
         like_movies = serializer.data.get('like_movies')
         for movie in like_movies:
             if movie not in movies:
